@@ -88,12 +88,12 @@
     font-weight: 500;
   }
   .report-card .pr-count.zero { background: #94a3b8; }
-  .report-card .mergers {
+  .report-card .authors {
     font-size: 13px;
     color: #666;
     margin-bottom: 8px;
   }
-  .report-card .mergers span {
+  .report-card .authors span {
     display: inline-block;
     background: #e8edf3;
     padding: 2px 10px;
@@ -148,6 +148,9 @@
   <h1>AscendNPU-IR PR 每日合入报告</h1>
   <p class="subtitle">每日自动追踪 GitCode 仓库 AscendNPU-IR 的 Pull Request 合入情况</p>
   <a class="repo-link" href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">🔗 仓库地址：Ascend/AscendNPU-IR</a>
+  <div class="nav-links" style="margin-top:16px;">
+    <a class="repo-link" href="pass-pipeline.html" style="margin-right:12px;">📖 Pass Pipeline 总览</a>
+  </div>
   <div class="stats-bar" id="statsBar">
     <div class="stat-item"><div class="num" id="totalDays">-</div><div class="label">已收录天数</div></div>
     <div class="stat-item"><div class="num" id="totalPRs">-</div><div class="label">累计 PR 数</div></div>
@@ -192,7 +195,7 @@ fetch('reports.json')
           <span class="date">📅 ${r.date}</span>
           <span class="pr-count ${r.totalPRs === 0 ? 'zero' : ''}">${r.totalPRs} 笔 PR</span>
         </div>
-        ${r.mergers && r.mergers.length ? `<div class="mergers">${r.mergers.map(m => `<span>${m}</span>`).join('')}</div>` : ''}
+        ${r.authors && r.authors.length ? `<div class="authors">${r.authors.map(m => `<span>${m}</span>`).join('')}</div>` : ''}
         ${r.highlights && r.highlights.length ? `<ul class="highlights">${r.highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : ''}
         <div class="arrow">查看完整报告 →</div>
       </a>
