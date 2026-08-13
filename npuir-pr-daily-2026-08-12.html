@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 合入报告 — 2026-08-12</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #0c2d6b, #1e5bb8);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: .9; line-height: 1.8; }
+  .header .meta span { margin-right: 24px; }
+  .header a { color: #7dd3fc; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody td { padding: 14px; border-bottom: 1px solid #e8edf3; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fb; }
+  .pr-num { white-space: nowrap; }
+  .pr-num a { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-num a:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-size: 13px; margin-top: 2px; }
+  .merger { white-space: nowrap; font-weight: 500; }
+  .merge-time { font-size: 12px; color: #888; white-space: nowrap; }
+  .desc { color: #444; }
+  .desc p { margin-bottom: 6px; }
+  .desc p:last-child { margin-bottom: 0; }
+  .desc .hl { color: #1e5bb8; font-weight: 600; }
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .footer strong { color: #1e5bb8; font-size: 18px; }
+  .tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-fix { background: #fee2e2; color: #b91c1c; }
+  .tag-feat { background: #dcfce7; color: #15803d; }
+  .tag-doc { background: #e0e7ff; color: #4338ca; }
+  .tag-refactor { background: #fef3c7; color: #b45309; }
+  .tag-test { background: #f3e8ff; color: #7e22ce; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <span>📅 检查日期：2026-08-13</span>
+      <span>🕐 覆盖范围：2026-08-12 00:00 – 23:59（北京时间）</span>
+      <span>🔗 仓库：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">Ascend/AscendNPU-IR</a></span>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%">PR（编号 + 标题）</th>
+          <th style="width:10%">合入人</th>
+          <th style="width:7%">合并时间</th>
+          <th style="width:63%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2616" target="_blank">#2616</a>
+            <div class="pr-title">[HIVM][DimensionAnalyzer] fix: rank-reduced memref.subview dimension mapping for tiling</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">21:40</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>HIVM 的 DimensionAnalyzer 在分析 rank-reduced <code>memref.subview</code>（如 2×64×64 → 64×64）时，<code>processSlicingOp</code> 错误地按 <code>insert_slice</code> 语义处理，导致 pipeline 轴与可分Tile维度被错误统一、列维度被标记为 <code>RankReduced</code>，最终使紧密耦合的 UB 缓冲区 <code>tiling_dim</code> 被设为 -1，触发 pass 回退（在 <code>chunk_gsa_bwd_k_kernel</code> 等场景可观测）。修复为按 <code>extract_slice</code> 语义正确映射维度。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2609" target="_blank">#2609</a>
+            <div class="pr-title">[Fixpipe] fix: ceilDiv NZ2NZ L1 shape to avoid 0-dim</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">21:30</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>Fixpipe 中 NZ2NZ L0C→L1 转换构建 rank-4 目标形状时使用截断除法，当 M &lt; 16（如 1×256×f32）时 M1 变为 0，产生 <code>tensor&lt;32×0×16×8×f32&gt;</code> 的 0 维度张量，在 Ascend950 运行时崩溃。改用 <code>llvm::divideCeil</code> 向上取整，使子Tile填充到完整分形块（→ <code>32×1×16×8×f32</code>），与 <code>InsertConvertLayout</code> 的 ND→Fractal 行为对齐。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2520" target="_blank">#2520</a>
+            <div class="pr-title">[InferHIVMMemScope] propagate memscopes across if regions</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">19:48</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><code>InferHIVMMemScope</code> pass 中 <code>scf.if</code> 的两个条件分支可能推断出不同的内存空间（如一边默认 <code>memref.alloc</code> 推断为 <code>cbuf</code>，另一边经 <code>mmadL1</code> 推断为 <code>cc</code>），导致 yield 结果类型校验失败、编译报错。此 PR 实现跨 <code>scf.if</code> 区域的内存空间传播，确保分支间推断一致。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2542" target="_blank">#2542</a>
+            <div class="pr-title">[HIVMAVE] feat: optimize small-width vector chains</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">19:47</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">功能</span></p>
+            <p>新增 HIVMAVE 小宽度向量链合并优化。流程为：扫描 <code>scf.for</code> → 识别可合并的 Load/NarrowStore group → 合法性检查（连续性、类型、链结构）→ 用均摊 cycle 代价模型评估合并收益 → 通过则执行 annotation + unroll + 实际合并，降低小宽度向量链的访存与指令开销。代价模型使用"完美并行下平均每轮循环 cycle 数"作为度量。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2396" target="_blank">#2396</a>
+            <div class="pr-title">[SIMD&amp;SIMT] fix: Support general tensor.extract and tensor.from_elements for simt scope</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">17:44</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>为 SIMD&amp;SIMT 的 simt scope 补充 <code>tensor.extract</code> 和 <code>tensor.from_elements</code> 操作的 Lowering 支持，此前这两种 tensor 操作在 simt scope 下无法正确处理。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2567" target="_blank">#2567</a>
+            <div class="pr-title">[AscendNPU-IR] fix: support mlir-timing for regbase pipeline</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">17:42</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>为 regbase pipeline 添加 <code>mlir-timing</code> 支持，使其能输出各编译 pass 的详细耗时统计，便于性能分析与调试。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2552" target="_blank">#2552</a>
+            <div class="pr-title">[Vector][BiShengIR] fix: rank-reduced subview for all-unit memref dims</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">17:41</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><code>FlattenTransferReadWithRankReduceShapeCast</code> 在 <code>transfer_read</code> 使用全单位维度 subview（如 <code>memref&lt;1×1&gt;</code>）时会崩溃：过滤单位维度后 <code>newShape</code> 为空，<code>inferRankReducedResultType</code> 失败。修复为将空的 <code>newShape</code> 默认设为 <code>[1]</code>，并添加回归测试。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2514" target="_blank">#2514</a>
+            <div class="pr-title">[HIVM] Fix stride-align crash for rank-reducing subviews</div>
+          </td>
+          <td class="merger">chenwenqiao</td>
+          <td class="merge-time">17:34</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 HIVM 中 rank-reducing subview 在 stride-align 检查时的崩溃问题，同时添加了 UT 测试用例并更新了 llvm submodule commit id。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2611" target="_blank">#2611</a>
+            <div class="pr-title">add doc codeowner</div>
+          </td>
+          <td class="merger">胡桥</td>
+          <td class="merge-time">17:25</td>
+          <td class="desc">
+            <p><span class="tag tag-doc">文档</span></p>
+            <p>为文档模块添加 codeowner 配置，使文档变更自动通知到对应负责人进行审核，明确维护责任归属。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2551" target="_blank">#2551</a>
+            <div class="pr-title">[MMadMx] fix: Add k-loops check for double buffer</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">17:12</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>RegBase <code>LocalMmadMx</code> 中 L0A/L0B 双缓冲始终以 <code>L0_SIZE/2</code> 划分 half-buffer Tile，对于大 K 形状（如 M-K-N = 17-512-256，B = 128KB）仍导致 CUBE L0B 越界。此 PR 新增 K 维度容量检查：当完整 K 矩阵无法放入 L0（64KB）时回退为单缓冲并对 K 分Tile，放得下时才启用双缓冲。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2243" target="_blank">#2243</a>
+            <div class="pr-title">[AscendNPU IR] fix scalar true cast to f16 value</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">16:37</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复标量 <code>true</code> 转换为 f16 类型时产生错误值的问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2597" target="_blank">#2597</a>
+            <div class="pr-title">[AscendNPU-IR] add check in vf-fusion testcases and open tests</div>
+          </td>
+          <td class="merger">chenwenqiao</td>
+          <td class="merge-time">16:17</td>
+          <td class="desc">
+            <p><span class="tag tag-test">测试</span></p>
+            <p>加回 vf-fusion（Vector Fusion）测试用例，并加强了部分用例的检查使其更严格，提升回归覆盖能力。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2524" target="_blank">#2524</a>
+            <div class="pr-title">[AscendNPU-IR] support more singleton i1 memref view ops</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">15:22</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">功能</span></p>
+            <p>扩展支持更多 singleton i1（单元素布尔类型）memref view 操作，此前部分 i1 memref view 操作未被覆盖，导致相关场景无法编译。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2593" target="_blank">#2593</a>
+            <div class="pr-title">[AscendNPU IR] assign submodule-llvm-project code-owners</div>
+          </td>
+          <td class="merger">chenwenqiao</td>
+          <td class="merge-time">14:29</td>
+          <td class="desc">
+            <p><span class="tag tag-doc">文档</span></p>
+            <p>在 CODEOWNERS 配置中将 <code>submodule-llvm-project</code> 目录的代码所有权指派给 @NoBBAI，使该子模块的变更自动通知到对应负责人审核。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2575" target="_blank">#2575</a>
+            <div class="pr-title">[one-shot-bufferize] fix conflict check in vf which have multiple for loop</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">11:51</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>one-shot-bufferize 中多 for 循环 VF（Vector Fusion）存在冲突漏检：<code>ForOp</code> 的 <code>isNotConflicting</code> 未正确判断祖先关系。修复为增加 <code>isAncestor</code> 检查，并新增 <code>createAllocTensorOp</code> 辅助函数（替换 <code>createEmptyOp</code>），配套测试覆盖多 for 循环 VF 和交叉 yield operand 场景。AI 代码审查评定为低风险。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2555" target="_blank">#2555</a>
+            <div class="pr-title">[GSS] conflicts for disjoint subviews (refactor)</div>
+          </td>
+          <td class="merger">tanshengshun</td>
+          <td class="merge-time">10:55</td>
+          <td class="desc">
+            <p><span class="tag tag-refactor">重构</span></p>
+            <p>重构 GSS（Global Static Schedule）中 disjoint subviews（不相交子视图）的冲突处理逻辑，提升代码清晰度与可维护性。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2271" target="_blank">#2271</a>
+            <div class="pr-title">[HIVM][PlanMemory] Fix multibuffer rollback when sibling slots use different plan levels</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">10:25</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 HIVM PlanMemory 中当兄弟缓冲槽使用不同 plan level 时 multibuffer rollback 逻辑错误的问题，此前可能导致内存规划异常。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2239" target="_blank">#2239</a>
+            <div class="pr-title">[InsertLoadStoreForMixCV][HIVM] fix: majority-based control-flow propagation</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">10:20</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><code>InsertLoadStoreForMixCV</code> 此前在 UB/GM rewrite 阶段急切地在 region 边界镜像传播标记，当转发值组中只有少数站点一致时过度传播，导致 SCF 循环周围 load/store 放置位置错误。修复方案：将直接 region 边界镜像延迟到最后一步 ALL 阶段，早期步骤引入基于多数表决（majority-based）的传播器——只有多数站点一致时标记才跨控制流传播。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2291" target="_blank">#2291</a>
+            <div class="pr-title">[HIVM][TileAndBindSubBlock] fix: Support PIPE_MTE3 for subblock sync in CV1:2</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">09:34</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>CV1:2 tiling 路径的 subblock 同步使用 <code>PIPE_ALL</code> 过于宽泛，与 subblock 协调 tiled store/load 和 reduction 时实际涉及的 MTE3 流量不匹配，产生不必要的跨管道屏障。改为使用 <code>PIPE_MTE3</code> 将同步范围精确限定到正确的硬件管道。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2464" target="_blank">#2464</a>
+            <div class="pr-title">[AscendNPU IR] Parallel template lib compilation</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">09:23</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">功能</span></p>
+            <p>实现模板库（template lib）的并行编译，此前为串行编译耗时长，此改动显著缩短编译时间。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2401" target="_blank">#2401</a>
+            <div class="pr-title">[CVPipeline] fix: rematerialize pointer casts in preload aliases on master</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">05:30</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>从 <code>feature/regbase</code> 前向移植到 <code>master</code>。在 preload skip 分支中重物化完整的指针转换/视图别名链，为每个 preload 映射构建独立别名链确保 ping-pong 缓冲区保持不同地址。此前指针转换处理不完整会引发 <code>Unhandled scope result case</code> 运行时失败。含回归测试覆盖。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2414" target="_blank">#2414</a>
+            <div class="pr-title">feat: add polling yield and support 64 soft-barrier warps</div>
+          </td>
+          <td class="merger">ascend-robot</td>
+          <td class="merge-time">01:12</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">功能</span></p>
+            <p>为 SIMT 软屏障轮询循环添加协作式 yield 操作（Lowering 到对应 intrinsic，每次轮询失败后插入 yield），使当前任务等待时其他逻辑任务可继续推进。同时将支持的 <code>numWarps × superBlockFactor</code> 上限从 32 提升到 64，并包含超限诊断。</p>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    📊 昨日（2026-08-12）共合入 <strong>22</strong> 笔 PR 到 master 分支
+  </div>
+</div>
+</body>
+</html>
