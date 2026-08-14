@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 合入报告 — 2026-08-13</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #0c2d6b, #1e5bb8);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: .9; line-height: 1.8; }
+  .header .meta span { margin-right: 24px; }
+  .header a { color: #7dd3fc; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody td { padding: 14px; border-bottom: 1px solid #e8edf3; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fb; }
+  .pr-num { white-space: nowrap; }
+  .pr-num a { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-num a:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-size: 13px; margin-top: 2px; }
+  .author { white-space: nowrap; font-weight: 500; }
+  .merge-time { font-size: 12px; color: #888; white-space: nowrap; }
+  .desc { color: #444; }
+  .desc p { margin-bottom: 6px; }
+  .desc p:last-child { margin-bottom: 0; }
+  .desc .hl { color: #1e5bb8; font-weight: 600; }
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .footer strong { color: #1e5bb8; font-size: 18px; }
+  .tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-fix { background: #fee2e2; color: #b91c1c; }
+  .tag-feat { background: #dcfce7; color: #15803d; }
+  .tag-doc { background: #e0e7ff; color: #4338ca; }
+  .tag-refactor { background: #fef3c7; color: #b45309; }
+  .tag-test { background: #f3e8ff; color: #7e22ce; }
+  .tag-revert { background: #fce7f3; color: #be185d; }
+  .tag-cleanup { background: #f1f5f9; color: #475569; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <span>📅 检查日期：2026-08-14</span>
+      <span>🕐 覆盖范围：2026-08-13 00:00 – 23:59（北京时间）</span>
+      <span>🔗 仓库：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">Ascend/AscendNPU-IR</a></span>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%">PR（编号 + 标题）</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:7%">合并时间</th>
+          <th style="width:63%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2223" target="_blank">#2223</a>
+            <div class="pr-title">[HFusion][VFFusion] Guard non-GenericOp producers from multi-consumer fusion</div>
+          </td>
+          <td class="author">hujiajun</td>
+          <td class="merge-time">22:56</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><code>replaceForWithNewSignature</code> 仅支持 <code>GenericOp</code>，放行其他操作类型会导致未平铺与平铺克隆共存且标签相同，使向量化中止。在 <code>findBestFusedNodeForProducer</code> 中增加 <code>!isa&lt;GenericOp&gt;</code> 检查取代原有 <code>expand_shape</code> 检查，并添加 <code>linalg.map</code> 回归测试。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2637" target="_blank">#2637</a>
+            <div class="pr-title">Revert "fix_normalize_truefalse_2_f16_new"</div>
+          </td>
+          <td class="author">wangyuqiao1</td>
+          <td class="merge-time">21:41</td>
+          <td class="desc">
+            <p><span class="tag tag-revert">回退</span></p>
+            <p>回退此前 normalize 相关的 f16 修复（fix_normalize_truefalse_2_f16_new）。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2639" target="_blank">#2639</a>
+            <div class="pr-title">Revert "[Huawei][InferHIVMMemScope] propagate memscopes across if regions"</div>
+          </td>
+          <td class="author">OliverCWY</td>
+          <td class="merge-time">20:35</td>
+          <td class="desc">
+            <p><span class="tag tag-revert">回退</span></p>
+            <p>回退 <code>InferHIVMMemScope</code> 中跨 <code>scf.if</code> 区域传播内存空间的改动（即 #2520 的合入）。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2610" target="_blank">#2610</a>
+            <div class="pr-title">[AscendNPU IR][SIMD-SIMT] fix: enable WriteBackShared pass</div>
+          </td>
+          <td class="author">songyaofei</td>
+          <td class="merge-time">20:05</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>在 SIMD-SIMT 混合 pass pipeline 中重新启用 <code>WriteBackShared</code> pass。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2369" target="_blank">#2369</a>
+            <div class="pr-title">[AVE] bug fix for getNumfromPgePattern on PgePattern::H</div>
+          </td>
+          <td class="author">hujiajun</td>
+          <td class="merge-time">18:34</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>此前未对 <code>PgePattern::H</code> 计算元素数量，导致 <code>getNumfromPgePattern</code> 出现读写越界。补充对应计算逻辑修复该问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2337" target="_blank">#2337</a>
+            <div class="pr-title">[CVPipelining] fix yielding a workspace-store causing erasure failure</div>
+          </td>
+          <td class="author">Frank Gao</td>
+          <td class="merge-time">17:38</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>当 store to workspace 被父循环 yield 时，由于 yield 输出未被正确映射，导致 cv-pipelining 中擦除操作失败。此 PR 修复了该映射问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2531" target="_blank">#2531</a>
+            <div class="pr-title">[HFusion] Unify expand_shape tiling logic with row-major flattening</div>
+          </td>
+          <td class="author">hujiajun</td>
+          <td class="merge-time">17:34</td>
+          <td class="desc">
+            <p><span class="tag tag-refactor">重构</span></p>
+            <p>将多分支的 <code>getCollapsedSliceParameters</code> 替换为单一算法：对每个 collapsed 维度的 expanded 组，若存在一个 main dim 则将 tile 映射为连续 collapsed slice，offset 按行主序展平。支持动态 tile size 和动态 expanded shape。解决多 consumer 场景下合法 tile pattern 被错误拒绝、退化为 clone+fuse 导致的性能回退问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2378" target="_blank">#2378</a>
+            <div class="pr-title">[Huawei][AscendNPU-IR] Remove obsolete a5 build option</div>
+          </td>
+          <td class="author">ardazishvili</td>
+          <td class="merge-time">17:17</td>
+          <td class="desc">
+            <p><span class="tag tag-cleanup">清理</span></p>
+            <p>移除已废弃的 a5 构建选项和无用构建指令。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2588" target="_blank">#2588</a>
+            <div class="pr-title">[AscendNPU IR][CV][InsertLoadStoreForMixCV] fix: insert fixpipe l0c l1, convert layout, and normalize matmul fixes</div>
+          </td>
+          <td class="author">kresna</td>
+          <td class="merge-time">17:13</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>CV <code>InsertLoadStoreForMixCV</code> 修复：插入 fixpipe l0c→l1 操作，转换 layout，并修复 matmul 规范化相关问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2581" target="_blank">#2581</a>
+            <div class="pr-title">[AscendNPU IR][SIMD-SIMT] fix: Fix bug when tensor used in scope is from op with multi results</div>
+          </td>
+          <td class="author">wangzhan0531</td>
+          <td class="merge-time">16:38</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>在 <code>LegalizeBoolForSimtVF</code> pass 中，当 scope 内使用的 tensor 来自多结果 op 时，分析需要其 result index，此前遗漏导致错误。补充对应修复并添加测试用例（关联 issue #433）。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2564" target="_blank">#2564</a>
+            <div class="pr-title">[Huawei][AscendNPU IR] change AlignAllocSizePass to module pass to avoid race condition</div>
+          </td>
+          <td class="author">liupengcheng2012</td>
+          <td class="merge-time">16:33</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>将 <code>AlignAllocSizePass</code> 从 function pass 改为 module pass，避免多线程并行编译时的竞态条件。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2328" target="_blank">#2328</a>
+            <div class="pr-title">[Huawei][AscendNPUIR] refactored assert and debug print with metaprogramming</div>
+          </td>
+          <td class="author">Kirill Barinov</td>
+          <td class="merge-time">15:38</td>
+          <td class="desc">
+            <p><span class="tag tag-refactor">重构</span></p>
+            <p>使用元编程重构 assert 和 debug print：将 Rank 移至模板参数，删除多个重复的 <code>print_##d_core</code>/<code>assert_##d_core</code> 函数，改用递归 helper + <code>if constexpr</code> 在编译期解析，减少约 700 行重复代码，且支持任意编译期已知 rank。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2565" target="_blank">#2565</a>
+            <div class="pr-title">[AscendNPU IR][DMA][HIVMToStandard] fix: allow up to 3D GM to L1 copy on membase</div>
+          </td>
+          <td class="author">kang-ingu</td>
+          <td class="merge-time">15:31</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>membase <code>HIVMToStandard</code> 中 <code>isCopyToCbuf</code> 仍限制仅 1D GM→L1 拷贝，但 membase 模板库已提供 1D/2D/3D 实现。放宽 rank 校验至 1..3，并添加 FileCheck 测试覆盖 1D/2D/3D GM→cbuf lowering。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2604" target="_blank">#2604</a>
+            <div class="pr-title">fix: PreVectorizationFusion use tracebackMemRefAllocAndAlias to add emitting padConst attribute scene</div>
+          </td>
+          <td class="author">愚岩</td>
+          <td class="merge-time">15:28</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><code>PreVectorizationFusion</code> 添加 <code>pad_const</code> attribute 时遗漏了 collapse_shape 场景（alloc 经 collapse_shape 后标注 pad_const 但未被传播）。通过 <code>tracebackMemRefAllocAndAlias</code> 补充该场景的 padConst 属性发射。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2118" target="_blank">#2118</a>
+            <div class="pr-title">[AscendNPU-IR] Fix duplicate symbol names crash in AutoVectorizeV2 legacy fallback</div>
+          </td>
+          <td class="author">anna-antipina</td>
+          <td class="merge-time">15:21</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>AutoVectorizeV2 的 legacy fallback 路径与 <code>OutlineVectorFunctionPass</code> 使用相同命名方案 <code>&lt;funcName&gt;_outlined_vf_&lt;idx&gt;</code>，导致重复符号名引发 SIGABRT。修复：不再在首个函数失败时回退整个模块，改为仅对失败函数回退；新增 <code>restrictToFuncNames</code> 选项限定回退范围；在创建函数前构建 SymbolTable 以利用自动重命名；修复 unique-name 循环的 off-by-one 问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2429" target="_blank">#2429</a>
+            <div class="pr-title">[AscendNPUIR] fix constizebuffersize for affine min/max</div>
+          </td>
+          <td class="author">cathychan0027</td>
+          <td class="merge-time">14:29</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 <code>constizebuffersize</code> 在 affine min/max 表达式场景下的处理问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2529" target="_blank">#2529</a>
+            <div class="pr-title">[AscendNPU IR][HIVM][Fixpipe] fix: skip outer fixpipe on remain_in_l0c accumulation loops</div>
+          </td>
+          <td class="author">kang-ingu</td>
+          <td class="merge-time">12:33</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><code>-hivm-insert-fixpipe</code> 错误地对标记 <code>remain_in_l0c</code> 且直接传递给下一个 mmad 循环的累加结果插入外层 fixpipe，导致 L0C 过早物化。新增 <code>anyUserReachesMatmulOuts</code> 检测，当值经 region-branch 遍历到达 matmul outs/init 时跳过外层 fixpipe，并修复 pattern 无重写时返回 <code>failure()</code> 的问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2600" target="_blank">#2600</a>
+            <div class="pr-title">[AscendNPU IR][Loops]: Add support an arbitrary gather axis to VGatherOp</div>
+          </td>
+          <td class="author">qq3646</td>
+          <td class="merge-time">11:26</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">功能</span></p>
+            <p>为 <code>VGatherOp</code> 添加对任意 gather 轴的支持。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2591" target="_blank">#2591</a>
+            <div class="pr-title">[AscendNPU IR][FlattenOps]: Uncomment cummin and cummax collapse</div>
+          </td>
+          <td class="author">qq3646</td>
+          <td class="merge-time">10:00</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>取消 FlattenOps 中 cummin 和 cummax collapse 操作的注释，启用此前被禁用的功能。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2408" target="_blank">#2408</a>
+            <div class="pr-title">[Huawei][Preload] Rotate marked subview roots</div>
+          </td>
+          <td class="author">mengxuancai</td>
+          <td class="merge-time">09:59</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">功能</span></p>
+            <p>Preload 优化：对标记的 subview roots 执行 rotate 操作。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2572" target="_blank">#2572</a>
+            <div class="pr-title">[Huawei][AscendNPU IR]: fix div lowering.</div>
+          </td>
+          <td class="author">weiziyao</td>
+          <td class="merge-time">09:40</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 div lowering 相关问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2573" target="_blank">#2573</a>
+            <div class="pr-title">[AscendNPU IR][CV][InsertLoadStoreForMixCV] fix: vbrc cube core scalar</div>
+          </td>
+          <td class="author">kresna</td>
+          <td class="merge-time">09:28</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>CV <code>InsertLoadStoreForMixCV</code> 修复 vbrc cube core scalar 相关问题。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2456" target="_blank">#2456</a>
+            <div class="pr-title">[AscendNPU IR][SIMT] fix: correct masked dot tiling and FMA layouts</div>
+          </td>
+          <td class="author">HarleyC</td>
+          <td class="merge-time">03:18</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复两个 Dot lowering 问题：1) Dot 操作数收到错误的 linear layout 导致 FMA lowering 访问 A/B 元素顺序错误，现构造 FMA 兼容的 linear layout 并校验 ordinal mapping；2) masked tensor-of-pointer dot 在 K-tiling 时丢失 mask，现重建 mask 并调整到正确 shape。添加 LLVM Lit 测试覆盖。</p>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    📊 昨日（2026-08-13）共合入 <strong>23</strong> 笔 PR 到 master 分支
+  </div>
+</div>
+</body>
+</html>

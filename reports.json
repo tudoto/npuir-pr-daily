@@ -1,6 +1,39 @@
 {
   "reports": [
     {
+      "date": "2026-08-13",
+      "filename": "npuir-pr-daily-2026-08-13.html",
+      "totalPRs": 23,
+      "authors": [
+        "Hu_JJN (3)",
+        "kang-ingu (2)",
+        "kresna (2)",
+        "qq3646 (2)",
+        "wangyuqiao1 (1)",
+        "OliverCWY (1)",
+        "lbqg (1)",
+        "gaofangfrank (1)",
+        "ardazishvili (1)",
+        "wangzhan_0531 (1)",
+        "liupengcheng2012 (1)",
+        "Barkir (1)",
+        "linyudong (1)",
+        "anna-antipina (1)",
+        "cathychan0027 (1)",
+        "mengxuancai (1)",
+        "wzy_0089928 (1)",
+        "HarleyC (1)"
+      ],
+      "highlights": [
+        "HFusion/VFFusion 修复非 GenericOp 生产者进入多消费者融合导致向量化中止",
+        "HIVM Fixpipe 修复 remain_in_l0c 累加循环错误插入外层 fixpipe 导致 L0C 过早物化",
+        "AutoVectorizeV2 修复 legacy fallback 重复符号名导致 SIGABRT 崩溃",
+        "HFusion 统一 expand_shape tiling 逻辑，解决多 consumer 场景性能回退",
+        "元编程重构 assert/debug print，减少约 700 行重复代码",
+        "回退 InferHIVMMemScope 跨 if 区域传播内存空间的改动"
+      ]
+    },
+    {
       "date": "2026-08-12",
       "filename": "npuir-pr-daily-2026-08-12.html",
       "totalPRs": 22,
@@ -8,7 +41,7 @@
         "kang-ingu (4)",
         "ZhaoWentengZWT (2)",
         "OliverCWY (1)",
-        "wzy_00889928 (1)",
+        "wzy_0089928 (1)",
         "Maykin-PM (1)",
         "tarvlad (1)",
         "lijiawei_123 (1)",
