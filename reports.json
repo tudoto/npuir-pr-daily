@@ -1,6 +1,31 @@
 {
   "reports": [
     {
+      "date": "2026-08-14",
+      "filename": "npuir-pr-daily-2026-08-14.html",
+      "totalPRs": 11,
+      "authors": [
+        "Hu_JJN (2)",
+        "lrb (1)",
+        "kang-ingu (1)",
+        "张八刀 (1)",
+        "OreO.- (1)",
+        "lijiawei_123 (1)",
+        "EricHaHaHaHa (1)",
+        "liupengcheng2012 (1)",
+        "wangzhan0531 (1)",
+        "yue-xy (1)"
+      ],
+      "highlights": [
+        "VFFusion 增强：新增小 shape 融合、cast/reshape 策略优化",
+        "HIVM DimensionAnalyzer 修复 rank-2 转置维度标记干扰维度分析",
+        "HIVM multi-buffer 注解 mark 独立创建，修复 PlanMemoryRegBase 支配关系报错",
+        "VF 融合增强支持 bitwise VV broadcast 融合",
+        "SIMT 新增 permute 指令支持",
+        "引入 pre-commit 工程化代码质量管控"
+      ]
+    },
+    {
       "date": "2026-08-13",
       "filename": "npuir-pr-daily-2026-08-13.html",
       "totalPRs": 23,

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 合入报告 — 2026-08-14</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #0c2d6b, #1e5bb8);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: .9; line-height: 1.8; }
+  .header .meta span { margin-right: 24px; }
+  .header a { color: #7dd3fc; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody td { padding: 14px; border-bottom: 1px solid #e8edf3; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fb; }
+  .pr-num { white-space: nowrap; }
+  .pr-num a { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-num a:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-size: 13px; margin-top: 2px; }
+  .author { white-space: nowrap; font-weight: 500; }
+  .merge-time { font-size: 12px; color: #888; white-space: nowrap; }
+  .desc { color: #444; }
+  .desc p { margin-bottom: 6px; }
+  .desc p:last-child { margin-bottom: 0; }
+  .desc .hl { color: #1e5bb8; font-weight: 600; }
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .footer strong { color: #1e5bb8; font-size: 18px; }
+  .tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-fix { background: #fee2e2; color: #b91c1c; }
+  .tag-feat { background: #dcfce7; color: #15803d; }
+  .tag-doc { background: #e0e7ff; color: #4338ca; }
+  .tag-refactor { background: #fef3c7; color: #b45309; }
+  .tag-test { background: #f3e8ff; color: #7e22ce; }
+  .tag-revert { background: #fce7f3; color: #be185d; }
+  .tag-cleanup { background: #f1f5f9; color: #475569; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <span>📅 检查日期：2026-08-15</span>
+      <span>🕐 覆盖范围：2026-08-14 00:00 – 23:59（北京时间）</span>
+      <span>🔗 仓库：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">Ascend/AscendNPU-IR</a></span>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%">PR（编号 + 标题）</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:7%">合并时间</th>
+          <th style="width:63%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2615" target="_blank">#2615</a>
+            <div class="pr-title">[Huawei][AscendNPU-IR] fix: pass order of syncBlockLockPipeline</div>
+          </td>
+          <td class="author">lrb</td>
+          <td class="merge-time">21:03</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 <span class="hl">syncBlockLockPipeline</span> 的 pass 执行顺序问题，确保管线中同步阻塞锁的正确调度时序。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2675" target="_blank">#2675</a>
+            <div class="pr-title">[AscendNPU IR][HIVM][DimensionAnalyzer] fix: skip rank-2 transposes in layout-conversion dim marking</div>
+          </td>
+          <td class="author">kang-ingu</td>
+          <td class="merge-time">19:34</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><span class="hl">HIVM DimensionAnalyzer</span> 修复：<code>markTransposedDim</code> 启发式仅适用于 layout-conversion 转置，rank-2 <code>vtranspose</code> 是真正的矩阵转置，不应污染 <code>transposedDimMap</code>。当与 rank-3+ layout-conversion 转置混合时，会在 <code>hivm-bind-sub-block</code> 中干扰维度分析。修复方案为跳过 rank-2 排列并添加说明注释，同时补充混合 rank-2 和 rank-3 转置的测试用例。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2669" target="_blank">#2669</a>
+            <div class="pr-title">[AscendNPU IR] Add pre-commit Project</div>
+          </td>
+          <td class="author">张八刀</td>
+          <td class="merge-time">16:39</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">新功能</span></p>
+            <p>为仓库新增 <code>.pre-commit-config.yaml</code>，引入 pre-commit 工程化代码质量管控。配置涵盖 trailing-whitespace、end-of-file-fixer、check-ast、check-added-large-files 基础检查，black 24.4.2 Python 格式化，clang-format v18.1.4 C/C++ 格式化，作用范围限定 <code>bishengir/</code> 目录。开发者执行 <code>pre-commit install</code> 即可在 commit 时自动拦截不合规改动。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2554" target="_blank">#2554</a>
+            <div class="pr-title">[AscendNPU IR][VFFusion] small-shape fusion, cast/reshape strategy and tests</div>
+          </td>
+          <td class="author">OreO.-</td>
+          <td class="merge-time">16:22</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">新功能</span></p>
+            <p><span class="hl">VFFusion</span>（MaxParallelAnalyzer）增强：新增小 shape 融合阶段，将元素数小的组直接融合；cast 策略按精度转换方向选择融合方向（低转高与下游融合，高转低与上游融合），通过 <code>enable-cast-opt</code> 开关隔离，当前默认不使能；reshape 策略将可被前置 pass 折叠消除的 <code>CollapseShapeOp</code>/<code>ExpandShapeOp</code> 纳入融合组；将 <code>tensor::InsertSliceOp</code> 加入融合白名单。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2647" target="_blank">#2647</a>
+            <div class="pr-title">[EnableStrideAlign] fix findWriteOp</div>
+          </td>
+          <td class="author">lijiawei_123</td>
+          <td class="merge-time">16:09</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p><span class="hl">EnableStrideAlign</span> 修复 <code>findWriteOp</code> 遗漏问题：在为 <code>%alloc</code> 生成临时 buffer 时，漏掉了 <code>sort_kernel_outlined_vf_1</code> 之后的 copy 操作。修复方案为遍历 writeOp 时考虑 callOp，判断对应参数是否为写入操作。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2594" target="_blank">#2594</a>
+            <div class="pr-title">[Huawei][AscendNPU-IR] refactor preserve parent group order after parameter splitting</div>
+          </td>
+          <td class="author">hujiajun</td>
+          <td class="merge-time">15:02</td>
+          <td class="desc">
+            <p><span class="tag tag-refactor">重构</span></p>
+            <p>重构 PR_2470（参数拆分后保持父组顺序），先 revert 原实现再重新实现并调整 UT。关联 issue <a href="https://gitcode.com/Ascend/AscendNPU-IR/issues/403" target="_blank">#403</a>。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2568" target="_blank">#2568</a>
+            <div class="pr-title">[AscendNPU-IR][VV] Support bitwise VV broadcast fusion</div>
+          </td>
+          <td class="author">EricHaHaHaHa</td>
+          <td class="merge-time">14:53</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">新功能</span></p>
+            <p><span class="hl">VF 融合增强</span>，支持 bitwise VV broadcast 融合。解决上游 HIVM 到 Upstream/HFusion 的 lowering 中部分 op 过早落到 <code>linalg.map</code> 的问题，减少不必要的 <code>linalg.map</code>，保留更多结构化语义，按类型和 shape transform 选择正确 lowering 形态，使 InlineBrc/Generalize/AutoVectorize/VF outline 能继续工作。明确 integer、unsigned integer、FP 的 bitwise 语义边界。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2656" target="_blank">#2656</a>
+            <div class="pr-title">[VFFusion] bug-fix: Correctly compute the shape of a linalg op</div>
+          </td>
+          <td class="author">hujiajun</td>
+          <td class="merge-time">11:43</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 <span class="hl">VFFusion</span> 中 linalg op 的 loop shape 计算错误。关联 issue <a href="https://gitcode.com/Ascend/AscendNPU-IR/issues/442" target="_blank">#442</a>。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2654" target="_blank">#2654</a>
+            <div class="pr-title">[Huawei][AscendNPU IR] Restore separate multi-buffer annotation marks</div>
+          </td>
+          <td class="author">liupengcheng2012</td>
+          <td class="merge-time">11:34</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>恢复 <span class="hl">HIVM multi-buffer</span> 注解 mark 的独立创建，修复 <code>PlanMemoryRegBase</code> 支配关系报错。根因是迁移提交重写 <code>MarkMultiBuffer</code> 时 <code>mark()</code> 退化为复用 alloc 的第一个 <code>MarkOp</code> 用户，将 <code>multi_buffer</code> 属性盖在了带 <code>slice_load</code> 的 mark 上，导致 values 操作数不支配使用点。修复后 <code>MarkMultiBuffer::mark()</code> 只复用已带 <code>MultiBufferAttr</code> 的 mark，否则新建独立 mark，并在 <code>fixMultibufferEnabledPointerCastOps</code> 中增加支配关系防御检查。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2559" target="_blank">#2559</a>
+            <div class="pr-title">[AscendNPU IR][SIMD-SIMT] Fix i1->i32 unsigned cast bug</div>
+          </td>
+          <td class="author">wangzhan0531</td>
+          <td class="merge-time">11:17</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 <span class="hl">SIMD-SIMT</span> 中 i1→i32 vcast 在 unsigned 模式下的编译错误。关联 issue <a href="https://gitcode.com/Ascend/AscendNPU-IR/issues/422" target="_blank">#422</a>。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2491" target="_blank">#2491</a>
+            <div class="pr-title">[SIMT] Adds support for permute instruction</div>
+          </td>
+          <td class="author">yue-xy</td>
+          <td class="merge-time">01:11</td>
+          <td class="desc">
+            <p><span class="tag tag-feat">新功能</span></p>
+            <p><span class="hl">SIMT</span> 新增 permute 指令支持，实现 <code>convert_layout</code> op 到 permute op 的 lowering。</p>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    共合入 <strong>11</strong> 笔 PR
+  </div>
+</div>
+</body>
+</html>
