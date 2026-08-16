@@ -1,6 +1,25 @@
 {
   "reports": [
     {
+      "date": "2026-08-15",
+      "filename": "npuir-pr-daily-2026-08-15.html",
+      "totalPRs": 5,
+      "authors": [
+        "lrb (1)",
+        "Frank Gao (1)",
+        "愚岩 (1)",
+        "Jiangjiji (1)",
+        "ykyyky (1)"
+      ],
+      "highlights": [
+        "HIVM 修复 A5 版本 free_lock_var 版本检查问题",
+        "CVPipeline 修复 Fixpipe 未被 workspaceOutputs 追踪导致 DCE 误删除",
+        "模板库修复 load_gm_to_ubuf_2d b64 padding 精度误差（vl_val 无符号下溢）",
+        "HFusion 修复 i1 reduce_with_index 标量化导致 argmax 读垃圾值，regbase normalize 提升 i1→i32",
+        "AutoVectorize V2 修复 dissolvePivot 自冲突一致性检查误报致命错误"
+      ]
+    },
+    {
       "date": "2026-08-14",
       "filename": "npuir-pr-daily-2026-08-14.html",
       "totalPRs": 11,

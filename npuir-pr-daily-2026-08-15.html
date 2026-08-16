@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 合入报告 — 2026-08-15</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #0c2d6b, #1e5bb8);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: .9; line-height: 1.8; }
+  .header .meta span { margin-right: 24px; }
+  .header a { color: #7dd3fc; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody td { padding: 14px; border-bottom: 1px solid #e8edf3; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fb; }
+  .pr-num { white-space: nowrap; }
+  .pr-num a { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-num a:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-size: 13px; margin-top: 2px; }
+  .author { white-space: nowrap; font-weight: 500; }
+  .merge-time { font-size: 12px; color: #888; white-space: nowrap; }
+  .desc { color: #444; }
+  .desc p { margin-bottom: 6px; }
+  .desc p:last-child { margin-bottom: 0; }
+  .desc .hl { color: #1e5bb8; font-weight: 600; }
+  .desc code { background: #f1f5f9; padding: 1px 5px; border-radius: 3px; font-size: 13px; color: #c0392b; }
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .footer strong { color: #1e5bb8; font-size: 18px; }
+  .tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-fix { background: #fee2e2; color: #b91c1c; }
+  .tag-feat { background: #dcfce7; color: #15803d; }
+  .tag-doc { background: #e0e7ff; color: #4338ca; }
+  .tag-refactor { background: #fef3c7; color: #b45309; }
+  .tag-test { background: #f3e8ff; color: #7e22ce; }
+  .tag-revert { background: #fce7f3; color: #be185d; }
+  .tag-cleanup { background: #f1f5f9; color: #475569; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <span>📅 检查日期：2026-08-16</span>
+      <span>🕐 覆盖范围：2026-08-15 00:00 – 23:59（北京时间）</span>
+      <span>🔗 仓库：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">Ascend/AscendNPU-IR</a></span>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%">PR（编号 + 标题）</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:7%">合并时间</th>
+          <th style="width:63%">功能/问题简述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2697" target="_blank">#2697</a>
+            <div class="pr-title">[Huawei][AscendNPU-IR] fix: not add free_lock_var because version check on A5</div>
+          </td>
+          <td class="author">lrb</td>
+          <td class="merge-time">18:01</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 A5 版本上因版本检查导致的 <code>free_lock_var</code> 问题。由于 A5 版本限制，不再添加 <code>free_lock_var</code>，仅在 membase 上检查 hivmc 版本，并添加 TODO 待后续支持 regbase 上的版本检查。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2582" target="_blank">#2582</a>
+            <div class="pr-title">[CVPipeline] fix: fixpipe not tracked by workspace output</div>
+          </td>
+          <td class="author">Frank Gao</td>
+          <td class="merge-time">15:09</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 Fixpipe 算子未被 <code>workspaceOutputs</code> 追踪的问题。部分场景下 fixpipe 操作未被 <code>workspaceOutputs</code> 跟踪，导致其未更新为存储到 memref，进而被 DCE（死代码消除）误删除。此补丁修正了追踪逻辑，确保 fixpipe 操作正确保留。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2651" target="_blank">#2651</a>
+            <div class="pr-title">[AscendNPU IR]: fix: apply padding b64</div>
+          </td>
+          <td class="author">愚岩</td>
+          <td class="merge-time">15:07</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 <code>load_gm_to_ubuf_2d_int64_t</code> 模板库 padding 处理导致的精度误差（median 结果错误）。根因：2D 场景下 <code>size_aligned</code> 错误使用 <code>strides[0]</code>（=16）而非 <code>CEIL_FACTOR(size, num_per_block)</code>（=12），导致 <code>align_pad</code> 被算成 7 而非 3；进而 <code>vl_val</code>（uint32_t）计算 4−7 发生无符号下溢变成 0xFFFFFFFD，使 mask 失效、有效数据被 pad_value 覆盖。修复后 padding 计算正确，精度恢复正常。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2666" target="_blank">#2666</a>
+            <div class="pr-title">[AscendNPU IR][HFusion] Promote i1 reduce_with_index value to i32 in regbase normalize</div>
+          </td>
+          <td class="author">Jiangjiji</td>
+          <td class="merge-time">14:19</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 FlagGems <code>test_bucket_sort_topk</code> 精度失败问题。根因：i1（bool）类型的 <code>reduce_with_index</code> value operand 缺乏向量化 lowering，被 <code>GenericUnroller</code> 标量化为逐 bit GEP 寻址，硬件无法按 bit 寻址导致读出垃圾值，argmax 结果错误。修复方案：在 regbase normalize 阶段将 i1 value 提升为 i32（与已有 index 侧 normalize 对齐），从 IR lowering 层根治，Triton 侧无需改动。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2248" target="_blank">#2248</a>
+            <div class="pr-title">[HFusion] Fix dissolvePivot self-conflict consistency check</div>
+          </td>
+          <td class="author">ykyyky</td>
+          <td class="merge-time">01:29</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 AutoVectorize V2 中 dissolvePivot 自冲突一致性检查的误报致命错误。当同一可融合算子同时是 barrier 的上游和下游时产生自冲突（<code>a == b</code>），两侧 map 查找解析到同一 DenseSet，两次 erase 返回值不同（1 vs 0）导致一致性检查误报并中止。修复方案：在 <code>PlanContext.cpp</code> 中用 <code>a != b</code> 守卫对称 erase 比较，自冲突时只 erase 一次，避免误报。</p>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    📊 昨日（2026-08-15）共合入 <strong>5</strong> 笔 PR 到 master 分支
+  </div>
+</div>
+</body>
+</html>
