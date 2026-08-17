@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 合入报告 — 2026-08-16</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 24px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #0c2d6b, #1e5bb8);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: .9; line-height: 1.8; }
+  .header .meta span { margin-right: 24px; }
+  .header a { color: #7dd3fc; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody td { padding: 14px; border-bottom: 1px solid #e8edf3; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fb; }
+  .pr-num { white-space: nowrap; }
+  .pr-num a { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-num a:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-size: 13px; margin-top: 2px; }
+  .author { white-space: nowrap; font-weight: 500; }
+  .merge-time { font-size: 12px; color: #888; white-space: nowrap; }
+  .desc { color: #444; }
+  .desc p { margin-bottom: 6px; }
+  .desc p:last-child { margin-bottom: 0; }
+  .desc .hl { color: #1e5bb8; font-weight: 600; }
+  .desc code { background: #f1f5f9; padding: 1px 5px; border-radius: 3px; font-size: 13px; color: #c0392b; }
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .footer strong { color: #1e5bb8; font-size: 18px; }
+  .tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-fix { background: #fee2e2; color: #b91c1c; }
+  .tag-feat { background: #dcfce7; color: #15803d; }
+  .tag-doc { background: #e0e7ff; color: #4338ca; }
+  .tag-refactor { background: #fef3c7; color: #b45309; }
+  .tag-test { background: #f3e8ff; color: #7e22ce; }
+  .tag-revert { background: #fce7f3; color: #be185d; }
+  .tag-cleanup { background: #f1f5f9; color: #475569; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <span>📅 检查日期：2026-08-17</span>
+      <span>🕐 覆盖范围：2026-08-16 00:00 – 23:59（北京时间）</span>
+      <span>🔗 仓库：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">Ascend/AscendNPU-IR</a></span>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%">PR（编号 + 标题）</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:7%">合并时间</th>
+          <th style="width:63%">功能/问题简述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2687" target="_blank">#2687</a>
+            <div class="pr-title">[AscendNPU IR][VFFusion] fix: reshape/insert_slice admissibility and element byte width</div>
+          </td>
+          <td class="author">OreO.-</td>
+          <td class="merge-time">14:02</td>
+          <td class="desc">
+            <p><span class="tag tag-fix">修复</span></p>
+            <p>修复 VFFusion（max-parallel 模式）的三处正确性问题：① <code>getElementByteWidth</code> 用 <code>llvm::divideCeil</code> 替换整除，优化冗余代码；② <code>isExpandShapeEliminable</code> 增加可折叠性判定，要求所有 user 可折叠并拒绝 <code>cast</code>/<code>bitcast</code> consumer，补充 negative UT；③ 从 <code>isInFusionWhiteList</code> 移除 <code>tensor.insert_slice</code>，使该算子策略回退不再进入融合。</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="pr-num">
+            <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2583" target="_blank">#2583</a>
+            <div class="pr-title">[AscendNPU-IR] Reapply "enable flatten by default" (!2326) & fix performance degradation caused by this patch</div>
+          </td>
+          <td class="author">kiansitov</td>
+          <td class="merge-time">01:32</td>
+          <td class="desc">
+            <p><span class="tag tag-revert">回退重应用</span><span class="tag tag-fix">修复</span></p>
+            <p>重新应用此前被回退的 "enable flatten by default"（!2326）提交，并修复其引入的性能回退。根因：<code>hfusion\FlattenOp</code> pass 仅应用于 MIX kernels，但 pre-flattening 的 <code>PropagateReshape</code> pass 却也应用于 AIV kernels，两者未一致执行。在无 <code>FlattenOp</code> 的情况下单独执行 <code>PropagateReshape</code> 会干扰算子融合导致性能下降。修复方案：当 flattening 不适用时（AIV kernels）跳过 <code>PropagateReshape</code> pass，使两个 pass 保持一致应用。</p>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    📊 昨日（2026-08-16）共合入 <strong>2</strong> 笔 PR 到 master 分支
+  </div>
+</div>
+</body>
+</html>

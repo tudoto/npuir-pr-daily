@@ -1,6 +1,19 @@
 {
   "reports": [
     {
+      "date": "2026-08-16",
+      "filename": "npuir-pr-daily-2026-08-16.html",
+      "totalPRs": 2,
+      "authors": [
+        "OreO.- (1)",
+        "kiansitov (1)"
+      ],
+      "highlights": [
+        "VFFusion 修复 reshape 可折叠性判定、insert_slice 白名单移除及 element byte width 计算优化",
+        "重新应用 enable flatten by default 并修复 PropagateReshape 与 FlattenOp pass 不一致导致 AIV kernels 性能回退"
+      ]
+    },
+    {
       "date": "2026-08-15",
       "filename": "npuir-pr-daily-2026-08-15.html",
       "totalPRs": 5,
