@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Pipeline 总览 — AscendNPU-IR</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid !== 'undefined') {
+      mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { curve: 'basis', useMaxWidth: true } });
+    }
+  });
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    line-height: 1.7;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0c2d6b 0%, #1e5bb8 50%, #2d8cf0 100%);
+    color: #fff;
+    padding: 48px 24px 36px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 28px; margin-bottom: 8px; }
+  .hero .subtitle { font-size: 14px; opacity: .85; margin-bottom: 16px; }
+  .hero .nav-links a {
+    display: inline-block;
+    padding: 6px 18px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    margin: 0 6px;
+    transition: background .2s;
+  }
+  .hero .nav-links a:hover { background: rgba(255,255,255,.25); }
+  .hero .baseline { font-size: 12px; opacity: .7; margin-top: 12px; }
+
+  .layout {
+    max-width: 1200px;
+    margin: -24px auto 48px;
+    padding: 0 24px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .toc {
+    flex: 0 0 240px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    position: sticky;
+    top: 16px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+  .toc h3 {
+    font-size: 15px;
+    color: #1e5bb8;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8edf3;
+  }
+  .toc ul { list-style: none; }
+  .toc li { margin-bottom: 6px; }
+  .toc a {
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color .15s;
+  }
+  .toc a:hover { color: #1e5bb8; }
+  .content {
+    flex: 1;
+    min-width: 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 32px 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .content h1 { font-size: 24px; color: #0c2d6b; margin-bottom: 16px; }
+  .content h2 {
+    font-size: 20px;
+    color: #1e5bb8;
+    margin-top: 32px;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e8edf3;
+  }
+  .content h3 {
+    font-size: 16px;
+    color: #333;
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+  .content p { margin-bottom: 12px; color: #444; }
+  .content ol { padding-left: 24px; margin-bottom: 14px; }
+  .content ol li { margin-bottom: 8px; color: #444; }
+  .content ul { padding-left: 20px; margin-bottom: 14px; }
+  .content ul li { margin-bottom: 4px; color: #444; }
+  .content code {
+    background: #eef4fb;
+    color: #1e5bb8;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", Consolas, monospace;
+  }
+  .content strong { color: #0c2d6b; }
+  .content blockquote {
+    background: #f8fafd;
+    border-left: 4px solid #1e5bb8;
+    padding: 12px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+    color: #555;
+  }
+  .content blockquote p { margin-bottom: 6px; }
+  .content blockquote p:last-child { margin-bottom: 0; }
+
+  .code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .code-block code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", Consolas, monospace;
+  }
+
+  .md-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  .md-table th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .md-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e8edf3;
+    color: #444;
+    vertical-align: top;
+  }
+  .md-table tbody tr:nth-child(even) { background: #f8fafd; }
+  .md-table tbody tr:hover { background: #eef4fb; }
+
+  .mermaid {
+    background: #fafbfc;
+    border: 1px solid #e8edf3;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+    text-align: center;
+    overflow-x: auto;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: #888;
+    font-size: 13px;
+  }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+  .footer code {
+    background: #eef4fb;
+    color: #1e5bb8;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  @media (max-width: 900px) {
+    .toc { position: static; flex: 1 1 100%; max-height: none; }
+    .content { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CV Pipeline：目标、核心 Pass 与总体框架</h1>
+  <p class="subtitle">AscendNPU-IR Cube–Vector 软件流水优化详解</p>
+  <div class="nav-links">
+    <a href="index.html">← 返回首页</a>
+    <a href="pass-pipeline.html">📖 Pass Pipeline 总览</a>
+    <a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">仓库地址</a>
+  </div>
+  <p class="baseline">基线：<code>4a26b5f94</code> · 整理日期：2026-08-18 · 基于 <code>bishengir-compile</code></p>
+</div>
+
+<div class="layout">
+  <nav class="toc"><h3>目录</h3><ul><li><a href="#1-一句话理解">1. 一句话理解</a></li><li><a href="#2-它是不是一个-pass">2. 它是不是一个 Pass？</a></li><li><a href="#3-为什么需要-cv-pipeline">3. 为什么需要 CV Pipeline？</a></li><li><a href="#4-核心-pass-的输入与输出">4. 核心 Pass 的输入与输出</a></li><li><a href="#5-cvpipelining-内部总体框架">5. <code>CVPipelining</code> 内部总体框架</a></li><li><a href="#6-三种模式">6. 三种模式</a></li><li><a href="#7-在完整-pipeline-中的位置">7. 在完整 Pipeline 中的位置</a></li><li><a href="#8-a3-与-a5-的差异">8. A3 与 A5 的差异</a></li><li><a href="#9-生效条件与回退">9. 生效条件与回退</a></li><li><a href="#10-常见误解">10. 常见误解</a></li><li><a href="#11-调试观察点">11. 调试观察点</a></li><li><a href="#12-最终总结">12. 最终总结</a></li></ul></nav>
+  <div class="content">
+    <h1>CV Pipeline：目标、核心 Pass 与总体框架</h1>
+<blockquote>
+<p>基线：<code>4a26b5f94</code>（整理日期 2026-08-18）。主要源码为 <code>bishengir/lib/Dialect/HIVM/Transforms/CVPipelining.cpp</code>、<code>bishengir/lib/Dialect/HIVM/Transforms/regbase/CVPipelining.cpp</code> 以及 A3/A5 的 <code>HIVMPipelines.cpp</code>。</p>
+</blockquote>
+<h2 id="1-一句话理解">1. 一句话理解</h2>
+<p>CV Pipeline 是面向 MixedCV kernel 的 Cube–Vector 软件流水优化。它把同一个循环中交错执行的 Cube（AIC）和 Vector（AIV）工作拆成多个可独立推进的阶段，并使用双缓冲或多缓冲传递阶段间数据。最终目标是让第 <code>i</code> 轮的 Cube 计算与第 <code>i-1</code> 轮的 Vector 计算重叠，减少两类核心互相等待造成的流水空泡。</p>
+<h2 id="2-它是不是一个-pass">2. 它是不是一个 Pass？</h2>
+<p>从 MLIR 注册角度看，核心变换确实是一个函数级 pass：<code>cv-pipelining</code>，对应 <code>CVPipeliningPass</code>，运行对象是 <code>func::FuncOp</code>。但从完整功能角度看，“CV Pipeline”更准确地说是一组 pass 共同实现的跨阶段机制，<code>CVPipelining</code> 只负责其中最核心的循环排布和数据通道重构。内存扩容、地址规划、跨核/核内同步、槽位轮转以及 preload 控制流都需要上下游 pass 配合。</p>
+<p>核心 pass 的 TableGen 描述是：<code>Cube and vector core pipelining for multi-buffer'ed mix-cv ops</code>。它运行在 HIVM 的 pre-bufferization 阶段，此时 IR 仍以 tensor SSA 和 <code>scf.for</code> 为主。选择这一阶段是因为拆分循环、追踪 use-def、修改 iter_args 和扩展 tensor，在 bufferization 前更容易保持语义完整。</p>
+<h2 id="3-为什么需要-cv-pipeline">3. 为什么需要 CV Pipeline？</h2>
+<p>MixedCV kernel 通常把矩阵计算交给 Cube 核，把激活、归约、格式处理等工作交给 Vector 核。未经流水化时，同一循环迭代往往表现为 <code>Cube(i) → Vector(i) → Cube(i+1) → Vector(i+1)</code>；即使两类核心物理上能够并行，数据依赖和单缓冲也会让它们近似串行。Cube 工作时 Vector 可能空闲，Vector 工作时 Cube 也可能等待中间 buffer 被消费。</p>
+<p>CV Pipeline 把“迭代内串行”改造成“跨迭代重叠”。例如使用双缓冲后，Cube 可以把第 <code>i</code> 轮结果写入 slot <code>i % 2</code>，Vector 同时从另一 slot 读取上一轮结果。这样两个核心各自沿独立阶段前进，只在真实生产者—消费者依赖和 buffer 复用边界上同步。</p>
+<pre class="code-block"><code>未流水化：
+时间 ──────────────────────────────────────────────&gt;
+Cube    C0        C1        C2        C3
+Vector      V0        V1        V2        V3
+        大量阶段等待，同一中间 buffer 不能并行读写
+
+流水化后：
+时间 ──────────────────────────────────────────────&gt;
+Cube    C0    C1    C2    C3
+Vector        V0    V1    V2    V3
+              ↑ 从这里开始 Cube(i) 与 Vector(i-1) 重叠</code></pre>
+<p>它优化的是执行重叠，而不是减少算法计算量。收益取决于 Cube/Vector 工作是否足够均衡、跨阶段数据是否适合多缓冲，以及新增 buffer 和同步成本是否可接受。流水深度越大不一定越快，因为更深的流水会增加 workspace、L1 或 UB 占用，也会扩大数据 live range。</p>
+<h2 id="4-核心-pass-的输入与输出">4. 核心 Pass 的输入与输出</h2>
+<h3 id="输入特征">输入特征</h3>
+<ul>
+<li>运行对象是 <code>func.func</code> 中的 <code>scf.for</code>。</li>
+<li>循环内包含能够被识别为 Cube 或 Vector 的操作。</li>
+<li><code>InferFuncCoreType</code>、MixedCV load/store 插入和 <code>MarkMultiBuffer</code> 已经提供核类型、通信与多缓冲信息。</li>
+<li>pipeline depth 不能是 0 或 1；当前实现遇到 AIC BatchMatmul loop 会直接跳过。</li>
+</ul>
+<h3 id="输出特征">输出特征</h3>
+<ul>
+<li>原循环被按 WorkItem 重新组织；Unroll 模式生成新的流水循环，Skew 模式生成带 preload scope/标记的结构。</li>
+<li>跨 WorkItem 的 tensor、workspace 或 loop-carried value 被显式识别并转接。</li>
+<li>需要并行在途的数据增加一个多缓冲槽位维度，或使用扩展 workspace。</li>
+<li>生成的 IR 为后续 <code>PlanMemory</code>、同步求解和 <code>EnableMultiBuffer</code> 提供结构与标记。</li>
+</ul>
+<p>一个简化的中间数据变化如下：</p>
+<pre class="code-block"><code>原中间值：        tensor&lt;M×N&gt;
+双缓冲后：        tensor&lt;2×M×N&gt;
+第 i 轮写入：     slot = i % 2
+第 i-1 轮读取：   另一在途 slot</code></pre>
+<p>第一维是 pipeline slot 维，不是原始算法维度。当前实现会通过 <code>hivm.cv_pipelined_multi_buffer</code> 等标记把这一契约传给后续 pass，避免后续分解操作误写整个多缓冲区。最终的 memref 地址和槽位选择仍由后续 lowering 完成。</p>
+<h2 id="5-cvpipelining-内部总体框架">5. <code>CVPipelining</code> 内部总体框架</h2>
+<div class="mermaid">flowchart TD
+    A[扫描 func.func 中的 scf.for<br/>按 post-order 从最内层开始] --> B{基本合法性检查}
+    B -->|depth 0/1 或 BatchMatmul| X[跳过，保留原循环]
+    B -->|可尝试| C[WorklistBuilder.build]
+    C --> D[识别 Cube/Vector WorkItem<br/>建立依赖、workspace 和输出映射]
+    D --> E[吸收 merger op<br/>处理 counter、atomic、特殊 scalar 链]
+    E --> F[markOutputs<br/>识别跨阶段值与 loop-carried 值]
+    F --> G{依赖是否可安全迁移}
+    G -->|否| Y[revert，回退为原循环]
+    G -->|是| H{pipeline mode}
+    H -->|Unroll / 当前 Dynamic 路径| I[扩展 workspace/输出<br/>createNewLoops]
+    I --> J[migrateOps<br/>克隆操作并重接 iter_args/results]
+    J --> K[验证新循环并删除原循环]
+    H -->|Skew| L[私有化共享 counter<br/>扩展 preload workspace]
+    L --> M[建立 preload scopes 与属性]
+    M --> N[后续 CreatePreload 完成<br/>prime/steady/drain]</div>
+<h3 id="5-1-候选循环扫描">5.1 候选循环扫描</h3>
+<p>Pass 收集函数内的 <code>scf.for</code>，采用 post-order，从最内层循环开始尝试。一个内层循环成功流水化后，它的父循环会被标记为不再尝试，以减少重复变换和编译时间。Pass 不是“看到循环就强制改写”，任何合法性或依赖检查失败都应回退为原循环。</p>
+<h3 id="5-2-workitem-构建">5.2 WorkItem 构建</h3>
+<p><code>WorklistBuilder</code> 根据核类型、separator、use-def 和内存关系，把循环体划分为一组 WorkItem。每个 WorkItem 可以理解为一段由 Cube 或 Vector 执行的流水阶段，它保存所属操作、输入输出、workspace、依赖关系和后续克隆所需映射。A3 与 A5 使用不同的 WorklistBuilder/实现类，但总体模型一致。</p>
+<p>典型 WorkItem 序列可能是：</p>
+<pre class="code-block"><code>WorkItem 0：Cube load + matmul
+WorkItem 1：Vector activation
+WorkItem 2：Cube accumulation
+WorkItem 3：Vector store</code></pre>
+<p>划分不能只看操作的直接 core type。实现还需要追踪 view/cast/subview、loop iter_arg、destination-style output、workspace alias、标量控制链和 loop-carried dependence。否则把操作克隆到不同循环后，可能留下指向原循环内部值的悬空引用。</p>
+<h3 id="5-3-依赖与输出分析">5.3 依赖与输出分析</h3>
+<p><code>markOutputs</code> 识别一个 WorkItem 产生、另一个 WorkItem 消费的值，并区分普通局部输出、workspace 输出和循环携带输出。这些值不能像同阶段临时值一样直接克隆，必须通过新循环的 iter_args/results、tensor slice 或 workspace slot 显式转接。<code>checkWorkItemDependencies</code> 会在真正修改 IR 前拒绝当前迁移逻辑无法表达的跨阶段依赖。</p>
+<p>源码还包含 merger op、counter、atomic effect、scalar extract 等特殊处理。它们解决的是“操作表面上不是 Cube/Vector 核心计算，但实际连接了阶段或影响循环状态”的情况。无法安全归属到单一 WorkItem 时，pass 选择回退，而不是生成可能错误的流水 IR。</p>
+<h3 id="5-4-多缓冲扩展">5.4 多缓冲扩展</h3>
+<p>跨阶段数据如果只有一个 buffer，生产者写下一轮时可能覆盖消费者仍在读取的上一轮数据。Pass 因此为需要并行在途的数据增加 slot 维度，或把 workspace 扩展为多个槽位。Unroll 模式的深度来自 <code>setWorkspaceMultibuffer</code>，常见值是 2，但实现并不限定只能双缓冲。</p>
+<p>多缓冲主要解决存储冲突，而不是自动解决执行依赖。后续 <code>PlanMemory</code> 必须为这些 buffer 规划合法地址，GSS 或 InjectSync 必须约束生产、消费和槽位复用，<code>EnableMultiBuffer</code> 才会把标记降低为显式轮转。缺少任一环节，都不能认为完整的软件流水已经落地。</p>
+<h3 id="5-5-新循环创建与操作迁移">5.5 新循环创建与操作迁移</h3>
+<p>Unroll 路径通过 <code>createNewLoops</code> 构造新的循环和 iter_args，再由 <code>migrateOps</code> 按 WorkItem 克隆原操作。<code>IRMapping</code> 把原 induction variable、iter_arg、跨阶段结果和 workspace 映射到新值。新循环通过验证后才替换原循环；失败时使用 checkpoint/revert 恢复原始结构。</p>
+<p>这一步的本质不是简单 loop unroll。它同时重写了不同核心上的阶段顺序、循环状态传递和跨阶段 buffer 访问。实现复杂度主要来自保持所有 use-def、alias、yield 和控制流语义在拆分后仍然成立。</p>
+<h2 id="6-三种模式">6. 三种模式</h2>
+<table class="md-table"><thead><tr><th>模式</th><th>当前含义</th><th>适用情况</th></tr></thead><tbody><tr><td><code>Off</code></td><td>不加入 CVPipelining；driver 还会关闭对应 workspace multibuffer。</td><td>建立基线、规避不支持结构或调试问题。</td></tr><tr><td><code>Unroll</code></td><td>默认模式。按指定深度构造 WorkItem 流水和多缓冲通道。</td><td>常规 MixedCV 生产路径。</td></tr><tr><td><code>Skew</code></td><td>CVPipelining 先建立 WorkItem、preload scope 和属性，后续 <code>CreatePreload</code> 构造 prime/steady/drain。</td><td>希望不同阶段错峰启动、隐藏更长延迟。</td></tr><tr><td><code>Dynamic</code></td><td>枚举和 CLI 已存在，但标记为 developing。当前核心实现只有 Skew 的独立分支，Dynamic 仍落到非 Skew 的重构路径。</td><td>不应当作完整动态调度能力使用。</td></tr></tbody></table>
+<h3 id="unroll-模式">Unroll 模式</h3>
+<p>Unroll 是默认模式，强调固定深度的多轮在途和阶段重排。它会扩展跨阶段输出、创建替代循环并迁移操作，最终让 Cube/Vector 能处理不同逻辑迭代。这里的 “unroll” 不只是复制循环体，还包含跨核 WorkItem 的依赖转接和多缓冲。</p>
+<h3 id="skew-preload-模式">Skew / Preload 模式</h3>
+<p>Skew 模式把不同 WorkItem 按不同提前量错开。<code>CVPipelining</code> 在 pre-bufferization 阶段建立 scope、workspace 和 <code>hivm.preload_*</code> 类属性；post-bufferization 的 <code>CreatePreload</code> 再扩展控制流，形成 prime、steady 和 drain 三段语义。只运行 <code>CVPipelining</code> 而没有后续 <code>CreatePreload</code>，不能视为完整的 preload 流水。</p>
+<pre class="code-block"><code>Prime：   C0
+         C1  V0
+Steady： C2  V1
+         C3  V2
+Drain：      V3</code></pre>
+<h3 id="lazy-loading">Lazy Loading</h3>
+<p><code>enableLazyLoading</code> 允许某些 load-like 操作被克隆到多个消费 WorkItem，而不是把 load 结果扩成中间多缓冲。它可能减少中间 buffer 和内存压力，但会增加或复制 load，并要求相关地址 counter 在不同 stage 中保持独立和同步。当前实现特别处理了 Skew 模式下共享 counter iter_arg 的私有化。</p>
+<h2 id="7-在完整-pipeline-中的位置">7. 在完整 Pipeline 中的位置</h2>
+<div class="mermaid">flowchart LR
+    A[InsertLoadStoreForMixCV<br/>建立显式 C/V 通信] --> B[InferFuncCoreType<br/>标记 AIC/AIV/MIX]
+    B --> C[MarkMultiBuffer #1<br/>标记候选与深度]
+    C --> D[Canonicalize + InlineOTFBroadcast]
+    D --> E[CVPipelining<br/>拆阶段、重排循环、扩展通道]
+    E --> F[MarkMultiBuffer #2<br/>A5 流水后再识别新候选]
+    F --> G[PlanMemory GLOBAL<br/>规划 workspace]
+    G --> H[Cross-Core GSS / InjectBlockSync]
+    H --> I[SplitMixKernel<br/>拆成 AIC/AIV 函数]
+    I --> J[OneShotBufferize]
+    J --> K[PlanMemory LOCAL<br/>规划 UB/L1 地址]
+    K --> L[CreatePreload<br/>仅 Skew/Preload]
+    L --> M[Intra-Core GSS / InjectSync]
+    M --> N[EnableMultiBuffer<br/>显式槽位轮转]</div>
+<h3 id="上游依赖">上游依赖</h3>
+<ul>
+<li><code>InsertLoadStoreForMixCV</code> / <code>InsertCVTightCoupledBuffer</code>：把跨核数据通信显式化。</li>
+<li><code>InferFuncCoreType</code>：提供操作和函数的 AIC/AIV/MIX 归属。</li>
+<li><code>MarkMultiBuffer</code>：提供候选 buffer、深度和 preload 相关标记。</li>
+<li><code>Canonicalize</code>、<code>InlineOTFBroadcast</code>：清理阻碍 WorkItem 分析的结构。</li>
+</ul>
+<h3 id="下游消费者">下游消费者</h3>
+<ul>
+<li><code>PlanMemory(GLOBAL/LOCAL)</code>：为扩展后的 workspace、L1 和 UB buffer 分配地址并检查容量。</li>
+<li><code>CrossCoreGSS</code> / <code>DelayedCrossCoreGSS</code> / <code>InjectBlockSync</code>：处理 Cube 与 Vector 之间的同步。</li>
+<li><code>SplitMixKernel</code>：把流水化后的 MIX 函数拆成 AIC 与 AIV 函数。</li>
+<li><code>CreatePreload</code>：把 Skew 标记展开为 prime/steady/drain 控制流。</li>
+<li><code>GraphSyncSolver</code> / <code>InjectSync</code>：处理各核心内部的依赖和 buffer 复用同步。</li>
+<li><code>EnableMultiBuffer</code>：把多缓冲属性降低为 <code>%iv % depth</code> 一类槽位选择和显式地址轮转。</li>
+</ul>
+<h2 id="8-a3-与-a5-的差异">8. A3 与 A5 的差异</h2>
+<table class="md-table"><thead><tr><th>项目</th><th>A3 mem-based</th><th>A5 RegBase</th></tr></thead><tbody><tr><td>核心实现</td><td><code>Transforms/CVPipelining.cpp</code>，<code>CVPipelineImpl</code></td><td><code>Transforms/regbase/CVPipelining.cpp</code>，<code>CVPipelineRegbaseImpl</code></td></tr><tr><td>Worklist</td><td>通用 <code>WorklistBuilder</code></td><td>RegBase 专用 <code>WorklistBuilder</code></td></tr><tr><td>通信准备</td><td>主要通过 <code>InsertLoadStoreForMixCV</code></td><td>非 Triton A5 主要使用 <code>InsertCVTightCoupledBuffer</code> 与标量 load/store</td></tr><tr><td>内存规划</td><td><code>PlanMemory</code></td><td><code>PlanMemoryRegBase</code>，额外考虑 VF、TCB 和 RegBase UB/L1 约束</td></tr><tr><td>Skew 前置</td><td>通用 workspace/preload 标记</td><td>在 Skew 前额外运行 <code>MarkTightlyCoupledBuffer</code>，避免普通模式下产生无效 TCB clone 和 UB 压力</td></tr><tr><td>流水后 MarkMultiBuffer</td><td>当前 A3 主线不立即重复一次</td><td>A5 在 CVPipelining 后再次运行，用于识别新产生的 preload/scope 候选</td></tr></tbody></table>
+<p>两条实现共享同一总体算法：构建 WorkItem、分析跨阶段输出、扩展存储、创建或标记新循环、迁移操作并安全回退。差异主要来自 RegBase 的向量函数、紧耦合 buffer、内存空间和后续 AVE lowering。阅读或修复时不能假设 A3 与 A5 源文件完全同步。</p>
+<h2 id="9-生效条件与回退">9. 生效条件与回退</h2>
+<p>CVPipelining 在以下条件下才可能产生实际改写：</p>
+<ol>
+<li>pipeline 在 MixedCV/自动 CV workspace 管理路径中加入该 pass；A5 还显式检查 <code>enableMixedCV</code>。</li>
+<li><code>CVPipelineMode</code> 不是 <code>Off</code>。</li>
+<li>workspace multibuffer depth 大于 1。</li>
+<li>函数中存在可划分为 Cube/Vector WorkItem 的 <code>scf.for</code>。</li>
+<li>当前实现没有检测到被禁用的 AIC BatchMatmul loop。</li>
+<li>WorkItem、依赖、workspace、counter 和 yield 结构能够被安全迁移。</li>
+</ol>
+<p>某个候选循环不满足条件时，pass 通常保留原循环并继续处理其他候选。内部在构造时保留 checkpoint；部分改写失败后会调用 <code>revert</code>，避免留下半完成 IR。调试“为什么没有排流水”时，不能只确认命令行开关，还要检查 WorklistBuilder 和依赖合法性是否让该循环回退。</p>
+<h2 id="10-常见误解">10. 常见误解</h2>
+<h3 id="打开-cv-pipeline-就一定更快">“打开 CV Pipeline 就一定更快”</h3>
+<p>不一定。流水化增加 buffer、地址计算和同步，还可能提高 UB/L1/workspace 峰值。只有被隐藏的等待时间大于这些额外成本时，整体性能才会提高。</p>
+<h3 id="cvpipelining-一个-pass-完成所有工作">“CVPipelining 一个 pass 完成所有工作”</h3>
+<p>不对。它主要重构循环排布和跨阶段值；最终地址、同步和槽位轮转由其他 pass 完成。Skew 模式还必须结合 <code>CreatePreload</code>。</p>
+<h3 id="多缓冲深度越大越好">“多缓冲深度越大越好”</h3>
+<p>不对。更深的流水允许更多迭代在途，但会线性或近似线性增加某些 buffer 占用。深度应结合 Cube/Vector 时长、内存容量和同步成本选择。</p>
+<h3 id="dynamic-枚举代表动态流水已经完整实现">“Dynamic 枚举代表动态流水已经完整实现”</h3>
+<p>不对。当前代码把 Dynamic 标记为 developing，核心分支只单独处理 Skew。另有基于 <code>ssbuffer</code> 的 DynamicCVPipeline 子系统，它不是这里的静态 CVPipelining 模式。</p>
+<h3 id="没有看到-ir-变化就是-pass-没运行">“没有看到 IR 变化就是 pass 没运行”</h3>
+<p>不一定。Pass 可能已经运行，但因为 depth、BatchMatmul、WorkItem 构建或依赖检查而跳过/回退。应查看 <code>After_CVPipelining</code> IR 和 debug 日志，而不是只看 pipeline 是否注册。</p>
+<h2 id="11-调试观察点">11. 调试观察点</h2>
+<p>建议沿以下阶段对比 IR：</p>
+<ol>
+<li><code>Before_CVPipelining</code>：确认循环中 Cube/Vector 操作、核类型和 workspace 标记完整。</li>
+<li><code>After_CVPipelining</code>：确认 WorkItem 对应的循环/scope、多缓冲维度和跨阶段 yield 是否形成。</li>
+<li><code>After_PlanMemory</code>：确认扩展 buffer 地址不冲突、容量没有溢出。</li>
+<li><code>After_SplitMixKernel</code>：确认 AIC/AIV 两侧的数据通道和同步锚点仍然对应。</li>
+<li><code>After_CreatePreload</code>：Skew 模式检查 prime/steady/drain 的条件与 stage 次序。</li>
+<li><code>After_GraphSyncSolver</code>：检查 set/wait 数量、方向和多缓冲 slot 是否匹配。</li>
+<li><code>After_EnableMultiBuffer</code>：确认最终槽位轮转使用正确循环 IV 和深度。</li>
+</ol>
+<p>遇到精度错误或 hang 时，优先检查三个问题：生产者和消费者是否使用同一逻辑 slot；PlanMemory 是否让仍在途的 buffer 错误复用同一地址；同步是否覆盖 prime、steady、drain 和最后一次槽位释放。CV Pipeline 的问题通常跨越多个 pass，仅检查 <code>CVPipelining.cpp</code> 往往不足以定位根因。</p>
+<h2 id="12-最终总结">12. 最终总结</h2>
+<p>CV Pipeline 想实现的是 Cube 与 Vector 的跨迭代并行：把原本串行的 <code>C(i) → V(i)</code> 改造成稳定阶段中的 <code>C(i) || V(i-1)</code>。<code>CVPipelining</code> 通过 WorkItem 划分、依赖分析、循环重构和多缓冲通道建立这一基本结构。完整功能由 <code>MarkMultiBuffer → CVPipelining → PlanMemory → GSS/同步 → CreatePreload（Skew）→ EnableMultiBuffer</code> 共同完成。</p>
+<p>从架构角度看，它是一个跨 pass 协议，而不是孤立的局部循环优化。它同时涉及调度、内存生命周期、跨核通信、同步和控制流，因此性能收益与正确性都依赖整条 pipeline。理解或调试 CV Pipeline 时，应始终沿“WorkItem 排布—buffer slot—地址规划—同步关系”四条主线一起观察。</p>
+  </div>
+</div>
+
+<div class="footer">
+  数据来源：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">GitCode AscendNPU-IR</a> ·
+  基于 <code>docs/cv-pipeline-overview-zh.md</code> 生成
+</div>
+
+</body>
+</html>
