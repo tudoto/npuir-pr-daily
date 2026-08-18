@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-08-17</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Microsoft YaHei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2d7d9e);
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(30,91,184,0.25);
+  }
+  .header h1 { font-size: 24px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.92; line-height: 1.9; }
+  .header .meta a { color: #b3d4ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: #fff;
+    padding: 18px 28px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    flex: 1;
+    min-width: 180px;
+  }
+  .stat-card .num { font-size: 32px; font-weight: 700; color: #1e5bb8; }
+  .stat-card .label { font-size: 13px; color: #888; margin-top: 4px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    font-size: 14px;
+  }
+  thead {
+    background: #1e5bb8;
+    color: #fff;
+  }
+  th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  td {
+    padding: 12px 16px;
+    vertical-align: top;
+    border-bottom: 1px solid #eef0f4;
+  }
+  tbody tr:nth-child(even) { background: #f8faff; }
+  tbody tr:hover { background: #e8f0fe; transition: background 0.2s; }
+  .pr-num {
+    display: inline-block;
+    background: #1e5bb8;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .pr-num:hover { background: #164a9c; }
+  .pr-title { color: #1a3a5c; font-weight: 500; }
+  .author {
+    display: inline-block;
+    background: #eef4fc;
+    color: #1e5bb8;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .merge-time { font-size: 12px; color: #888; white-space: nowrap; }
+  .desc { font-size: 13px; color: #444; line-height: 1.6; }
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 16px;
+    color: #999;
+    font-size: 12px;
+  }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <div>检查日期：2026-08-18（北京时间）</div>
+      <div>合入时间范围：2026-08-17 00:00:00 — 23:59:59（+08:00）</div>
+      <div>仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a></div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="num">13</div>
+      <div class="label">合入 PR 总数</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">13</div>
+      <div class="label">提出人数</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">master</div>
+      <div class="label">目标分支</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 28%;">PR</th>
+        <th style="width: 9%;">提出人</th>
+        <th style="width: 10%;">合并时间</th>
+        <th style="width: 53%;">PR 描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2723" target="_blank">!2723</a>
+          <span class="pr-title">Revert "!2583 merge flatten-perf into master"</span>
+        </td>
+        <td><span class="author">kiansitov</span></td>
+        <td><span class="merge-time">08-17 22:25</span></td>
+        <td class="desc">回退此前合入的 "enable flatten by default"（!2583）改动。该改动将 PropagateReshape 与 FlattenOp pass 应用到 AIV kernels，但两者一致性处理不当导致 AIV kernels 性能回退，本次将其回退。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2718" target="_blank">!2718</a>
+          <span class="pr-title">[Huawei][InferHIVMMemScope] propagate memscopes across if regions</span>
+        </td>
+        <td><span class="author">OliverCWY</span></td>
+        <td><span class="merge-time">08-17 20:29</span></td>
+        <td class="desc">HIVM 的 InferHIVMMemScope pass 修复 scf.if 条件分支内存空间不匹配问题。在 AIC 场景下，两个分支的默认 alloc 可能被推断为不同空间（如 cbuf vs cc），导致 yield 结果类型不一致而编译报错。本 PR 引入跨 scf.if 分支的内存空间传播机制：当一侧 yield 值的内存空间确定后，同步更新另一侧对应 alloc 的空间，并添加安全检查避免死循环。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2724" target="_blank">!2724</a>
+          <span class="pr-title">Revert "!2568 merge fix/fp-bitwise-vv-broadcast into master"</span>
+        </td>
+        <td><span class="author">EricHaHaHaHa</span></td>
+        <td><span class="merge-time">08-17 20:13</span></td>
+        <td class="desc">回退此前合入的 "fix/fp-bitwise-vv-broadcast"（!2568）改动，该改动为 VF 融合新增 bitwise VV broadcast 支持，因存在问题被回退。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2671" target="_blank">!2671</a>
+          <span class="pr-title">[Build] update Build Step and CANN toolkit download URL to 9.1.0</span>
+        </td>
+        <td><span class="author">胡桥</span></td>
+        <td><span class="merge-time">08-17 20:09</span></td>
+        <td class="desc">构建相关更新：更新 Build Step 文档及 CANN toolkit 下载链接至 9.1.0 版本。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/1714" target="_blank">!1714</a>
+          <span class="pr-title">[AscendNPU IR][A5][CV1:2] fix mark tcb, and find the alloc starting from copy and fixpipe</span>
+        </td>
+        <td><span class="author">henrycliang</span></td>
+        <td><span class="merge-time">08-17 19:00</span></td>
+        <td class="desc">HIVM A5 版本 CV1:2 修复 mark tcb 标记逻辑，并修正从 copy 和 fixpipe 操作起始查找 alloc 的路径，确保内存分配追踪正确。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2709" target="_blank">!2709</a>
+          <span class="pr-title">[VFFusion] gate isExpandShapeEliminable on a constant operand &amp; revert small shape</span>
+        </td>
+        <td><span class="author">yeyunpeng</span></td>
+        <td><span class="merge-time">08-17 17:48</span></td>
+        <td class="desc">VFFusion 强化 reshape 准入要求：只允许 expandshape + linalg（须含 constant 操作数）才进行融合，PreVec 中仅允许 expand→linalg.generic（特定 index_mapping），修复编译问题。同时回退小 shape 融合代码以避免精度问题。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2436" target="_blank">!2436</a>
+          <span class="pr-title">[Huawei][AscendNPU-IR] Fix align propagation</span>
+        </td>
+        <td><span class="author">ardazishvili</span></td>
+        <td><span class="merge-time">08-17 17:48</span></td>
+        <td class="desc">修复 align（对齐）传播逻辑：当所有维度均被 drop 时（例如 memref.subview 将 memref&lt;4x4xf32&gt; 降为 memref&lt;f32&gt;），无法正确传播对齐信息，导致后续处理出错。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2530" target="_blank">!2530</a>
+          <span class="pr-title">[AscendNPU-IR][Auto-Sync] feature: sync-solver-v2</span>
+        </td>
+        <td><span class="author">AmmarDab3an</span></td>
+        <td><span class="merge-time">08-17 15:52</span></td>
+        <td class="desc">HIVM Graph Sync Solver 拆分为 V1/V2 版本实现。V1 保持原有离线 worklist 方案；V2 为新增在线冲突发现方案：从 MemInfoTree 中动态发现冲突 pipe 对，增量缓存图冲突状态，跳过已覆盖的 pipe 对。引入 GraphSolverBase 基类、CorePipeInfo 和 EventIdNode 等结构重构，优化 PIPE_ALL barrier 处理、event-id 去重与 CV 模式选择。默认仍使用 V1，可通过 HIVMSyncSolverVersion=solver-version=v2 切换。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2592" target="_blank">!2592</a>
+          <span class="pr-title">[AscendNPU IR][Bufferization][HIVM] fix: Fix infinite recursion in HIVMLoadOp getBufferType</span>
+        </td>
+        <td><span class="author">kang-ingu</span></td>
+        <td><span class="merge-time">08-17 11:43</span></td>
+        <td class="desc">HIVM Bufferization 修复 HIVMLoadOp 的 getBufferType 接口无限递归问题。在 membase 目标（如 Ascend910B3）上，one-shot-bufferize 处理 yield 自 scf.for iter_arg 的 hivm.hir.load 结果时，因 getBufferType 回调再次对 load 结果调用 bufferization::getBufferType 而陷入死循环导致栈溢出。修复方案：移除 membase 专用的 fallback 逻辑，统一从 load 的 dst 值推导 memref 类型，避免对 load result 的重复查询。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2438" target="_blank">!2438</a>
+          <span class="pr-title">[AscendNPU IR][SIMD-SIMT] Prevent nested SIMT scopes generation</span>
+        </td>
+        <td><span class="author">Prgl</span></td>
+        <td><span class="merge-time">08-17 11:27</span></td>
+        <td class="desc">SIMD-SIMT 的 AutoScope pass 修复嵌套 SIMT scope 生成问题。根因：收集 SIMT seed 依赖时递归遍历所有操作数定义，未在 region-bearing 操作（scf.for、scf.if）处停止，导致整个 scf.for 循环体被纳入依赖计划，创建 scope 时克隆了外层 scf.for 及内部 scope，产生嵌套 SIMT scope 并引发 InferSimtVFMemScopeHint 失败。修复：在 collectValueDependencies 中添加边界检查，将 region-bearing 操作视为停止点。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2702" target="_blank">!2702</a>
+          <span class="pr-title">[VFFusion] add test case for cross block with barrier</span>
+        </td>
+        <td><span class="author">hujiajun</span></td>
+        <td><span class="merge-time">08-17 10:36</span></td>
+        <td class="desc">VFFusion 新增跨 block 带 barrier 场景的测试用例，补充测试覆盖。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2545" target="_blank">!2545</a>
+          <span class="pr-title">[AscendNPU-IR][Simd-Simt] convert MemRef via a 1:N descriptor</span>
+        </td>
+        <td><span class="author">wwwwxqy</span></td>
+        <td><span class="merge-time">08-17 09:37</span></td>
+        <td class="desc">SIMD-SIMT 新增通过 1:N descriptor 转换 MemRef 的功能，支持将 MemRef 以 1:N 描述符方式进行转换，扩展 SIMD-SIMT 的内存引用表达能力。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-num" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2653" target="_blank">!2653</a>
+          <span class="pr-title">fix: preserve FMA through Ascend950 SIMD lowering</span>
+        </td>
+        <td><span class="author">weiziyao</span></td>
+        <td><span class="merge-time">08-17 09:22</span></td>
+        <td class="desc">修复 Ascend950 SIMD lowering 阶段未保留 FMA（Fused Multiply-Add）操作的问题，确保 FMA 在 lowering 过程中被正确保留而非被拆分为独立的乘法和加法操作。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <p>共合入 <strong>13</strong> 笔 PR &nbsp;|&nbsp; 报告生成于 2026-08-18</p>
+    <p>网站：<a href="https://tudoto.github.io/npuir-pr-daily/" target="_blank">https://tudoto.github.io/npuir-pr-daily/</a></p>
+  </div>
+</div>
+</body>
+</html>

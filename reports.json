@@ -1,6 +1,36 @@
 {
   "reports": [
     {
+      "date": "2026-08-17",
+      "filename": "npuir-pr-daily-2026-08-17.html",
+      "totalPRs": 13,
+      "authors": [
+        "kiansitov (1)",
+        "OliverCWY (1)",
+        "EricHaHaHaHa (1)",
+        "胡桥 (1)",
+        "henrycliang (1)",
+        "yeyunpeng (1)",
+        "ardazishvili (1)",
+        "AmmarDab3an (1)",
+        "kang-ingu (1)",
+        "Prgl (1)",
+        "hujiajun (1)",
+        "wwwwxqy (1)",
+        "weiziyao (1)"
+      ],
+      "highlights": [
+        "InferHIVMMemScope 修复 scf.if 条件分支内存空间不匹配，引入跨分支传播机制",
+        "HIVM Bufferization 修复 HIVMLoadOp getBufferType 无限递归导致栈溢出",
+        "SIMD-SIMT AutoScope 修复嵌套 SIMT scope 生成问题",
+        "Graph Sync Solver V2 新增在线冲突发现与增量缓存机制",
+        "VFFusion 强化 reshape 准入要求并回退小 shape 融合",
+        "回退 flatten-perf 和 bitwise VV broadcast 两个合入",
+        "构建更新 CANN toolkit 下载 URL 至 9.1.0",
+        "Ascend950 SIMD lowering 保留 FMA 操作"
+      ]
+    },
+    {
       "date": "2026-08-16",
       "filename": "npuir-pr-daily-2026-08-16.html",
       "totalPRs": 2,
