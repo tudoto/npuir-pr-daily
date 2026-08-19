@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-08-18</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 2px 8px rgba(30,91,184,0.15);
+  }
+  .header h1 { font-size: 24px; margin-bottom: 8px; }
+  .header .meta { font-size: 14px; opacity: 0.9; line-height: 1.8; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .summary-bar {
+    background: #fff;
+    padding: 16px 32px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 15px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .summary-bar .stat { display: flex; align-items: center; gap: 6px; }
+  .summary-bar .stat strong { color: #1e5bb8; font-size: 20px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  thead tr { background: #1e5bb8; color: #fff; }
+  thead th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  tbody tr:nth-child(even) { background: #f7f9fc; }
+  tbody tr:hover { background: #eef3fb; }
+  tbody td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e8e8e8;
+    vertical-align: top;
+  }
+  td.pr-col { white-space: nowrap; min-width: 60px; }
+  td.pr-col a { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  td.pr-col a:hover { text-decoration: underline; }
+  td.pr-title { min-width: 280px; white-space: normal; }
+  td.author-col { white-space: nowrap; min-width: 80px; }
+  td.time-col { white-space: nowrap; min-width: 100px; color: #666; }
+  td.desc-col { min-width: 400px; line-height: 1.7; }
+  .pr-num {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1e5bb8;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .footer {
+    background: #fff;
+    padding: 16px 32px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-top: 0;
+  }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-hivm { background: #fef0e6; color: #e8752e; }
+  .tag-hfusion { background: #e6f7ee; color: #1a8a4c; }
+  .tag-vffusion { background: #e6f0ff; color: #1e5bb8; }
+  .tag-simt { background: #f0e6ff; color: #7b3fc8; }
+  .tag-simd-simt { background: #f0e6ff; color: #7b3fc8; }
+  .tag-cv { background: #fff0e6; color: #d97706; }
+  .tag-vector { background: #e6f7f7; color: #0e7c7b; }
+  .tag-fixpipe { background: #fef0e6; color: #e8752e; }
+  code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      检查日期：2026-08-19（北京时间）<br>
+      覆盖合入时间范围：2026-08-18 00:00 – 23:59（北京时间 UTC+8）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
+    </div>
+  </div>
+  <div class="summary-bar">
+    <div class="stat">共合入 <strong>20</strong> 笔 PR</div>
+    <div class="stat">提出人 <strong>16</strong> 位</div>
+    <div class="stat">目标分支：<strong>master</strong></div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>PR</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>PR 描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2754" target="_blank">#2754</a><br><span class="pr-title"><span class="tag tag-hivm">HIVM</span> fix: correct i8 mmadL1 B-operand fractal size on Ascend950 and gate storage_aligned to membase</span></td>
+        <td class="author-col">hocky</td>
+        <td class="time-col">08-18 23:22</td>
+        <td class="desc-col">修复 Ascend950 上 i8 类型 mmadL1 B 操作数 fractal 大小计算错误：原代码使用 <code>getBlockSizes()</code> 而非 A5 感知的 <code>getBlockSizesTile()</code>，导致 i8 zN B 操作数 fractal 尺寸为 [16,32] 而非正确的 [32,32]。同时修复 <code>hivm.storage_aligned</code> 属性泄露到 regbase 目标的问题——该属性不属于 regbase 契约，却会残留至 hivmc-a5 处理的模块中。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2744" target="_blank">#2744</a><br><span class="pr-title">[LocalMMad] Add register for half bias trans</span></td>
+        <td class="author-col">ZhaoWentengZWT</td>
+        <td class="time-col">08-18 23:02</td>
+        <td class="desc-col">为 LocalMMad 新增 half bias trans 的寄存器支持。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2677" target="_blank">#2677</a><br><span class="pr-title"><span class="tag tag-simd-simt">SIMD-SIMT</span> feat: Support integer casts in SIMT VF sub-tiling</span></td>
+        <td class="author-col">songyaofei</td>
+        <td class="time-col">08-18 22:24</td>
+        <td class="desc-col">在 SIMT VF sub-tiling 中新增整数类型转换（<code>arith.extui</code>、<code>arith.extsi</code>、<code>arith.trunci</code>）的 bubble-up 策略，仅在 SIMTVFSubTiling 中注册，不影响 TileAndBindSubBlock 行为。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2624" target="_blank">#2624</a><br><span class="pr-title"><span class="tag tag-cv">CVPipeline</span> fix unrestricted fixpipe as separator</span></td>
+        <td class="author-col">Frank Gao</td>
+        <td class="time-col">08-18 22:19</td>
+        <td class="desc-col">修复 CVPipeline 中所有 fixpipe 指令均被当作分隔符的问题。此前将所有 fixpipe 统一视为分隔符，导致核内数据搬移场景无法进行流水线化。现在不再无条件将 fixpipe 视为分隔符。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2750" target="_blank">#2750</a><br><span class="pr-title"><span class="tag tag-hfusion">HFusion</span> migrate isMatmulOps check from A5</span></td>
+        <td class="author-col">hujiajun</td>
+        <td class="time-col">08-18 21:54</td>
+        <td class="desc-col">将 <code>isMatmulOps</code> 检查从 A5 迁移至主线，补充了之前遗漏的两个 ISA 判断条件。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2760" target="_blank">#2760</a><br><span class="pr-title">disable tree-reduce feature</span></td>
+        <td class="author-col">alankadiev</td>
+        <td class="time-col">08-18 21:27</td>
+        <td class="desc-col">禁用 tree-reduce 特性。该特性在当日 #2661 中合入，随后由此 PR 回退禁用。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2739" target="_blank">#2739</a><br><span class="pr-title">fix no inline at DFX scenario</span></td>
+        <td class="author-col">gaowei3013</td>
+        <td class="time-col">08-18 21:01</td>
+        <td class="desc-col">修复 DFX 场景下 no inline 的问题，确保 DFX 调试场景下函数内联行为正确。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2751" target="_blank">#2751</a><br><span class="pr-title"><span class="tag tag-hivm">Hot-Fix</span> fix: limit multibuffer condition ancestry check</span></td>
+        <td class="author-col">AmmarDab3an</td>
+        <td class="time-col">08-18 20:39</td>
+        <td class="desc-col">限制 multibuffer 条件祖先检查的范围，避免在多缓冲注解时误检查不相关的条件分支，修复因祖先检查过于宽泛导致的误报问题。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2226" target="_blank">#2226</a><br><span class="pr-title"><span class="tag tag-vffusion">VFFusion</span> Skip non-fusable users in findBestFusedNodeForProducer</span></td>
+        <td class="author-col">hujiajun</td>
+        <td class="time-col">08-18 19:47</td>
+        <td class="desc-col">VFFusion 中 <code>findBestFusedNodeForProducer</code> 新增跳过不可融合使用者的逻辑：当最近的使用者不可融合时（如 <code>tensor.expand_shape</code>），跳过它继续寻找下一个可融合的使用者，避免生产者错失融合机会。关联 issue #393 和 #324。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2703" target="_blank">#2703</a><br><span class="pr-title"><span class="tag tag-hfusion">HFusion</span> remove no-use clean transform op between fuse and tile</span></td>
+        <td class="author-col">hujiajun</td>
+        <td class="time-col">08-18 19:47</td>
+        <td class="desc-col">移除 HFusion 中 fuse 与 tile 之间不必要的 clean transform 操作。此前在 <code>FuseIntoContainingOp</code> 后立即应用规范化会在分块前将刚融合的生产者折叠，导致 <code>TileUsingForOp</code> 产生悬空句柄。移除后分块后的规范化和 <code>applyCleanUp</code> 仍能覆盖所需的清理工作。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2735" target="_blank">#2735</a><br><span class="pr-title">fix: mixed reduction-op combine in OptimizeReductionLoop</span></td>
+        <td class="author-col">lrb</td>
+        <td class="time-col">08-18 18:13</td>
+        <td class="desc-col">修复 <code>OptimizeReductionLoop</code> 中混合类型 reduction 操作合并的问题，确保不同 reduction 操作在循环优化时正确处理。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2743" target="_blank">#2743</a><br><span class="pr-title"><span class="tag tag-vector">Vector</span> preserve strided layout when collapsing to 1D</span></td>
+        <td class="author-col">hujiajun</td>
+        <td class="time-col">08-18 17:22</td>
+        <td class="desc-col">修复 Vector 中 <code>collapseAllDims</code> 折叠到 1D 时丢失 strided 布局和动态偏移量的问题。原代码使用 <code>MemRefType::get()</code> 构建折叠类型，会丢弃降秩子视图源缓冲区的 strided 布局，生成无效 <code>collapse_shape</code> 导致 verifier 报错。改用 <code>computeCollapsedType</code> 保留属性，并通过 <code>isGuaranteedCollapsible</code> 拒绝非连续 strided 源。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2729" target="_blank">#2729</a><br><span class="pr-title"><span class="tag tag-vffusion">VFFusion</span> feat: stage0 compare+select co-location fusion + re-add insert_slice whitelist</span></td>
+        <td class="author-col">OreO.-</td>
+        <td class="time-col">08-18 17:06</td>
+        <td class="desc-col">VFFusion 新增两项改动：(1) stage0 compare+select 共置融合——在 cost model 之前插入 <code>fuseSpecialPatterns()</code>，强制 compare（<code>arith.cmpi/cmpf</code>）与 select（<code>arith.select</code>）同 VF 组，避免 i1 掩码走 UB+RV_MOVVP 中转；(2) 还原 <code>tensor.insert_slice</code> 白名单项，恢复 softmax 等场景的融合。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2721" target="_blank">#2721</a><br><span class="pr-title"><span class="tag tag-cv">CV</span> InsertLoadStoreForMixCV feat: utilize normalized l0c</span></td>
+        <td class="author-col">kresna</td>
+        <td class="time-col">08-18 16:57</td>
+        <td class="desc-col">优化 <code>InsertLoadStoreForMixCV</code> 对 <code>normalized_in_L0C</code>（归一化后仍留在 L0C 的累加器）的处理。在 <code>PropagateUpPattern</code> 处理 RegionBranchOpInterface 分支时，若分支带有 <code>remain_in_L0C</code> 或 <code>normalized_in_L0C</code> 属性则返回 failure 停止向上传播，使贪心驱动能以循环/条件分支为根节点，仅在值真正离开 L0C 时插入单个 fixpipe，减少冗余 fixpipe 指令。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2731" target="_blank">#2731</a><br><span class="pr-title"><span class="tag tag-hivm">HIVM</span> MultiBuffer: enable MixCV vector buffers on RegBase</span></td>
+        <td class="author-col">huangyujun</td>
+        <td class="time-col">08-18 16:29</td>
+        <td class="desc-col">在 RegBase/A5（Ascend950）上启用 MixCV Vector 侧多缓冲，默认 <code>no-limit</code>；A3/membase 保持 <code>only-cube</code> 默认值。遵循与 <code>--set-workspace-multibuffer</code> 相同的架构相关默认模式，独立纯 Vector kernel 不受影响。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2652" target="_blank">#2652</a><br><span class="pr-title"><span class="tag tag-simd-simt">SIMD-SIMT</span> fix: Fix race condition in 1:2 fallback case</span></td>
+        <td class="author-col">pangmeng</td>
+        <td class="time-col">08-18 16:07</td>
+        <td class="desc-col">修复 SIMD-SIMT 中 1:2 fallback 场景的竞态条件问题。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2539" target="_blank">#2539</a><br><span class="pr-title"><span class="tag tag-hivm tag-fixpipe">HIVM Fixpipe</span> Add Inline Fixpipe fusion for Normalize Matmul may_not_exec if/else</span></td>
+        <td class="author-col">Alae-eddine</td>
+        <td class="time-col">08-18 10:09</td>
+        <td class="desc-col">HIVM Fixpipe 新增 Inline Fixpipe 融合：将 store 和内联消费者（vcast/transpose/extract_slice）下沉至 <code>may_not_exec</code> 的 <code>scf.if</code> 分支中，使 Cube 路径将 L0C fixpipe 到 GM，而 no-exec 路径存储 vector fallback 结果。同时将 fixpipe 移入 if/else body region，并修复紧密耦合 alloc 在逃逸点的插入位置。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2643" target="_blank">#2643</a><br><span class="pr-title"><span class="tag tag-hivm">HIVM</span> fix: lower HIVM vshr to arith shifts</span></td>
+        <td class="author-col">hwdhf</td>
+        <td class="time-col">08-18 08:55</td>
+        <td class="desc-col">将 HIVM <code>vshr</code> 操作 lowering 为标准 <code>arith</code> 移位操作。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2333" target="_blank">#2333</a><br><span class="pr-title"><span class="tag tag-simt">SIMT</span> Add support for using global scratch memory for staging</span></td>
+        <td class="author-col">SanidhyaBarara</td>
+        <td class="time-col">08-18 02:49</td>
+        <td class="desc-col">SIMT 新增在 <code>TileDotLoads</code> 和 Convert Layout 操作中使用 global scratch memory 进行暂存的支持，新增默认关闭的选项来开启此功能。</td>
+      </tr>
+      <tr>
+        <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2661" target="_blank">#2661</a><br><span class="pr-title">tree-reduce feature</span></td>
+        <td class="author-col">alankadiev</td>
+        <td class="time-col">08-18 00:11</td>
+        <td class="desc-col">新增 tree-reduce 特性（同日由 #2760 回退禁用）。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    共合入 <strong>20</strong> 笔 PR &nbsp;|&nbsp; 报告生成于 2026-08-19 &nbsp;|&nbsp; <a href="https://tudoto.github.io/npuir-pr-daily/" target="_blank">GitHub Pages</a>
+  </div>
+</div>
+</body>
+</html>

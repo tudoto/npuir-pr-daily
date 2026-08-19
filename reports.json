@@ -1,6 +1,42 @@
 {
   "reports": [
     {
+      "date": "2026-08-18",
+      "filename": "npuir-pr-daily-2026-08-18.html",
+      "totalPRs": 20,
+      "authors": [
+        "hujiajun (4)",
+        "alankadiev (2)",
+        "hocky (1)",
+        "ZhaoWentengZWT (1)",
+        "songyaofei (1)",
+        "Frank Gao (1)",
+        "gaowei3013 (1)",
+        "AmmarDab3an (1)",
+        "lrb (1)",
+        "OreO.- (1)",
+        "kresna (1)",
+        "huangyujun (1)",
+        "pangmeng (1)",
+        "Alae-eddine (1)",
+        "hwdhf (1)",
+        "SanidhyaBarara (1)"
+      ],
+      "highlights": [
+        "HIVM InferDataLayout 修复 Ascend950 i8 mmadL1 B 操作数 fractal 大小错误并清理 storage_aligned 属性泄露",
+        "HIVM Fixpipe 新增 Inline Fixpipe 融合处理 may_not_exec if/else 场景",
+        "VFFusion 新增 stage0 compare+select 共置融合并还原 insert_slice 白名单",
+        "VFFusion findBestFusedNodeForProducer 跳过不可融合使用者以提升融合机会",
+        "HFusion 移除 fuse 与 tile 间不必要的 clean transform 操作避免悬空句柄",
+        "SIMT 新增 global scratch memory 暂存支持",
+        "SIMD-SIMT 修复 1:2 fallback 竞态条件并支持整数类型转换",
+        "Vector 修复折叠到 1D 时丢失 strided 布局问题",
+        "InsertLoadStoreForMixCV 利用 normalized L0C 减少 fixpipe 插入",
+        "HIVM MultiBuffer 在 RegBase/A5 启用 MixCV Vector 侧多缓冲",
+        "tree-reduce 特性先合入后回退"
+      ]
+    },
+    {
       "date": "2026-08-17",
       "filename": "npuir-pr-daily-2026-08-17.html",
       "totalPRs": 13,
