@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-08-19</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(30,91,184,0.15);
+  }
+  .header h1 { font-size: 24px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.9; line-height: 2; }
+  .header .meta a { color: #b3d9ff; text-decoration: underline; }
+  .summary {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    font-size: 15px;
+  }
+  .summary strong { color: #1e5bb8; }
+  .table-wrapper {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #1e5bb8; }
+  thead th {
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #e8f0fa; }
+  .pr-link { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-link:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-weight: 400; }
+  .author-tag {
+    display: inline-block;
+    background: #e8f0fa;
+    color: #1e5bb8;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .time-cell { white-space: nowrap; color: #666; font-size: 13px; }
+  .desc-cell { line-height: 1.8; color: #444; }
+  .desc-cell code {
+    background: #f0f4f8;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 13px;
+    color: #c63384;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    color: #999;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      检查日期：2026-08-20<br>
+      合入时间范围：2026-08-19 00:00 — 23:59（北京时间）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
+    </div>
+  </div>
+
+  <div class="summary">
+    <p><strong>共合入 15 笔 PR</strong>，涉及 15 位贡献者。主要内容包括：AutoVectorizeV2 修复 GM 地址别名 RAW 依赖检测盲区、多消费者融合加入 VF stack budget 检查；HIVM Fixpipe 修复嵌套链 sink 导致无效 IR、InferHIVMDataLayout 修复 scf.if subview 下 mmadL1 布局推断；HFusion regbase 修复 sin/cos Payne-Hanek 极小参数折叠；bf16 标量比较 legalization；回退 vf-stage0-special-pattern、ave-loop-opt-cost-model、CVPipeline fixpipe as separator 三个合入。</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:22%">PR</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:10%">合并时间</th>
+          <th style="width:58%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2726" target="_blank">!2726</a>
+            <span class="pr-title">[HFusion][regbase] Fix sin/cos Payne-Hanek collapse for tiny arguments</span>
+          </td>
+          <td><span class="author-tag">qq3646</span></td>
+          <td class="time-cell">2026-08-19<br>23:50</td>
+          <td class="desc-cell">HFusion regbase 修复 sin/cos Payne-Hanek 算法在极小参数输入时折叠（collapse）不正确的问题。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2805" target="_blank">!2805</a>
+            <span class="pr-title">Revert "!2542 merge feature/ave-loop-opt-cost-model into master"</span>
+          </td>
+          <td><span class="author-tag">weiziyao</span></td>
+          <td class="time-cell">2026-08-19<br>23:39</td>
+          <td class="desc-cell">回退将 <code>feature/ave-loop-opt-cost-model</code> 分支合入 master 的改动，撤销 AutoVectorize 循环优化 cost model 特性。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2732" target="_blank">!2732</a>
+            <span class="pr-title">[AscendNPU IR] Guard multi-consumer fusion with VF stack budget</span>
+          </td>
+          <td><span class="author-tag">owenren1234</span></td>
+          <td class="time-cell">2026-08-19<br>21:53</td>
+          <td class="desc-cell">AutoVectorizeV2 多消费者融合启用时加入 VF stack budget 检查，防止融合组超出栈预算，同时不影响预加载和融合功能。全套测试通过（pad 96/96, HFusion 261/261）。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2795" target="_blank">!2795</a>
+            <span class="pr-title">[HIVM][Fixpipe] skip fallback_not_exec sink for nested chains</span>
+          </td>
+          <td><span class="author-tag">Alae-eddine</span></td>
+          <td class="time-cell">2026-08-19<br>20:28</td>
+          <td class="desc-cell">HIVM Fixpipe 修复嵌套链中 fallback_not_exec sink 导致无效 IR 的问题。当消费者链位于另一个区域（如 <code>scf.if</code> 条件分支）时，store dst 和 extract_slice 索引不支配重建的 if 结构，Greedy fusion 会删除仍有使用的 op 导致崩溃。修复方案：要求链中所有 op 与 fallback if 在同一 block 中，否则跳过 sink 操作。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2789" target="_blank">!2789</a>
+            <span class="pr-title">Revert "!2729 merge vf-stage0-special-pattern into master"</span>
+          </td>
+          <td><span class="author-tag">yeyunpeng</span></td>
+          <td class="time-cell">2026-08-19<br>20:04</td>
+          <td class="desc-cell">回退将 <code>vf-stage0-special-pattern</code> 分支合入 master 的改动，撤销 VF stage0 特殊模式融合特性。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2746" target="_blank">!2746</a>
+            <span class="pr-title">[AscendNPU IR]: Infer mmadL1 layout through subview of scf.if</span>
+          </td>
+          <td><span class="author-tag">Nikolay</span></td>
+          <td class="time-cell">2026-08-19<br>19:41</td>
+          <td class="desc-cell">HIVM 修复 InferHIVMDataLayout 在 <code>scf.if</code> 的 rank-reducing subview 场景下无法推断 mmadL1 布局的问题。<code>getMemRefAllocs</code> 在 subview 处停止遍历，未到达 <code>scf.if</code> 分支内的 alloc，导致插入的 load 保持 ND 布局，<code>convert-hivm-to-std</code> 用 2D ND 而非 4D NZ 调用 <code>mma_tile</code>。修复：在 alloc fallback 前先穿透 ViewLike op。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2546" target="_blank">!2546</a>
+            <span class="pr-title">legalize bf16 cmp</span>
+          </td>
+          <td><span class="author-tag">sardaryandavid</span></td>
+          <td class="time-cell">2026-08-19<br>18:47</td>
+          <td class="desc-cell">修复 bf16 标量比较无法在硬件上执行的问题。标量单元不支持 bf16 <code>fcmp</code> 和 bf16→f32 cast，新增 <code>LegalizeScalarCmpFOp</code> 模式将标量 bf16 操作数包装为 <code>tensor&lt;1xbf16&gt;</code> 在 tensor 上执行比较，再 outline 到 VF 上变为 bf16→f32 cast + f32 cmp。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2759" target="_blank">!2759</a>
+            <span class="pr-title">[AscendNPU IR][CV][InsertLoadStoreForMixCV] feat: consider indices l0c</span>
+          </td>
+          <td><span class="author-tag">kresna</span></td>
+          <td class="time-cell">2026-08-19<br>16:22</td>
+          <td class="desc-cell">InsertLoadStoreForMixCV 新增功能，在考虑 L0C 时纳入索引因素，优化 MixCV 的 load/store 插入策略。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2630" target="_blank">!2630</a>
+            <span class="pr-title">fix AutoVectorizeV2</span>
+          </td>
+          <td><span class="author-tag">wanghuihui</span></td>
+          <td class="time-cell">2026-08-19<br>15:32</td>
+          <td class="desc-cell">AutoVectorizeV2 修复 VF 融合冲突检测的 GM 地址别名盲区。<code>computeConflictLists()</code> 仅走 SSA def-use 链，无法检测 <code>materialize_in_destination</code>（写 GM）与 <code>memref.load</code>（读 GM）之间的 RAW 依赖，导致错误融合后 load 读到 0。修复方案：新增 <code>GMAccessRange</code>/<code>StaticView</code> 结构体精确表达 GM 访问范围，在 <code>computeConflictLists</code> 中补充 GM 级 RAW 别名检测，重叠时在可融合 op 间加 <code>copyConflict</code> 阻止合并。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2648" target="_blank">!2648</a>
+            <span class="pr-title">[Huawei][AscendNPU-IR] Allow the flattener to trace and pack multi-dimensional scalar data streams into 1D registers</span>
+          </td>
+          <td><span class="author-tag">sergey_lokinskiy</span></td>
+          <td class="time-cell">2026-08-19<br>15:07</td>
+          <td class="desc-cell">Flattener 增强，支持追踪和打包多维标量数据流到 1D 寄存器中。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2753" target="_blank">!2753</a>
+            <span class="pr-title">[AscendNPU IR]: Add coverage files</span>
+          </td>
+          <td><span class="author-tag">Jacky_XH</span></td>
+          <td class="time-cell">2026-08-19<br>11:33</td>
+          <td class="desc-cell">新增覆盖率统计文件，属于构建工具相关变更。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2457" target="_blank">!2457</a>
+            <span class="pr-title">[SIMT] Fast Div should use logical shift</span>
+          </td>
+          <td><span class="author-tag">yue-xy</span></td>
+          <td class="time-cell">2026-08-19<br>09:53</td>
+          <td class="desc-cell">SIMT 快速除法修复：应使用逻辑移位（logical shift）而非算术移位（arithmetic shift），避免符号位干扰除法结果。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2749" target="_blank">!2749</a>
+            <span class="pr-title">[Huawei][AscendNPU-IR] fix 3d gm to ubuf copy with negative stride</span>
+          </td>
+          <td><span class="author-tag">cxs</span></td>
+          <td class="time-cell">2026-08-19<br>09:32</td>
+          <td class="desc-cell">修复 3D GM 到 UBuf 拷贝时负步长（negative stride）处理错误的问题。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2742" target="_blank">!2742</a>
+            <span class="pr-title">[AscendNPU IR]:fix: apply padding b64 v2</span>
+          </td>
+          <td><span class="author-tag">愚岩</span></td>
+          <td class="time-cell">2026-08-19<br>06:45</td>
+          <td class="desc-cell">修复 b64 padding 实现：<code>plt_2xvl_b64</code> 的第一个参数为引用传参，调用后会改写 scalar 值，导致 <code>vl_all</code> 和 <code>vl_val</code> 在每次迭代后需要重新初始化。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2775" target="_blank">!2775</a>
+            <span class="pr-title">[revert][CVPipeline] fix unrestricted fixpipe as separator</span>
+          </td>
+          <td><span class="author-tag">hujiajun</span></td>
+          <td class="time-cell">2026-08-19<br>00:17</td>
+          <td class="desc-cell">回退 CVPipeline 中"将不受限制的 fixpipe 作为分隔符"的修复改动。</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    共合入 15 笔 PR &nbsp;|&nbsp; 数据来源：GitCode AscendNPU-IR &nbsp;|&nbsp; 自动生成于 2026-08-20
+  </div>
+</div>
+</body>
+</html>

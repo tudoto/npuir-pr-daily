@@ -1,6 +1,39 @@
 {
   "reports": [
     {
+      "date": "2026-08-19",
+      "filename": "npuir-pr-daily-2026-08-19.html",
+      "totalPRs": 15,
+      "authors": [
+        "qq3646 (1)",
+        "weiziyao (1)",
+        "owenren1234 (1)",
+        "Alae-eddine (1)",
+        "yeyunpeng (1)",
+        "Nikolay (1)",
+        "sardaryandavid (1)",
+        "kresna (1)",
+        "wanghuihui (1)",
+        "sergey_lokinskiy (1)",
+        "Jacky_XH (1)",
+        "yue-xy (1)",
+        "cxs (1)",
+        "愚岩 (1)",
+        "hujiajun (1)"
+      ],
+      "highlights": [
+        "AutoVectorizeV2 修复 GM 地址别名 RAW 依赖检测盲区，防止错误融合导致 load 读到 0",
+        "AutoVectorizeV2 多消费者融合加入 VF stack budget 检查",
+        "HIVM Fixpipe 修复嵌套链 fallback_not_exec sink 导致无效 IR",
+        "HIVM InferHIVMDataLayout 修复 scf.if subview 下 mmadL1 布局推断",
+        "HFusion regbase 修复 sin/cos Payne-Hanek 极小参数折叠",
+        "bf16 标量比较 legalization 修复",
+        "回退 vf-stage0-special-pattern、ave-loop-opt-cost-model、CVPipeline fixpipe as separator 三个合入",
+        "SIMT 快速除法修复逻辑移位",
+        "Flattener 支持多维标量数据流打包到 1D 寄存器"
+      ]
+    },
+    {
       "date": "2026-08-18",
       "filename": "npuir-pr-daily-2026-08-18.html",
       "totalPRs": 20,
