@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-08-24</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(30,91,184,0.15);
+  }
+  .header h1 { font-size: 24px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.9; line-height: 2; }
+  .header .meta a { color: #b3d9ff; text-decoration: underline; }
+  .summary {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    font-size: 15px;
+  }
+  .summary strong { color: #1e5bb8; }
+  .table-wrapper {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #1e5bb8; }
+  thead th {
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #e8f0fa; }
+  .pr-link { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-link:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-weight: 400; }
+  .author-tag {
+    display: inline-block;
+    background: #e8f0fa;
+    color: #1e5bb8;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .time-cell { white-space: nowrap; color: #666; font-size: 13px; }
+  .desc-cell { line-height: 1.8; color: #444; }
+  .desc-cell code {
+    background: #f0f4f8;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 13px;
+    color: #c63384;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    color: #999;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      检查日期：2026-08-25<br>
+      合入时间范围：2026-08-24 00:00 — 23:59（北京时间）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
+    </div>
+  </div>
+
+  <div class="summary">
+    <p><strong>共合入 8 笔 PR</strong>，涉及 6 位贡献者。主要内容包括：CV Pipeline 修复同一 GM 视图别名导致第三重循环回退问题，实现 Load/Store 共置后内层 bound 从 5,5,2 提升至 5,5,5；HFusion 默认开启多消费者融合(MCF)并移除 AutoVectorizeV2 retry/fallback；VFFusion 启用 cost model 并开启多消费者融合；AVE OptimizeReductionLoop 提前折叠 affine::min mask 操作；默认启用 A5 preload；CV SplitMixKernel 拆分时保留 preload-scope 标量结果。</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:22%">PR</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:10%">合并时间</th>
+          <th style="width:58%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2831" target="_blank">#2831</a><br>
+            <span class="pr-title">[AscendNPU IR][CV Pipeline] Fix same-GM alias rejection in CV pipelining</span>
+          </td>
+          <td><span class="author-tag">erjinh</span></td>
+          <td class="time-cell">2026-08-24<br>21:55:57</td>
+          <td class="desc-cell">
+            修复 CV 流水化中同一 GM 视图别名导致循环回退的问题。在 <code>prepare_wy_repr_bwd</code> 的第三重循环中，Load 和 Store 通过同一个 <code>%arg9</code> 子视图访问，此前 Load 被放置在 VECTOR-0、Store 在 VECTOR-2，跨 WorkItem 的 GM 别名检查因此拒绝该循环并回退，导致最重的第三重循环未能流水化。修复方案是对受限的 Load/Store 对应用 same-GM alias deferral，将 Load 及其消费者延迟到 Store 所在的最终 VECTOR WorkItem 中共置，保持原始的 Load-before-Store 顺序。修复后第三重循环形成 <code>VECTOR&rarr;CUBE&rarr;VECTOR</code> 预加载调度，AIV/AIC 内层循环 bound 从 5,5,2 提升到 5,5,5。HIVM 测试套件 242 项通过。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2871" target="_blank">#2871</a><br>
+            <span class="pr-title">[AVE] feature: constant fold affine.min in OptimizeReductionLoop</span>
+          </td>
+          <td><span class="author-tag">hujiajun</span></td>
+          <td class="time-cell">2026-08-24<br>19:53:45</td>
+          <td class="desc-cell">
+            OptimizeReductionLoop 会将循环头块和尾块拆分，拆分后不再存在 <code>affine::min</code> 取 mask 的操作，因此在拆分后提前常量折叠 <code>affine::min</code> 进行化简。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2872" target="_blank">#2872</a><br>
+            <span class="pr-title">[HFusion] enable MCF by default and drop AutoVectorizeV2 retry/fallback</span>
+          </td>
+          <td><span class="author-tag">hujiajun</span></td>
+          <td class="time-cell">2026-08-24<br>19:53:26</td>
+          <td class="desc-cell">
+            默认开启多消费者融合（MCF），并删除 AutoVectorizeV2 内的 retry 选项及回退到 V1 的逻辑。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2839" target="_blank">#2839</a><br>
+            <span class="pr-title">[VFFusion] enable cost model and open multi-consumer fusion</span>
+          </td>
+          <td><span class="author-tag">hujiajun</span></td>
+          <td class="time-cell">2026-08-24<br>19:53:24</td>
+          <td class="desc-cell">
+            将 cost model 与 VFFusion 叠加，启用代价模型评估并开启多消费者融合（关联 <a href="https://gitcode.com/Ascend/AscendNPU-IR/issues/324" target="_blank" style="color:#1e5bb8">issue #324</a>）。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2879" target="_blank">#2879</a><br>
+            <span class="pr-title">[AscendNPU IR][CV][SplitMixKernel] Keep preload-scope scalar results when splitting mix kernels</span>
+          </td>
+          <td><span class="author-tag">huangyujun</span></td>
+          <td class="time-cell">2026-08-24<br>18:18:59</td>
+          <td class="desc-cell">
+            CV SplitMixKernel 在拆分 mix kernel 时保留 preload-scope 的标量结果，防止拆分过程中丢失预加载阶段已计算的标量数据。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2845" target="_blank">#2845</a><br>
+            <span class="pr-title">[AscendNPU IR] remove stride in discontiguousStore when alloc is contiguous</span>
+          </td>
+          <td><span class="author-tag">cathychan0027</span></td>
+          <td class="time-cell">2026-08-24<br>17:29:15</td>
+          <td class="desc-cell">
+            当内存分配为连续时，移除 <code>discontiguousStore</code> 中的 stride 信息，避免不必要的 stride 处理开销。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2827" target="_blank">#2827</a><br>
+            <span class="pr-title">[Huawei][AscendNPU IR] Enable A5 preload by default.</span>
+          </td>
+          <td><span class="author-tag">yuanzhanghui</span></td>
+          <td class="time-cell">2026-08-24<br>15:01:13</td>
+          <td class="desc-cell">
+            默认启用 A5 preload 功能，开启 A5 平台的预加载优化。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2867" target="_blank">#2867</a><br>
+            <span class="pr-title">[AscendNPU IR]: A3 support msdebug</span>
+          </td>
+          <td><span class="author-tag">gaowei3013</span></td>
+          <td class="time-cell">2026-08-24<br>09:43:51</td>
+          <td class="desc-cell">
+            A3 平台支持 msdebug 调试功能。
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    共合入 8 笔 PR · 数据来源 GitCode Ascend/AscendNPU-IR
+  </div>
+</div>
+</body>
+</html>

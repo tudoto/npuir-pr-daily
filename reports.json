@@ -1,6 +1,29 @@
 {
   "reports": [
     {
+      "date": "2026-08-24",
+      "filename": "npuir-pr-daily-2026-08-24.html",
+      "totalPRs": 8,
+      "authors": [
+        "erjinh (1)",
+        "hujiajun (3)",
+        "huangyujun (1)",
+        "cathychan0027 (1)",
+        "yuanzhanghui (1)",
+        "gaowei3013 (1)"
+      ],
+      "highlights": [
+        "CV Pipeline 修复同一 GM 视图别名导致第三重循环回退，实现 Load/Store 共置后内层 bound 从 5,5,2 提升至 5,5,5",
+        "HFusion 默认开启多消费者融合(MCF)，移除 AutoVectorizeV2 retry/fallback 到 V1",
+        "VFFusion 启用 cost model 并开启多消费者融合",
+        "AVE OptimizeReductionLoop 拆分后提前折叠 affine.min mask 操作",
+        "默认启用 A5 preload",
+        "CV SplitMixKernel 拆分时保留 preload-scope 标量结果",
+        "discontiguousStore 在连续分配时移除 stride",
+        "A3 支持 msdebug 调试"
+      ]
+    },
+    {
       "date": "2026-08-19",
       "filename": "npuir-pr-daily-2026-08-19.html",
       "totalPRs": 15,
