@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-08-25</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(30,91,184,0.15);
+  }
+  .header h1 { font-size: 24px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.9; line-height: 2; }
+  .header .meta a { color: #b3d9ff; text-decoration: underline; }
+  .summary {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    font-size: 15px;
+  }
+  .summary strong { color: #1e5bb8; }
+  .table-wrapper {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #1e5bb8; }
+  thead th {
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #e8f0fa; }
+  .pr-link { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-link:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-weight: 400; }
+  .author-tag {
+    display: inline-block;
+    background: #e8f0fa;
+    color: #1e5bb8;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .time-cell { white-space: nowrap; color: #666; font-size: 13px; }
+  .desc-cell { line-height: 1.8; color: #444; }
+  .desc-cell code {
+    background: #f0f4f8;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 13px;
+    color: #c63384;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    color: #999;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      检查日期：2026-08-26<br>
+      合入时间范围：2026-08-25 00:00 — 23:59（北京时间）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
+    </div>
+  </div>
+
+  <div class="summary">
+    <p><strong>共合入 11 笔 PR</strong>，涉及 9 位贡献者。主要内容包括：HIVM sync solver 默认升级到 v2 以提升编译时间性能；CV InferHIVMDataLayout 修复 AllocWorkspaceOp 未标记 Fractal 布局导致 ND2NZ 崩溃及 <code>to_tensor</code> rank-raising 反向传播导致数值错误；CV1:2 sub-block tiling 中 UB-to-UB copy 改用 bubble propagator 替代 <code>memref.subview</code>；A5 conv1d/conv2d 支持及 NormalizeConvOps 调整；Auto-Sync 修复反向 if-else set/wait 对作用域不匹配；将 <code>alloc_ub</code>/<code>alloc_workspace</code>/函数参数视为分隔符；为 s32→s8 转换分配对齐临时缓冲区；标量 true→f16 转换值修复；回退 MMCL-524 合入；寄存器压力修复。</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:22%">PR</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:10%">合并时间</th>
+          <th style="width:58%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2918" target="_blank">#2918</a><br>
+            <span class="pr-title">[AscendNPU IR] treat alloc_ub/alloc_workspace/func arg as separator</span>
+          </td>
+          <td><span class="author-tag">cathychan0027</span></td>
+          <td class="time-cell">2026-08-25<br>21:36:07</td>
+          <td class="desc-cell">
+            将 <code>alloc_ub</code>、<code>alloc_workspace</code> 以及函数参数视为分隔符（separator），防止跨这些内存分配/参数边界进行不合理的融合或数据流优化，确保各 UB 分配和工作区之间的独立性。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2876" target="_blank">#2876</a><br>
+            <span class="pr-title">[AscendNPU IR] fix scalar true cast to f16 value</span>
+          </td>
+          <td><span class="author-tag">wangyuqiao1</span></td>
+          <td class="time-cell">2026-08-25<br>21:35:58</td>
+          <td class="desc-cell">
+            修复标量布尔值 <code>true</code> 转换为 <code>f16</code> 时生成错误值的问题，确保类型转换后的数值正确。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2901" target="_blank">#2901</a><br>
+            <span class="pr-title">Revert "!2720 merge MMCL-524 into master"</span>
+          </td>
+          <td><span class="author-tag">zhonkebayev</span></td>
+          <td class="time-cell">2026-08-25<br>21:01:01</td>
+          <td class="desc-cell">
+            回退此前 MMCL-524 合入到 master 的改动。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2123" target="_blank">#2123</a><br>
+            <span class="pr-title">[AscendNPU IR] fix: allocate aligned temp buffer for s32 to s8 cast</span>
+          </td>
+          <td><span class="author-tag">zhangenqi</span></td>
+          <td class="time-cell">2026-08-25<br>17:03:53</td>
+          <td class="desc-cell">
+            修复 s32 到 s8 类型转换时未分配对齐临时缓冲区的问题，确保转换过程中使用的临时内存满足对齐要求，避免对齐违规导致的异常。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2722" target="_blank">#2722</a><br>
+            <span class="pr-title">[AscendNPU-IR] feat: update default HIVM sync solver to v2</span>
+          </td>
+          <td><span class="author-tag">AmmarDab3an</span></td>
+          <td class="time-cell">2026-08-25<br>16:42:08</td>
+          <td class="desc-cell">
+            默认启用新的 sync-solver v2 实现。v2 版本旨在提升编译时间性能，替代旧版作为 HIVM 同步求解器的默认选项。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2912" target="_blank">#2912</a><br>
+            <span class="pr-title">[AscendNPU IR]: necessary support for a5 conv1d/conv2d</span>
+          </td>
+          <td><span class="author-tag">MrZhuyuan</span></td>
+          <td class="time-cell">2026-08-25<br>16:29:38</td>
+          <td class="desc-cell">
+            为 A5 平台的 conv1d/conv2d 算子提供必要的编译支持，补齐 A5 流水线下的卷积算子处理逻辑。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2844" target="_blank">#2844</a><br>
+            <span class="pr-title">[AscendNPU-IR][Auto-Sync] fix: place backward if-else set/wait pairs in matching scopes</span>
+          </td>
+          <td><span class="author-tag">AmmarDab3an</span></td>
+          <td class="time-cell">2026-08-25<br>16:20:15</td>
+          <td class="desc-cell">
+            修复 Auto-Sync 中反向 if-else 分支的 set/wait 同步对被放置在不匹配作用域的问题，确保 set 和 wait 操作位于对应的 <code>scf.if</code> 分支作用域内，保证同步语义正确。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2908" target="_blank">#2908</a><br>
+            <span class="pr-title">[AscendNPU IR][CV1:2][HIVM] fix: use bubble propagator for static UB-to-UB copy dst in sub-block tiling</span>
+          </td>
+          <td><span class="author-tag">kang-ingu</span></td>
+          <td class="time-cell">2026-08-25<br>13:08:30</td>
+          <td class="desc-cell">
+            sub-block tiling 中 UB-to-UB copy 需要通过 bufferization bubble-up pipeline 缩小底层 UB 分配。此前对 copy 目标直接插入 <code>memref.subview</code> 会阻断静态形状 UB buffer 的传播路径。修复方案：对静态形状 UB-to-UB copy 目标改用向上 bubble propagator（<code>createBubblePropagatorUpLink</code>）替代 <code>memref.subview</code>，动态形状仍保留原有 subview 路径。新增回归测试 <code>if_to_tensor_bubble_up_slice_aiv</code>，856 项测试通过。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2866" target="_blank">#2866</a><br>
+            <span class="pr-title">[AscendNPU IR]: adjust NormalizeConvOps for A5 pipeline</span>
+          </td>
+          <td><span class="author-tag">MrZhuyuan</span></td>
+          <td class="time-cell">2026-08-25<br>10:24:10</td>
+          <td class="desc-cell">
+            为 A5 流水线调整 NormalizeConvOps pass 的处理逻辑，使卷积算子规范化适应 A5 平台的流水线特性。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2781" target="_blank">#2781</a><br>
+            <span class="pr-title">[AscendNPU IR][CV][Infer Data Layout] fix incorrect conversion for 3d load to batched-nd2nz</span>
+          </td>
+          <td><span class="author-tag">jyzryz</span></td>
+          <td class="time-cell">2026-08-25<br>09:30:51</td>
+          <td class="desc-cell">
+            修复 fused_chunk_based_bwd_kernel（Based 线性注意力 Taylor 二阶算子反向）在 A3 NZ-dot 路径上的两个编译问题。<strong>问题一</strong>：HIVM InferHIVMDataLayout 中 <code>AllocWorkspaceOp</code> rank&ge;4 GM 结果未标记 Fractal 布局，导致 CV 阶段 cube 操作数经工作区 buffer 继承普通 ND 布局，插入的 load 被误判为 ND&rarr;zN 转换，触发 ND2NZ rank 不变式检查（<code>dst.rank == src.rank + 2</code>）并 SIGABRT 崩溃。修复：在 <code>propagateDataLayoutToUsers</code> 的 AllocWorkspaceOp 分支中补充 <code>blockedFractalLayout</code> re-seed，与 ViewLikeOpInterface 处理对齐。<strong>问题二</strong>：当输入 tile 同时被转置点和外积宽 dot 消费时，<code>PropagateExpandUp</code> 将外积的 rank-raising <code>expand_shape</code> 反向传播到共享的 <code>bufferization.to_tensor</code>，使共享 memref 升秩为含 unit-dim 的 rank-3 形式，HIVM 布局推断只识别 rank-2/rank-4 矩阵操作数，跳过 ND2NZ fractal 转换，导致 <code>mmadL1{b_transpose}</code> 读到行主序垃圾数据。修复：当 <code>to_tensor</code> 结果存在非 expand 消费者时跳过传播，保持原始 rank，新增 lit 回归测试。
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2888" target="_blank">#2888</a><br>
+            <span class="pr-title">[Huawei][AscendNPU-IR] register pressure fix</span>
+          </td>
+          <td><span class="author-tag">alankadiev</span></td>
+          <td class="time-cell">2026-08-25<br>09:13:29</td>
+          <td class="desc-cell">
+            修复寄存器压力问题，优化寄存器分配以避免寄存器溢出导致的性能下降或编译失败。
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    共合入 11 笔 PR · 数据来源 GitCode Ascend/AscendNPU-IR
+  </div>
+</div>
+</body>
+</html>

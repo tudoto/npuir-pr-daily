@@ -1,6 +1,34 @@
 {
   "reports": [
     {
+      "date": "2026-08-25",
+      "filename": "npuir-pr-daily-2026-08-25.html",
+      "totalPRs": 11,
+      "authors": [
+        "cathychan0027 (1)",
+        "wangyuqiao1 (1)",
+        "zhonkebayev (1)",
+        "zhangenqi (1)",
+        "AmmarDab3an (2)",
+        "MrZhuyuan (2)",
+        "kang-ingu (1)",
+        "jyzryz (1)",
+        "alankadiev (1)"
+      ],
+      "highlights": [
+        "HIVM sync solver 默认升级到 v2，提升编译时间性能",
+        "CV InferHIVMDataLayout 修复 AllocWorkspaceOp 未标记 Fractal 布局导致 ND2NZ 崩溃，及 to_tensor rank-raising 反向传播导致数值错误",
+        "CV1:2 sub-block tiling UB-to-UB copy 改用 bubble propagator 替代 memref.subview",
+        "A5 conv1d/conv2d 支持及 NormalizeConvOps 调整",
+        "Auto-Sync 修复反向 if-else set/wait 对作用域不匹配",
+        "alloc_ub/alloc_workspace/函数参数视为分隔符",
+        "s32 到 s8 转换分配对齐临时缓冲区",
+        "标量 true 转 f16 转换值修复",
+        "回退 MMCL-524 合入",
+        "寄存器压力修复"
+      ]
+    },
+    {
       "date": "2026-08-24",
       "filename": "npuir-pr-daily-2026-08-24.html",
       "totalPRs": 8,
