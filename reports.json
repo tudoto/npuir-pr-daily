@@ -1,6 +1,32 @@
 {
   "reports": [
     {
+      "date": "2026-08-26",
+      "filename": "npuir-pr-daily-2026-08-26.html",
+      "totalPRs": 9,
+      "authors": [
+        "yuanyao14 (1)",
+        "cathychan0027 (1)",
+        "hujiajun (1)",
+        "cxs (1)",
+        "alankadiev (1)",
+        "weilinquan (1)",
+        "tarvlad (1)",
+        "yeyunpeng (1)",
+        "hocky (1)"
+      ],
+      "highlights": [
+        "VFFusion 谓词选择跨同步块融合优化，支持 i1 透传 reshape 和 vand/vor/vxor 谓词链共置",
+        "biasMM 添加反向同步修复数据竞争",
+        "HFusion 修复掩码广播读操作循环不变提升折叠导致验证器崩溃",
+        "NormalizeVector 扩展标量 bitcast 链模式至 select/cmpi",
+        "tree-reduce 添加数量限制控制寄存器压力",
+        "AIV 库调用新增 membase noinline 模式，RegBase 默认 noinline",
+        "VFFusion 移除 hasCVSpecialPatternsSkip 临时 workaround 清理冗余代码",
+        "Triton program_id 始终以 x-fastest 顺序解码，修复 mem-based 目标映射错误"
+      ]
+    },
+    {
       "date": "2026-08-25",
       "filename": "npuir-pr-daily-2026-08-25.html",
       "totalPRs": 11,

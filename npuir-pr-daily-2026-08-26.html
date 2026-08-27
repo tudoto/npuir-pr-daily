@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 - 2026-08-26</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2978d4);
+    color: #fff;
+    padding: 30px;
+    border-radius: 8px 8px 0 0;
+  }
+  .header h1 { font-size: 24px; margin-bottom: 8px; }
+  .header .meta { font-size: 14px; opacity: 0.9; }
+  .header .meta p { margin: 2px 0; }
+  .header a { color: #b3d9ff; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .summary {
+    background: #fff;
+    padding: 15px 30px;
+    border-left: 4px solid #1e5bb8;
+    margin-bottom: 0;
+    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .summary p { font-size: 15px; }
+  .summary strong { color: #1e5bb8; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  thead { background: #1e5bb8; }
+  th {
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  th:first-child { width: 25%; }
+  th:nth-child(2) { width: 10%; }
+  th:nth-child(3) { width: 12%; }
+  th:nth-child(4) { width: 53%; }
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e8ecf1;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fc; }
+  td a {
+    color: #1e5bb8;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  td a:hover { text-decoration: underline; }
+  .pr-num {
+    display: inline-block;
+    background: #1e5bb8;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .pr-title { display: block; margin-top: 4px; font-size: 13px; color: #555; }
+  .author-tag {
+    display: inline-block;
+    background: #e8ecf1;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #444;
+  }
+  .time-cell { font-size: 13px; color: #666; white-space: nowrap; }
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #999;
+  }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      <p>检查日期：2026-08-27</p>
+      <p>覆盖合入时间范围：2026-08-26 00:00 — 23:59（北京时间）</p>
+      <p>仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a></p>
+    </div>
+  </div>
+  <div class="summary">
+    <p>共合入 <strong>9</strong> 笔 PR 至 master 分支，涉及 <strong>9</strong> 位提出人。主要涵盖 VFFusion 谓词融合优化、HFusion 掩码广播读修复、Triton program_id 解码顺序修复、AIV 库调用 noinline 模式等。</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>PR</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>PR 描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2947" target="_blank"><span class="pr-num">!2947</span></a>
+          <span class="pr-title">fix(vffusion): fuse predicate select across sync blocks</span>
+        </td>
+        <td><span class="author-tag">yuanyao14</span></td>
+        <td class="time-cell">2026-08-26 20:40:47</td>
+        <td>VFFusion 谓词融合增强：通过 i1 透传 reshape 和 vand/vor/vxor 操作追踪比较谓词，使完整的谓词-选择链可以共置在一个 VF 中。同时允许纯的、孤立的谓词链在通过副作用、使用和支配检查后跨越 SyncBlockSet 下沉，并默认开启 enable-predicate-sink-across-sync pass 选项。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2952" target="_blank"><span class="pr-num">!2952</span></a>
+          <span class="pr-title">[AscendNPU IR] add backward sync when biasMM</span>
+        </td>
+        <td><span class="author-tag">cathychan0027</span></td>
+        <td class="time-cell">2026-08-26 20:16:43</td>
+        <td>为 biasMM（偏置矩阵乘）操作添加反向同步（backward sync），修复 biasMM 场景下同步缺失导致的潜在数据竞争问题。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2917" target="_blank"><span class="pr-num">!2917</span></a>
+          <span class="pr-title">[HFusion] fix loop-invariant-promotion fold of masked broadcast read</span>
+        </td>
+        <td><span class="author-tag">hujiajun</span></td>
+        <td class="time-cell">2026-08-26 14:35:21</td>
+        <td>HFusion 修复 <code>foldConstantFills</code> 将掩码 <code>transfer_read</code> 具体化为 <code>arith.select</code> 时未将掩码广播到结果张量形状的问题。对于 1D→2D 广播读操作（如掩码类型 <code>vector&lt;64xi1&gt;</code> 而结果类型 <code>vector&lt;1x64xf32&gt;</code>），会产生无效 select 操作并导致验证器崩溃。修复后先将掩码广播到结果形状再构建 select，并使用 <code>createOrFold</code> 折叠相同形状或标量广播。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2940" target="_blank"><span class="pr-num">!2940</span></a>
+          <span class="pr-title">[AscendNPU-IR][NormalizeVector] extend scalar bitcast chain pattern to select/cmpi</span>
+        </td>
+        <td><span class="author-tag">cxs</span></td>
+        <td class="time-cell">2026-08-26 14:34:11</td>
+        <td>NormalizeVector 扩展标量 bitcast 链匹配模式，使其覆盖 select 和 cmpi 操作，提升向量归一化过程中的模式匹配覆盖率，减少未处理的 bitcast 链。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2937" target="_blank"><span class="pr-num">!2937</span></a>
+          <span class="pr-title">[Huawei][AscendNPU-IR] tree-reduce add limit fix</span>
+        </td>
+        <td><span class="author-tag">alankadiev</span></td>
+        <td class="time-cell">2026-08-26 14:06:36</td>
+        <td>tree-reduce 添加数量限制机制，控制 tree-reduce 展开规模以降低寄存器压力，避免因过度展开导致的寄存器溢出问题。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2916" target="_blank"><span class="pr-num">!2916</span></a>
+          <span class="pr-title">[Huawei][AscendNPU IR][dist] update shmem symbol prefix</span>
+        </td>
+        <td><span class="author-tag">weilinquan</span></td>
+        <td class="time-cell">2026-08-26 11:33:27</td>
+        <td>分布式（dist）场景下更新 shmem（共享内存）符号前缀，统一分布式编译时的符号命名规范，确保分布式编译链接阶段的符号一致性。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2928" target="_blank"><span class="pr-num">!2928</span></a>
+          <span class="pr-title">[Huawei][AscendNPU-IR] Add membase AIV libcall noinline mode</span>
+        </td>
+        <td><span class="author-tag">tarvlad</span></td>
+        <td class="time-cell">2026-08-26 11:32:31</td>
+        <td>HIVM 新增 membase AIV 库调用 noinline 模式：使用共享的 ManagedStatic 和架构特定默认值，使 AIV 库调用在 RegBase 架构上默认 noinline，在 membase 架构上保持 inline 默认，同时保留显式覆盖能力。noinline 属性应用于 HIVMToStandard 转换流程的 <code>createLibCall()</code> 中。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2897" target="_blank"><span class="pr-num">!2897</span></a>
+          <span class="pr-title">[VFFusion] remove hasCVSpecialPatternsSkip workaround</span>
+        </td>
+        <td><span class="author-tag">yeyunpeng</span></td>
+        <td class="time-cell">2026-08-26 09:56:14</td>
+        <td>VFFusion 移除 <code>hasCVSpecialPatternsSkip</code> 临时 workaround，清理冗余的跳过逻辑（净减少 79 行代码），简化 CV 特殊模式处理流程。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2925" target="_blank"><span class="pr-num">!2925</span></a>
+          <span class="pr-title">[AscendNPU IR]: always decode triton program_id x-fastest</span>
+        </td>
+        <td><span class="author-tag">hocky</span></td>
+        <td class="time-cell">2026-08-26 09:41:16</td>
+        <td>修复 <code>triton-global-kernel-args-to-hivm-op</code> 将线性化 <code>hivm::get_block_idx</code> 解码回 <code>program_id</code> 轴时的顺序问题。原先 mem-based 目标使用 z-fastest 解码，但 Triton 始终以 x-fastest 顺序启动网格，导致 <code>program_id</code> 映射错误。移除架构检查，始终使用 x-fastest（x→y→z）解码顺序，同时修正变量命名、简化参数处理逻辑。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    <p>共合入 <strong>9</strong> 笔 PR | 报告由自动脚本生成于 2026-08-27</p>
+    <p>查看更多报告：<a href="https://tudoto.github.io/npuir-pr-daily/">https://tudoto.github.io/npuir-pr-daily/</a></p>
+  </div>
+</div>
+</body>
+</html>
