@@ -1,6 +1,23 @@
 {
   "reports": [
     {
+      "date": "2026-08-27",
+      "filename": "npuir-pr-daily-2026-08-27.html",
+      "totalPRs": 4,
+      "authors": [
+        "lrb (1)",
+        "kresna (1)",
+        "张八刀 (1)",
+        "朱方-HW (1)"
+      ],
+      "highlights": [
+        "AnalyzeArithVectorMask 修复掩码标注遍历顺序，解决 Triton upsample_linear1d 反向计算数值不匹配",
+        "CV InlineFixpipe 通道拆分逻辑重构，收紧通道拆分到仅 i32 类型",
+        "pre-commit 配置更新",
+        "InferHIVMMemScope 修复 scf.while 循环 after 区域参数内存作用域推断缺陷"
+      ]
+    },
+    {
       "date": "2026-08-26",
       "filename": "npuir-pr-daily-2026-08-26.html",
       "totalPRs": 9,

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 - 2026-08-27</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2978d4);
+    color: #fff;
+    padding: 30px;
+    border-radius: 8px 8px 0 0;
+  }
+  .header h1 { font-size: 24px; margin-bottom: 8px; }
+  .header .meta { font-size: 14px; opacity: 0.9; }
+  .header .meta p { margin: 2px 0; }
+  .header a { color: #b3d9ff; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .summary {
+    background: #fff;
+    padding: 15px 30px;
+    border-left: 4px solid #1e5bb8;
+    margin-bottom: 0;
+    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .summary p { font-size: 15px; }
+  .summary strong { color: #1e5bb8; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  thead { background: #1e5bb8; }
+  th {
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  th:first-child { width: 25%; }
+  th:nth-child(2) { width: 10%; }
+  th:nth-child(3) { width: 12%; }
+  th:nth-child(4) { width: 53%; }
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e8ecf1;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fc; }
+  td a {
+    color: #1e5bb8;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  td a:hover { text-decoration: underline; }
+  .pr-num {
+    display: inline-block;
+    background: #1e5bb8;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .pr-title { display: block; margin-top: 4px; font-size: 13px; color: #555; }
+  .author-tag {
+    display: inline-block;
+    background: #e8ecf1;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #444;
+  }
+  .time-cell { font-size: 13px; color: #666; white-space: nowrap; }
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #999;
+  }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      <p>检查日期：2026-08-28</p>
+      <p>覆盖合入时间范围：2026-08-27 00:00 — 23:59（北京时间）</p>
+      <p>仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a></p>
+    </div>
+  </div>
+  <div class="summary">
+    <p>共合入 <strong>4</strong> 笔 PR 至 master 分支，涉及 <strong>4</strong> 位提出人。主要涵盖 AnalyzeArithVectorMask 掩码标注遍历顺序修复、CV InlineFixpipe 通道拆分逻辑重构、pre-commit 配置更新、InferHIVMMemScope whileOp 内存作用域推断修复等。</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>PR</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>PR 描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2954" target="_blank"><span class="pr-num">!2954</span></a>
+          <span class="pr-title">[AscendNPU IR][AnalyzeArithVectorMask]fix: traverse mask annotations in reverse</span>
+        </td>
+        <td><span class="author-tag">lrb</span></td>
+        <td class="time-cell">2026-08-27 22:21:25</td>
+        <td>修复 <code>AnalyzeArithVectorMask</code> pass 中掩码标注遍历顺序错误的问题。该 bug 导致 Triton <code>upsample_linear1d</code> 反向计算出现 87% 元素数值不匹配（issue #446），根因是掩码标注按正向遍历时传播顺序与实际数据依赖不一致。改为反向遍历后，掩码作用域传播与操作链匹配，数值精度恢复正常。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2838" target="_blank"><span class="pr-num">!2838</span></a>
+          <span class="pr-title">[AscendNPU IR][CV][InlineFixpipe] fix: channel split</span>
+        </td>
+        <td><span class="author-tag">kresna</span></td>
+        <td class="time-cell">2026-08-27 17:25:23</td>
+        <td>CV InlineFixpipe 通道拆分（channel split）逻辑修复：重写 <code>shouldEnableChannelSplit</code> 和 <code>shouldEnableChannelMerge</code> 判定函数，将通道拆分收紧到仅 i32 类型（排除 f32），并重构 <code>inlineFixpipeOp</code> 中 NZ2NZ 重建逻辑。修改文件为 <code>InlineFixpipe.cpp</code>，涉及 split/merge 两个分支的条件判断与 dst 张量形状调整。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2949" target="_blank"><span class="pr-num">!2949</span></a>
+          <span class="pr-title">[AscendNPU IR]Update .pre-commit-config.yaml</span>
+        </td>
+        <td><span class="author-tag">张八刀</span></td>
+        <td class="time-cell">2026-08-27 15:54:59</td>
+        <td>更新 <code>.pre-commit-config.yaml</code> 配置文件，属于代码风格更新（Style changes），同步 pre-commit 钩子版本或规则配置，保障代码提交前的静态检查规范一致性。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2797" target="_blank"><span class="pr-num">!2797</span></a>
+          <span class="pr-title">[Huawei][AscendNPU IR] fix: InferHIVMMemScope whileOp bugfix</span>
+        </td>
+        <td><span class="author-tag">朱方-HW</span></td>
+        <td class="time-cell">2026-08-27 09:11:11</td>
+        <td>修复 <code>InferHIVMMemScope</code> 在分析 <code>scf.while</code> 循环时的内存作用域推断缺陷。根因是 <code>while</code> 的 init 操作数仅与 "before" 区域参数有官方对应关系，而 "after" 区域参数需通过 <code>scf.condition</code> 转发的值按索引关联；原实现直接按位置匹配 init 与 after 参数并将 after 参数视为必然存在，导致 <code>scf.condition</code> 未直接转发某 before 参数时推断失败。修复方案：重写 <code>getTiedWhileBodyIterArg</code> 映射逻辑使 after 参数获取变为可选，新增 <code>scf::ConditionOp</code> 独立传播分支，补齐 before→after 区域的作用域传递链路。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    <p>共合入 <strong>4</strong> 笔 PR | 报告由自动脚本生成于 2026-08-28</p>
+    <p>查看更多报告：<a href="https://tudoto.github.io/npuir-pr-daily/">https://tudoto.github.io/npuir-pr-daily/</a></p>
+  </div>
+</div>
+</body>
+</html>
