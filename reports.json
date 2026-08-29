@@ -1,6 +1,38 @@
 {
   "reports": [
     {
+      "date": "2026-08-28",
+      "filename": "npuir-pr-daily-2026-08-28.html",
+      "totalPRs": 17,
+      "authors": [
+        "kang-ingu (4)",
+        "Nikolay (1)",
+        "chenxiangting (1)",
+        "MrZhuyuan (1)",
+        "pangmeng (1)",
+        "songyaofei (1)",
+        "BaiSifan (1)",
+        "open_zk (1)",
+        "Vincent (1)",
+        "OliverCWY (1)",
+        "kresna (1)",
+        "ZhaoWentengZWT (1)",
+        "胡桥 (1)",
+        "OuYangXin (1)"
+      ],
+      "highlights": [
+        "InsertFixpipe 增强跨 scf.for/scf.if 追踪 MMAD L0C 级联，消除冗余 fixpipe 插入",
+        "HIVM DimensionAnalyzer 多项修复：启用 register-based 分析、修复 scf.while tiling、重构无效更新处理",
+        "CV InsertLoadStoreForMixCV 修复插入 store 缓冲区放置错误，统一使用 alloc_workspace",
+        "SIMT cusum 新增 Sklansky scan 快速路径，per-thread scratch load 从 O(E×W) 降至 O(E)",
+        "SIMD-SIMT 支持 CV 1:2 比例",
+        "HIVMAVE 新增 DuplicateUnitMaskBroadcast pass 拆分多用户单位掩码广播",
+        "回退 Preserve bitwise ops for delayed VF fusion",
+        "卷积算子新增 stride 支持",
+        "SHMEM 新增 i64 信号通知支持"
+      ]
+    },
+    {
       "date": "2026-08-27",
       "filename": "npuir-pr-daily-2026-08-27.html",
       "totalPRs": 4,

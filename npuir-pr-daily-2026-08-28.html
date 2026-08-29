@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 - 2026-08-28</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2978d4);
+    color: #fff;
+    padding: 30px;
+    border-radius: 8px 8px 0 0;
+  }
+  .header h1 { font-size: 24px; margin-bottom: 8px; }
+  .header .meta { font-size: 14px; opacity: 0.9; }
+  .header .meta p { margin: 2px 0; }
+  .header a { color: #b3d9ff; text-decoration: none; }
+  .header a:hover { text-decoration: underline; }
+  .summary {
+    background: #fff;
+    padding: 15px 30px;
+    border-left: 4px solid #1e5bb8;
+    margin-bottom: 0;
+    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .summary p { font-size: 15px; }
+  .summary strong { color: #1e5bb8; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  thead { background: #1e5bb8; }
+  th {
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  th:first-child { width: 25%; }
+  th:nth-child(2) { width: 10%; }
+  th:nth-child(3) { width: 12%; }
+  th:nth-child(4) { width: 53%; }
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e8ecf1;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f8fafd; }
+  tbody tr:hover { background: #eef4fc; }
+  td a {
+    color: #1e5bb8;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  td a:hover { text-decoration: underline; }
+  .pr-num {
+    display: inline-block;
+    background: #1e5bb8;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .pr-title { display: block; margin-top: 4px; font-size: 13px; color: #555; }
+  .author-tag {
+    display: inline-block;
+    background: #e8ecf1;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #444;
+  }
+  .time-cell { font-size: 13px; color: #666; white-space: nowrap; }
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #999;
+  }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+  td code { background: #eef4fc; padding: 1px 5px; border-radius: 3px; font-size: 13px; color: #1a5276; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      <p>检查日期：2026-08-29</p>
+      <p>覆盖合入时间范围：2026-08-28 00:00 — 23:59（北京时间）</p>
+      <p>仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a></p>
+    </div>
+  </div>
+  <div class="summary">
+    <p>共合入 <strong>17</strong> 笔 PR 至 master 分支，涉及 <strong>14</strong> 位提出人。主要涵盖 InsertFixpipe 跨控制流追踪 MMAD L0C 级联增强、HIVM DimensionAnalyzer 多项修复（register-based 分析、scf.while tiling、重构调试）、SIMT cusum 快速路径优化、SIMD-SIMT CV 1:2 支持、HIVMAVE 单位掩码广播拆分 pass、卷积 stride 支持等。</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>PR</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>PR 描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2920" target="_blank"><span class="pr-num">!2920</span></a>
+          <span class="pr-title">[AscendNPU-IR] fix: fold zero-fill bias in elementwise-add matmul decompose</span>
+        </td>
+        <td><span class="author-tag">Nikolay</span></td>
+        <td class="time-cell">2026-08-28 20:11:08</td>
+        <td>修复 elementwise-add matmul 分解中零填充（zero-fill）偏置折叠问题，确保 matmul 分解时 bias 的零填充值被正确处理和传播。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2885" target="_blank"><span class="pr-num">!2885</span></a>
+          <span class="pr-title">[AscendNPU IR][CV][InsertLoadStoreForMixCV] fix: use alloc_workspace for inserted stores</span>
+        </td>
+        <td><span class="author-tag">kang-ingu</span></td>
+        <td class="time-cell">2026-08-28 19:09:58</td>
+        <td>CV <code>InsertLoadStoreForMixCV</code> 修复：插入的 store 操作通过 <code>memref.alloc</code> 路由 UB 目标，导致 mix-CV kernel 在嵌套控制流和循环传递张量场景下缓冲区放置错误。修复方案：统一使用 <code>memref_ext.alloc_workspace</code> 分配插入 store 缓冲区，移除 UB <code>memref.alloc</code> 路径和 <code>dstAddressSpace</code> 参数；同时允许一致控制流传播组（移除 unanimous skip），并新增 <code>ControlFlowPropagatePattern</code> 候选组调试日志。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2974" target="_blank"><span class="pr-num">!2974</span></a>
+          <span class="pr-title">[AscendNPU IR][Agent] doc: add coding agent guidelines</span>
+        </td>
+        <td><span class="author-tag">chenxiangting</span></td>
+        <td class="time-cell">2026-08-28 18:27:16</td>
+        <td>新增项目级 <code>AGENTS.md</code> 文档，为编码 Agent 提供项目贡献指导和规范。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2921" target="_blank"><span class="pr-num">!2921</span></a>
+          <span class="pr-title">[AscendNPU IR]: support stride for conv ops</span>
+        </td>
+        <td><span class="author-tag">MrZhuyuan</span></td>
+        <td class="time-cell">2026-08-28 18:04:16</td>
+        <td>为卷积算子（conv ops）新增 stride 支持，使卷积计算支持步幅参数控制输出尺寸。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2854" target="_blank"><span class="pr-num">!2854</span></a>
+          <span class="pr-title">[AscendNPU-IR][SIMD-SIMT] Support CV1:2 for simd-simt mix</span>
+        </td>
+        <td><span class="author-tag">pangmeng</span></td>
+        <td class="time-cell">2026-08-28 16:40:22</td>
+        <td>SIMD-SIMT 混合模式新增 CV 1:2 比例支持，扩展向量计算与 SIMT 执行的协同能力。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2902" target="_blank"><span class="pr-num">!2902</span></a>
+          <span class="pr-title">[AscendNPU IR][SIMT] feat: Add fast-path for cusum lowering</span>
+        </td>
+        <td><span class="author-tag">songyaofei</span></td>
+        <td class="time-cell">2026-08-28 16:34:41</td>
+        <td>SIMT 新增 cusum lowering 快速路径：使用 lane 分布式 Sklansky scan 处理符合条件的 1D 浮点多 warp 前缀和，保持现有共享内存布局和单 barrier，将每线程 scratch load 从 O(E×W) 降至 O(E)。不支持的场景回退到 <code>AddPartialReduce</code>。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2995" target="_blank"><span class="pr-num">!2995</span></a>
+          <span class="pr-title">Revert:[AscendNPU IR][SIMD-SIMT] fix: Preserve bitwise ops for delayed VF fusion</span>
+        </td>
+        <td><span class="author-tag">BaiSifan</span></td>
+        <td class="time-cell">2026-08-28 16:23:37</td>
+        <td>回退 "Preserve bitwise ops for delayed VF fusion" 合入，该改动在延迟向量融合中保留按位操作的行为存在问题，需要回退后重新评估方案。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2942" target="_blank"><span class="pr-num">!2942</span></a>
+          <span class="pr-title">[AscendNPU IR][Sub-block Tiling][HIVM] fix: Enable register-based DimensionAnalyzer</span>
+        </td>
+        <td><span class="author-tag">kang-ingu</span></td>
+        <td class="time-cell">2026-08-28 14:28:28</td>
+        <td>HIVM sub-block tiling 修复：<code>DimensionAnalyzer</code> 从无关值组选择 tiling 轴导致 <code>TileAndBindSubBlock</code> 回退。根因是全局 <code>selectedTilingParIdx</code> 泄露导致错误轴选择（如 64×64 UB 缓冲选 dim 0 而非 dim 1），且 <code>bufferization.to_tensor</code> bubble-up 失败。修复：在 DimensionAnalyzer 中启用 <code>registerBased = true</code>，使用 memref-aware 遍历保持跨值组的 tiling 维度选择一致性。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2963" target="_blank"><span class="pr-num">!2963</span></a>
+          <span class="pr-title">[AscendNPU IR]: honor --disable-tightly-coupled-buffer-reuse when building CV reuse whitelist</span>
+        </td>
+        <td><span class="author-tag">open_zk</span></td>
+        <td class="time-cell">2026-08-28 14:12:18</td>
+        <td>在构建 CV 缓冲区复用白名单时，尊重 <code>--disable-tightly-coupled-buffer-reuse</code> 编译选项，确保用户显式禁用紧耦合缓冲复用时白名单正确排除相关条目。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2882" target="_blank"><span class="pr-num">!2882</span></a>
+          <span class="pr-title">[AscendNPU IR][HIVM][DimensionAnalyzer] refactor: extract processInvalidUpdates and add debug dumps</span>
+        </td>
+        <td><span class="author-tag">kang-ingu</span></td>
+        <td class="time-cell">2026-08-28 12:25:57</td>
+        <td>HIVM <code>DimensionAnalyzer</code> 重构：将 <code>computeTilingDim()</code> 中的无效更新协调逻辑提取为独立函数 <code>processInvalidUpdates()</code>；新增 <code>dumpOpWithValueGroups()</code> 和 <code>dumpOpWithStructuralGroups()</code> 用于 LLVM_DEBUG IR 转储（属性为临时、打印后移除）。无功能行为变更，属纯重构+调试辅助。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2905" target="_blank"><span class="pr-num">!2905</span></a>
+          <span class="pr-title">[SHMEM] feat: support notify i64 signal add</span>
+        </td>
+        <td><span class="author-tag">Vincent</span></td>
+        <td class="time-cell">2026-08-28 11:14:56</td>
+        <td>SHMEM 新增 i64 信号通知（notify signal add）支持，扩展共享内存同步原语的数据类型覆盖范围。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2948" target="_blank"><span class="pr-num">!2948</span></a>
+          <span class="pr-title">[Huawei][InsertFixpipe] Support tracing MMAD L0C cascades across scf.for</span>
+        </td>
+        <td><span class="author-tag">OliverCWY</span></td>
+        <td class="time-cell">2026-08-28 11:00:45</td>
+        <td>InsertFixpipe 增强跨 <code>scf.for</code> 和 <code>scf.if</code> 追踪 MMAD L0C 级联能力。修复当 <code>mmadL1</code> 保留在 L0C（<code>remain_in_l0c</code>）并跨循环/条件分支级联时，因循环块参数未关联及中间 <code>scf.yield</code> 干扰导致单链用户判定失败的问题，避免过早或冗余插入 <code>fixpipe</code>。新增 <code>getTiedBlockArgument</code> 解析循环初始参数与区域块参数对应关系，新增 <code>removeInplaceYieldUsersForMmad</code> 剔除中转 yield 伪用户干扰，统一 <code>getTiedResultForYieldOperand</code> 处理 <code>scf.for</code> 和 <code>scf.if</code> 的 yield 结果映射。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2946" target="_blank"><span class="pr-num">!2946</span></a>
+          <span class="pr-title">[AscendNPU IR][CV][InsertFixpipe] fix: isNz2NzSupported checker</span>
+        </td>
+        <td><span class="author-tag">kresna</span></td>
+        <td class="time-cell">2026-08-28 10:45:14</td>
+        <td>CV <code>InsertFixpipe</code> 修复 <code>isNz2NzSupported</code> 检查器，纠正 NZ2NZ 转换支持判定的逻辑问题。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2913" target="_blank"><span class="pr-num">!2913</span></a>
+          <span class="pr-title">[AscendNPU IR][HIVM][DimensionAnalyzer] fix: tile scf.while loop-carried tensors</span>
+        </td>
+        <td><span class="author-tag">kang-ingu</span></td>
+        <td class="time-cell">2026-08-28 10:20:13</td>
+        <td>HIVM <code>DimensionAnalyzer</code> 修复 <code>scf.while</code> 循环传递张量的 tiling 问题：原实现未正确通过 <code>scf.while</code> 循环传递值传播维度组，导致寄存器目标上 while 签名未被 tiling（张量 carries 停留在 32×32，仅内层 copy 被切片）。修复：用 <code>processWhileOp</code> 替换 <code>processConditionOp</code>，分别处理 before 区域（init/yield）和 after 区域（cond/result）的传递组，并跳过 <code>processYieldOp</code> 中的重复 while 处理。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2980" target="_blank"><span class="pr-num">!2980</span></a>
+          <span class="pr-title">[Huawei][AscendNPU-IR] fp4 need double K</span>
+        </td>
+        <td><span class="author-tag">ZhaoWentengZWT</span></td>
+        <td class="time-cell">2026-08-28 10:10:55</td>
+        <td>FP4 数据格式新增 double K 支持，适配 FP4 精度下的 K 维度翻倍计算需求。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2989" target="_blank"><span class="pr-num">!2989</span></a>
+          <span class="pr-title">[Test] add asserts requires for some testcase</span>
+        </td>
+        <td><span class="author-tag">胡桥</span></td>
+        <td class="time-cell">2026-08-28 09:55:33</td>
+        <td>更新测试用例，为部分测试用例添加 asserts 依赖标记，使其在启用 asserts 构建模式下才能正确生效。</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2978" target="_blank"><span class="pr-num">!2978</span></a>
+          <span class="pr-title">[HIVMAVE] Add DuplicateUnitMaskBroadcast pass to split multi-user unit-mask broadcasts</span>
+        </td>
+        <td><span class="author-tag">OuYangXin</span></td>
+        <td class="time-cell">2026-08-28 09:03:18</td>
+        <td>HIVMAVE 新增 <code>DuplicateUnitMaskBroadcast</code> pass，用于拆分多用户场景下的单位掩码（unit-mask）广播，将单一广播拆分到多个独立用户以解决多用户竞争或优化掩码传播路径。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    <p>共合入 <strong>17</strong> 笔 PR | 报告由自动脚本生成于 2026-08-29</p>
+    <p>查看更多报告：<a href="https://tudoto.github.io/npuir-pr-daily/">https://tudoto.github.io/npuir-pr-daily/</a></p>
+  </div>
+</div>
+</body>
+</html>
