@@ -1,6 +1,13 @@
 {
   "reports": [
     {
+      "date": "2026-08-30",
+      "filename": "npuir-pr-daily-2026-08-30.html",
+      "totalPRs": 0,
+      "authors": [],
+      "highlights": []
+    },
+    {
       "date": "2026-08-28",
       "filename": "npuir-pr-daily-2026-08-28.html",
       "totalPRs": 17,
