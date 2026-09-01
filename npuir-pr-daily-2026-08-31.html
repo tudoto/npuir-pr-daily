@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 - 2026-08-31</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 24px 30px;
+    border-radius: 8px 8px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 10px; }
+  .header .meta { font-size: 14px; opacity: 0.9; line-height: 1.8; }
+  .header .meta a { color: #cce0ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  tbody tr:nth-child(even) { background: #f0f4fa; }
+  tbody tr:hover { background: #e8eff8; }
+  tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+  }
+  td.pr-col { white-space: nowrap; }
+  td.pr-col a {
+    color: #1e5bb8;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  td.pr-col a:hover { text-decoration: underline; }
+  td.pr-col .pr-title {
+    display: block;
+    margin-top: 4px;
+    font-weight: normal;
+    color: #555;
+    white-space: normal;
+    max-width: 360px;
+  }
+  td.author-col { white-space: nowrap; font-weight: 500; }
+  td.time-col { white-space: nowrap; color: #666; }
+  td.desc-col { min-width: 300px; }
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+  }
+  .stat-badge {
+    display: inline-block;
+    background: #1e5bb8;
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .empty-msg {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      检查日期：2026-09-01（北京时间）<br>
+      覆盖合入时间范围：2026-08-31 00:00 – 23:59（北京时间，UTC+8）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="min-width:200px">PR</th>
+          <th>提出人</th>
+          <th>合并时间</th>
+          <th style="min-width:300px">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2830" target="_blank">#2830</a><span class="pr-title">[NormalizeVector] Use the inverse permutation map to compute gather indices</span></td>
+          <td class="author-col">kiansitov</td>
+          <td class="time-col">22:26:10</td>
+          <td class="desc-col">修复 NormalizeVector 中 gather 索引计算错误。排列映射（permutation map）将 memref 索引空间映射到结果向量索引空间，直接用结果坐标组合排列映射会导致 3D 情况下得到错误的 memref 索引，改用逆排列映射正确计算。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3005" target="_blank">#3005</a><span class="pr-title">[HIVM][TileAndBindSubBlock] fix: guard custom ops only with gm_addr_args_indices</span></td>
+          <td class="author-col">kang-ingu</td>
+          <td class="time-col">22:22:39</td>
+          <td class="desc-col">修复 HIVM TileAndBindSubBlock 对自定义算子的保护逻辑。此前对带 tensor.empty() 输出的 CustomOp/CustomMacroOp 进行子块保护是不安全的——else 分支会产生未初始化的空张量。改为仅对携带 gm_addr_args_indices 属性的算子执行保护，无结果的分布式 barrier 保持可保护状态。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2763" target="_blank">#2763</a><span class="pr-title">support unordered block lock on both A2/A3 and A5</span></td>
+          <td class="author-col">yangkaixin</td>
+          <td class="time-col">22:20:27</td>
+          <td class="desc-col">在 A2/A3 和 A5 上支持无序块锁（unordered block lock）。优化 GM/cacheline 按实际块数分配而非最大锁数（1024），修复同一 kernel 中多个块锁共存时的偏移错误，并新增 subblocks 支持。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3049" target="_blank">#3049</a><span class="pr-title">Revert: [HIVM][DimensionAnalyzer] fix: Enable register-based mode for sub-block tiling</span></td>
+          <td class="author-col">kang-ingu</td>
+          <td class="time-col">21:30:17</td>
+          <td class="desc-col">回退 PR !3039（启用 HIVM DimensionAnalyzer 的 register-based 模式）。该改动改变了子块 tiling 的维度分组行为和 lit 期望，此回退恢复到 !3039 之前的行为。注意：!3039 当日 14:25 合入后，于 21:30 被回退。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2997" target="_blank">#2997</a><span class="pr-title">[VFFusion][UT] add VFFusion UT for CV case</span></td>
+          <td class="author-col">OreO.-</td>
+          <td class="time-col">20:09:14</td>
+          <td class="desc-col">为 VFFusion 新增 CV（Cube-Vector）场景的单元测试，覆盖向量融合在 CV 混合 kernel 中的行为。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3029" target="_blank">#3029</a><span class="pr-title">support asymmetric padding in conv ops</span></td>
+          <td class="author-col">MrZhuyuan</td>
+          <td class="time-col">19:42:54</td>
+          <td class="desc-col">卷积算子支持非对称 padding（asymmetric padding），允许左右/上下使用不同的填充量。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2983" target="_blank">#2983</a><span class="pr-title">support select op in BubblePropagation</span></td>
+          <td class="author-col">MrZhuyuan</td>
+          <td class="time-col">19:21:59</td>
+          <td class="desc-col">BubblePropagation pass 新增对 select 算子的支持，使 select 操作能够参与冒泡传播优化。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3045" target="_blank">#3045</a><span class="pr-title">Revert "[VFFusion] update copy conflict"</span></td>
+          <td class="author-col">lijiawei_123</td>
+          <td class="time-col">19:15:29</td>
+          <td class="desc-col">回退 VFFusion 的 copy conflict 更新改动。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2999" target="_blank">#2999</a><span class="pr-title">[CV][ConvertLayout] feat: support insert slice</span></td>
+          <td class="author-col">kresna</td>
+          <td class="time-col">18:58:42</td>
+          <td class="desc-col">CV ConvertLayout pass 新增 insert slice 支持，扩展布局转换中切片插入的能力。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2939" target="_blank">#2939</a><span class="pr-title">[SIMD-SIMT]fix: vfMode propagation fix in SIMD-SIMT</span></td>
+          <td class="author-col">BaiSifan</td>
+          <td class="time-col">17:39:39</td>
+          <td class="desc-col">修复 SIMD-SIMT 中 vfMode 传播问题，确保向量函数模式在 SIMD-SIMT 流水线中正确传递。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3003" target="_blank">#3003</a><span class="pr-title">[A5 Sync][HIVM] feat: staged 3D Fractal-to-ND transpose; A5-gated transpose flatten</span></td>
+          <td class="author-col">hocky</td>
+          <td class="time-col">17:37:45</td>
+          <td class="desc-col">A5 分阶段实现 Fractal→ND 3D 转置。修复 Fractal→ND convert_layout 直接降低为逆排列 [1,2,0,3]（三轴循环）导致 HIVMToStandard 崩溃的问题，改为分阶段通过 collapse→transpose→collapse 降低，仅生成 [1,0,2] 两轴交换。同步 dev/regbase 的转置感知 flatten，门控到 A5（RegBase）模块以避免影响 A3 的 stride-align 分析。修复 VTransposeOp 恒等转置规范化崩溃。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2887" target="_blank">#2887</a><span class="pr-title">[SIMD-SIMT] Lower same-type float HIVM vcast</span></td>
+          <td class="author-col">hwdhf</td>
+          <td class="time-col">16:32:52</td>
+          <td class="desc-col">SIMD-SIMT 支持相同类型 float 的 HIVM vcast lowering（关联 issue #486）。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/1166" target="_blank">#1166</a><span class="pr-title">[one-shot-bufferize] add memory_space_cast before oneShotBufferize and remove redundant memory_space_cast</span></td>
+          <td class="author-col">sheshaoya</td>
+          <td class="time-col">15:16:22</td>
+          <td class="desc-col">在 oneShotBufferize 之前插入 memory_space_cast 操作，并移除冗余的 memory_space_cast，确保 bufferization 过程中内存空间转换的正确性。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2627" target="_blank">#2627</a><span class="pr-title">feat(CoreRatio): add hivm.core_ratio and adapt it with the CV pipeline</span></td>
+          <td class="author-col">XiaowenHu96</td>
+          <td class="time-col">14:38:45</td>
+          <td class="desc-col">新增 hivm.core_ratio 属性，允许 kernel 声明 cube:vector 核心比例，使 block 按实际需求分配核心而非默认 1:2。新增 TCoreRatioAttr 一等属性，修复此前假设 CV 1:2 的 pass（InferFuncCoreType、InsertInferTaskTypeFunc、AutoBlockifyParallelLoop），并更新 TileAndBindSubBlock、PartitionAndBindSubBlock、HFusionToHIVM 三个 pass 的向量工作拆分逻辑以支持非 1:2 比例。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3039" target="_blank">#3039</a><span class="pr-title">[HIVM][DimensionAnalyzer] fix: Enable register-based mode for sub-block tiling</span></td>
+          <td class="author-col">kang-ingu</td>
+          <td class="time-col">14:25:54</td>
+          <td class="desc-col">HIVM DimensionAnalyzer 启用 register-based 模式修复子块 tiling 回退问题。根因：嵌套 scf.if 区域中 ping-pong UB 缓冲区通过 bufferization.to_tensor 暴露时，非 register-based 分析模式下各 value group 维度选择不一致导致 tiling 回退。启用 registerBased 模式保证轴选择一致性，并跳过无界 rank-1 函数入口块 memref 参数的 value group 合并。（当日被 #3049 回退）</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2914" target="_blank">#2914</a><span class="pr-title">feat(option): add option to skip hivm-bind-sub-block pass</span></td>
+          <td class="author-col">XiaowenHu96</td>
+          <td class="time-col">11:38:00</td>
+          <td class="desc-col">新增 --skip-hivm-bind-sub-block-pass 选项，可完全跳过 hivm-bind-sub-block pass。与 --enable-auto-bind-sub-block=False（仍运行 pass 但禁用 tiling）区分，仅在 pass 本身不需要运行时使用。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3038" target="_blank">#3038</a><span class="pr-title">[HIVM][TileAndBindSubBlock] refactor: Remove scope wrapper from tiled vreduce path</span></td>
+          <td class="author-col">kang-ingu</td>
+          <td class="time-col">10:48:48</td>
+          <td class="desc-col">HIVM TileAndBindSubBlock 重构，移除 tiled VReduceOp 路径中的 scope.scope 包装。此前 scope 仅用于重新导出最终 reduce 结果，增加 IR 复杂度但不改变语义。改用 replaceAllUsesExcept 将非 store 用户直接连接到跨子块 VReduceOp，workspace store 保留在 partial result 上。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2932" target="_blank">#2932</a><span class="pr-title">[HIVMAVE] fix: preserve legacy loop fallback</span></td>
+          <td class="author-col">weiziyao</td>
+          <td class="time-col">10:21:16</td>
+          <td class="desc-col">HIVMAVE 保留 legacy loop fallback 逻辑。修复 tree reduce 中两路 trunc 最终汇聚到一条 store 时 group 计数重复的问题，增加去重处理。</td>
+        </tr>
+        <tr>
+          <td class="pr-col"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2971" target="_blank">#2971</a><span class="pr-title">[HIVM][BubbleUpExtractSlice] fix: bubble up dynamic nested extract slices</span></td>
+          <td class="author-col">kang-ingu</td>
+          <td class="time-col">10:03:39</td>
+          <td class="desc-col">HIVM BubbleUpExtractSlice 修复动态嵌套 extract slice 冒泡。210×112 张量（105 宽内层 tile）的奇数 1:2 子块 tiling 产生带动态奇尾的嵌套 extract-of-extract 模式，ExtractSliceBubbleUpStrategy 因子 slice 为动态而拒绝冒泡，导致 hivm-bind-sub-block 回退 triton 式内层 tile kernel。移除 isDynamicSlice 检查，仅保留 parent-extract 检查，使动态嵌套 slice 可正常冒泡到 block 参数。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer">
+    <span class="stat-badge">共合入 19 笔 PR</span>
+  </div>
+</div>
+</body>
+</html>

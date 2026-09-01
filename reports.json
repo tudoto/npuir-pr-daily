@@ -1,6 +1,38 @@
 {
   "reports": [
     {
+      "date": "2026-08-31",
+      "filename": "npuir-pr-daily-2026-08-31.html",
+      "totalPRs": 19,
+      "authors": [
+        "kang-ingu (5)",
+        "MrZhuyuan (2)",
+        "XiaowenHu96 (2)",
+        "kiansitov (1)",
+        "yangkaixin (1)",
+        "OreO.- (1)",
+        "lijiawei_123 (1)",
+        "kresna (1)",
+        "BaiSifan (1)",
+        "hocky (1)",
+        "hwdhf (1)",
+        "sheshaoya (1)",
+        "weiziyao (1)"
+      ],
+      "highlights": [
+        "HIVM DimensionAnalyzer register-based 模式启用后当日回退（#3039→#3049）",
+        "HIVM TileAndBindSubBlock 修复自定义算子保护，仅对带 gm_addr_args_indices 的算子保护",
+        "A5 分阶段 Fractal→ND 3D 转置，修复 HIVMToStandard 崩溃，门控转置 flatten",
+        "新增 hivm.core_ratio 属性，支持自定义 cube:vector 核心比例",
+        "卷积算子支持非对称 padding",
+        "BubblePropagation 新增 select 算子支持",
+        "CV ConvertLayout 新增 insert slice 支持",
+        "HIVM BubbleUpExtractSlice 修复动态嵌套 extract slice 冒泡",
+        "无序块锁支持 A2/A3 和 A5",
+        "回退 VFFusion copy conflict 更新"
+      ]
+    },
+    {
       "date": "2026-08-30",
       "filename": "npuir-pr-daily-2026-08-30.html",
       "totalPRs": 0,
