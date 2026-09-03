@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR PR 日报 - 2026-09-02</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2d7de4);
+    color: #fff;
+    padding: 30px 35px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.92; line-height: 1.8; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody tr:nth-child(even) { background: #f0f4f9; }
+  tbody tr:hover { background: #e3edf7; }
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e0e6ed;
+    vertical-align: top;
+  }
+  .pr-link { color: #1e5bb8; text-decoration: none; font-weight: 600; }
+  .pr-link:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-weight: 400; }
+  .author { white-space: nowrap; }
+  .merged-time { white-space: nowrap; color: #666; font-size: 13px; }
+  .desc { max-width: 500px; line-height: 1.7; }
+  .footer {
+    margin-top: 20px;
+    padding: 15px 25px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-size: 14px;
+    color: #555;
+  }
+  .footer strong { color: #1e5bb8; }
+  .empty-msg {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 16px;
+    color: #888;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      检查日期：2026-09-03<br>
+      合入时间范围：2026-09-02 00:00 – 23:59（北京时间 UTC+8）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a><br>
+      目标分支：master
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:28%">PR</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:11%">合并时间</th>
+          <th style="width:51%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3113" target="_blank">#3113</a>
+            <span class="pr-title">Revert:[AscendNPU IR][HIVM] feat: Register-based analyzer and TileAndBindSubBlock subview decompose</span>
+          </td>
+          <td class="author">kang-ingu</td>
+          <td class="merged-time">2026-09-02 21:35</td>
+          <td class="desc">回退 HIVM Register-based analyzer（基于寄存器的维度分析器）和 TileAndBindSubBlock subview decompose（子块子视图分解）特性。该特性此前在 9 月 1 日合入（PR #3064），因存在问题在本日回退。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3125" target="_blank">#3125</a>
+            <span class="pr-title">[AscendNPU-IR] Add REQUIRES in analyze-vector-layout-many-independent-stores.mlir</span>
+          </td>
+          <td class="author">xiechenye</td>
+          <td class="merged-time">2026-09-02 20:34</td>
+          <td class="desc">为测试文件 analyze-vector-layout-many-independent-stores.mlir 添加 REQUIRES 断言标注，确保该测试在特定条件下正确执行。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3119" target="_blank">#3119</a>
+            <span class="pr-title">Revert "!2953 merge revert-pr-2732 into master"</span>
+          </td>
+          <td class="author">hujiajun</td>
+          <td class="merged-time">2026-09-02 20:03</td>
+          <td class="desc">回退此前合入的 revert-pr-2732 操作（即重新恢复 PR #2732 的内容），撤销之前通过 PR #2953 引入的回退合并。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3047" target="_blank">#3047</a>
+            <span class="pr-title">[VFFusion] support reduce fusion and insert slice fused</span>
+          </td>
+          <td class="author">OreO.-</td>
+          <td class="merged-time">2026-09-02 19:34</td>
+          <td class="desc">为 VFFusion MaxParallel 模式新增 Phase 4：reduce-to-producer 融合，遍历仅含单个 linalg.reduce 的独立 group，沿 DPS inputs 找到最近的 producer group 合并，减少归约 op 单独成组带来的 func.call 开销。同时放宽 insert_slice 融合准入约束，移除硬约束检查，改由 cost model 和白名单统一评估。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3071" target="_blank">#3071</a>
+            <span class="pr-title">[Docs] Add preload feature guide</span>
+          </td>
+          <td class="author">yuanzhanghui</td>
+          <td class="merged-time">2026-09-02 19:10</td>
+          <td class="desc">新增 preload（预加载）特性使用指南文档，帮助开发者理解和使用该功能。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2982" target="_blank">#2982</a>
+            <span class="pr-title">[AscendNPU IR][SIMT] feat: Tritongpu-coalesce opt</span>
+          </td>
+          <td class="author">pangmeng</td>
+          <td class="merged-time">2026-09-02 17:44</td>
+          <td class="desc">优化 Triton GPU coalesce 的 layout order 生成逻辑：在处理相同 contiguity 的维度时，order 从外向内生成改为从内向外生成（如 contiguity=[1,1], order=[0,1] 改为 [1,0]），提升 coalesce 合并效率。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3077" target="_blank">#3077</a>
+            <span class="pr-title">[AscendNPU IR][VFFusion] fix: Fuse arange with compare</span>
+          </td>
+          <td class="author">lijiawei_123</td>
+          <td class="merged-time">2026-09-02 17:38</td>
+          <td class="desc">针对 arange → compare 模式添加 pattern match，临时规避多消费者融合（MCF）引入的 UB overflow 问题。要求 producer 必须是 ArangeOp、仅一个 ranked-tensor result 且只有一个 use、唯一 consumer 必须是 CompareOp，同时 consumer group 不能包含 select 以避免扩大已有谓词跨 sync 特例。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3046" target="_blank">#3046</a>
+            <span class="pr-title">[AscendNPU IR][MemRef] fix: BindBuffer trace through ViewLikeOpInterface</span>
+          </td>
+          <td class="author">焦起燃</td>
+          <td class="merged-time">2026-09-02 16:02</td>
+          <td class="desc">修复 MemRef BindBuffer 在经过 ViewLikeOpInterface 操作时的追踪问题，确保缓冲区绑定信息能正确传播通过 view-like 操作链。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3052" target="_blank">#3052</a>
+            <span class="pr-title">Revert "!2360 merge feat_plds_master into master"</span>
+          </td>
+          <td class="author">lrb</td>
+          <td class="merged-time">2026-09-02 15:44</td>
+          <td class="desc">回退此前通过 PR #2360 合入的 feat_plds_master 分支内容，撤销该分支引入的全部改动。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3105" target="_blank">#3105</a>
+            <span class="pr-title">[AscendNPU IR][CODEOWNERS] feat: add CV Data movements code owners</span>
+          </td>
+          <td class="author">kresna</td>
+          <td class="merged-time">2026-09-02 14:45</td>
+          <td class="desc">为 CV Data movements 相关代码路径添加 CODEOWNERS 审查人配置，确保后续 PR 变更自动路由到对应模块维护者审查。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3108" target="_blank">#3108</a>
+            <span class="pr-title">[AscendNPU IR][CODEOWNERS] chore: assign CV1:2 code owners</span>
+          </td>
+          <td class="author">kang-ingu</td>
+          <td class="merged-time">2026-09-02 14:37</td>
+          <td class="desc">为 CV1:2 子块相关代码添加 CODEOWNERS 配置，覆盖 TileAndBindSubBlock pass、DimensionAnalyzer（HIVM 扩展及共享基类）、HIVMBubbleUpExtractSlice pass 及相关测试，审查人包括 kang-ingu、henrycliang、ZhaoWentengZWT、renxingdong 等。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3106" target="_blank">#3106</a>
+            <span class="pr-title">[AscendNPU IR][CODEOWNERS] chore: add owners for Inline Fixpipe and Insert Fixpipe</span>
+          </td>
+          <td class="author">Alae-eddine</td>
+          <td class="merged-time">2026-09-02 14:30</td>
+          <td class="desc">为 Inline Fixpipe 和 Insert Fixpipe 相关源码及测试添加 CODEOWNERS 审查人规则。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3091" target="_blank">#3091</a>
+            <span class="pr-title">[AscendNPU IR][CODEOWNERS] chore: add renxingdong as multi-buffer owner</span>
+          </td>
+          <td class="author">huangyujun</td>
+          <td class="merged-time">2026-09-02 14:29</td>
+          <td class="desc">将 @renxingdong 添加为 multi-buffer（多缓冲）相关源码和测试路径的 CODEOWNERS 审查人。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3111" target="_blank">#3111</a>
+            <span class="pr-title">[Huawei][AscendNPU-IR] chore: Assign SplitMixKernel code owners</span>
+          </td>
+          <td class="author">danielcm585</td>
+          <td class="merged-time">2026-09-02 14:29</td>
+          <td class="desc">为 SplitMixKernel（混合内核拆分）相关代码分配 CODEOWNERS 审查人。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2898" target="_blank">#2898</a>
+            <span class="pr-title">[Huawei][AscendNPU-IR] Optimize MarkRealCoreType mapping</span>
+          </td>
+          <td class="author">kees_</td>
+          <td class="merged-time">2026-09-02 13:27</td>
+          <td class="desc">优化 MarkRealCoreType 映射实现：用 IRMapping 查找和 marker-indexed 向量替代反向指针映射，减少 hash-map 开销，同时保持克隆操作追踪、规范化行为和核心类型合并逻辑不变。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3096" target="_blank">#3096</a>
+            <span class="pr-title">[AscendNPU-IR] add hivmc and build</span>
+          </td>
+          <td class="author">jy834507063</td>
+          <td class="merged-time">2026-09-02 11:16</td>
+          <td class="desc">添加 HIVMC（HIVM 编译器）相关组件和构建配置。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2904" target="_blank">#2904</a>
+            <span class="pr-title">[AscendNPU-IR][HIVM] hoist post-loop bias chain for PostPerChannelAddWithSplitK</span>
+          </td>
+          <td class="author">kq-ye</td>
+          <td class="merged-time">2026-09-02 10:35</td>
+          <td class="desc">修复 PostPerChannelAddWithSplitK 匹配失败问题：当 bias load 位于 scf.for 之后时，支配性检查会阻止匹配导致 bias 无法 inline 进 mmadL1。新增 tryHoistBiasChainForPostPerChannel，在获取 bias mode 前将 bias 定义链提升到 scf.for 之前，包含严格安全检查（ccfOutVal 单一使用且为 VAddOp、嵌套块操作无法整体提升时放弃等）。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3053" target="_blank">#3053</a>
+            <span class="pr-title">[AscendNPU-IR]refactor: remove deprecated TritonRemap pass and extract mixed compilation pipeline</span>
+          </td>
+          <td class="author">BaiSifan</td>
+          <td class="merged-time">2026-09-02 10:13</td>
+          <td class="desc">移除已被 DPX 完全替代的废弃 TritonRemap pass（包括定义、注册和 TTIR 管线中的调用），同时将 SIMD/SIMT 混合编译 pass 序列提取为独立函数 buildSimdSimtMixPassPipeline，消除重复代码提升可维护性。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3063" target="_blank">#3063</a>
+            <span class="pr-title">[Huawei][AscendNPU IR][Docs] Add docs for stride_align and analyze_vector_layout.</span>
+          </td>
+          <td class="author">lipengfei</td>
+          <td class="merged-time">2026-09-02 10:08</td>
+          <td class="desc">新增 stride_align（步长对齐）和 analyze_vector_layout（向量布局分析）两个特性的开发者文档。</td>
+        </tr>
+
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3034" target="_blank">#3034</a>
+            <span class="pr-title">[Huawei][AscendNPU IR] refactor AutoSchedule with common TransformOps and Builder in Analysis/Schedule</span>
+          </td>
+          <td class="author">liupengcheng2012</td>
+          <td class="merged-time">2026-09-02 09:51</td>
+          <td class="desc">重构 AutoSchedule 和 AutoVectorize，引入通用的 TransformOps 和 Builder 基础设施，统一 Analysis/Schedule 模块中的调度变换逻辑，提升代码复用性和可维护性。</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <strong>统计：</strong>共合入 <strong>20</strong> 笔 PR &nbsp;|&nbsp; 涉及 <strong>19</strong> 位贡献者
+    <br><br>
+    <strong>主要亮点：</strong>
+    <br>- VFFusion 新增 reduce-to-producer 融合（Phase 4），放宽 insert_slice 融合准入约束
+    <br>- HIVM 回退 Register-based analyzer 和 TileAndBindSubBlock subview decompose 特性
+    <br>- VFFusion 修复 arange + compare 融合的 UB overflow 问题
+    <br>- SIMT 优化 Triton GPU coalesce 的 layout order 生成逻辑
+    <br>- HIVM 修复 PostPerChannelAddWithSplitK bias 链提升问题
+    <br>- 移除废弃的 TritonRemap pass，提取 SIMD/SIMT 混合编译管线为独立函数
+    <br>- AutoSchedule 重构引入通用 TransformOps 和 Builder 基础设施
+    <br>- MarkRealCoreType 映射优化，用 IRMapping 替代反向指针映射减少 hash-map 开销
+    <br>- MemRef BindBuffer 修复 ViewLikeOpInterface 追踪问题
+    <br>- CODEOWNERS 大规模更新（CV Data movements、CV1:2、Fixpipe、Multi-buffer、SplitMixKernel）
+  </div>
+</div>
+</body>
+</html>

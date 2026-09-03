@@ -1,6 +1,44 @@
 {
   "reports": [
     {
+      "date": "2026-09-02",
+      "filename": "npuir-pr-daily-2026-09-02.html",
+      "totalPRs": 20,
+      "authors": [
+        "kang-ingu (2)",
+        "xiechenye (1)",
+        "hujiajun (1)",
+        "OreO.- (1)",
+        "yuanzhanghui (1)",
+        "pangmeng (1)",
+        "lijiawei_123 (1)",
+        "焦起燃 (1)",
+        "lrb (1)",
+        "kresna (1)",
+        "Alae-eddine (1)",
+        "huangyujun (1)",
+        "danielcm585 (1)",
+        "kees_ (1)",
+        "jy834507063 (1)",
+        "kq-ye (1)",
+        "BaiSifan (1)",
+        "lipengfei (1)",
+        "liupengcheng2012 (1)"
+      ],
+      "highlights": [
+        "VFFusion 新增 reduce-to-producer 融合（Phase 4），放宽 insert_slice 融合准入约束",
+        "HIVM 回退 Register-based analyzer 和 TileAndBindSubBlock subview decompose 特性",
+        "VFFusion 修复 arange + compare 融合的 UB overflow 问题",
+        "SIMT 优化 Triton GPU coalesce 的 layout order 生成逻辑",
+        "HIVM 修复 PostPerChannelAddWithSplitK bias 链提升问题",
+        "移除废弃的 TritonRemap pass，提取 SIMD/SIMT 混合编译管线为独立函数",
+        "AutoSchedule 重构引入通用 TransformOps 和 Builder 基础设施",
+        "MarkRealCoreType 映射优化，用 IRMapping 替代反向指针映射减少 hash-map 开销",
+        "MemRef BindBuffer 修复 ViewLikeOpInterface 追踪问题",
+        "CODEOWNERS 大规模更新（CV Data movements、CV1:2、Fixpipe、Multi-buffer、SplitMixKernel）"
+      ]
+    },
+    {
       "date": "2026-08-31",
       "filename": "npuir-pr-daily-2026-08-31.html",
       "totalPRs": 19,
