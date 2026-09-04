@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 - 2026-09-03</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.92; line-height: 1.8; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  tbody tr:nth-child(even) { background: #f0f4f9; }
+  tbody tr:hover { background: #e3edf7; }
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e0e6ed;
+    vertical-align: top;
+  }
+  td.col-pr { min-width: 200px; }
+  td.col-pr a { color: #1e5bb8; text-decoration: none; font-weight: 500; }
+  td.col-pr a:hover { text-decoration: underline; }
+  td.col-author { white-space: nowrap; min-width: 90px; }
+  td.col-time { white-space: nowrap; min-width: 100px; color: #666; }
+  td.col-desc { min-width: 350px; }
+  .footer {
+    margin-top: 20px;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 14px;
+    color: #555;
+  }
+  .footer strong { color: #1e5bb8; }
+  .tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-hivm { background: #e8f0fe; color: #1a56db; }
+  .tag-fixpipe { background: #fef3e8; color: #b45309; }
+  .tag-vffusion { background: #f0fdf4; color: #15803d; }
+  .tag-simt { background: #faf5ff; color: #7c3aed; }
+  .tag-doc { background: #f0f4f8; color: #475569; }
+  .tag-fix { background: #fef2f2; color: #dc2626; }
+  .tag-feat { background: #f0fdf4; color: #16a34a; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      检查日期：2026-09-04（北京时间）<br>
+      合入时间范围：2026-09-03 00:00 – 23:59（+08:00）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a><br>
+      目标分支：master
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>PR</th>
+          <th>提出人</th>
+          <th>合并时间</th>
+          <th>PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3093" target="_blank">#3093 [HIVM][CVPipelining] fix: block arguments lost in nested ForOp with preload</a></td>
+          <td class="col-author">yuanzhanghui</td>
+          <td class="col-time">2026-09-03 22:08:53</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-fix">fix</span>修复 CVPipelining 中嵌套 <code>scf.for</code> 携带 preload 时块参数丢失的问题，确保嵌套循环中预加载场景的块参数正确传递。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2934" target="_blank">#2934 [HFusion]: add uplift-while-to-for to pipeline</a></td>
+          <td class="col-author">renxingdong</td>
+          <td class="col-time">2026-09-03 20:05:43</td>
+          <td class="col-desc"><span class="tag tag-vffusion">HFusion</span><span class="tag tag-feat">feat</span>HFusion 新增 uplift-while-to-for 到 pipeline，支持将 <code>scf.while</code> 提升为 <code>scf.for</code>，使 while 循环也能进入流水线调度，扩大 HFusion 的优化覆盖范围。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3006" target="_blank">#3006 docs: 补充AscendNPU IR相关讲座与课程链接</a></td>
+          <td class="col-author">stwilliam503388</td>
+          <td class="col-time">2026-09-03 19:52:20</td>
+          <td class="col-desc"><span class="tag tag-doc">docs</span>补充 AscendNPU IR 相关公开讲座与课程链接，涵盖昇腾社区课程（CV 算子编译优化、CANN8.0 毕昇编译器开源）、B站 SIG 双周例会系列（2025-11 至 2026-08 共 7 期）、2026 EuroLLVM 会议报告等；同时为 3 个测试文件补充 <code>REQUIRES: asserts</code> 标注。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3143" target="_blank">#3143 [HIVM] fix: skip HIVMToLLVM tests in published builds</a></td>
+          <td class="col-author">胡桥</td>
+          <td class="col-time">2026-09-03 19:05:57</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-fix">fix</span>HIVMToLLVM 的 global-infer-coretype 和 global-orphan-error 测试依赖内部 hivmc-a5 工具，该工具在发布的 BiShengIR 构建中不可用，导致误报失败。引入 <code>bishengir_published</code> lit feature 标记跳过这些测试。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2587" target="_blank">#2587 [AscendNPU IR] Migrating VF Fusion from HFusion Dialect to HIVM Dialect</a></td>
+          <td class="col-author">Ismayil06</td>
+          <td class="col-time">2026-09-03 16:49:24</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-vffusion">VFFusion</span>将 Vector-Function (VF) 融合从 HFusion Dialect 迁移到 HIVM Dialect，实现 HIVM 原生向量化和 tiling。修复 <code>VectorizeReduce.cpp</code> 中 tensor path 的 bug，移除 <code>HIVMVectorizeOps.cpp</code> 中硬编码的向量大小，改为动态计算。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3060" target="_blank">#3060 [Doc] Documentation for layout opt and blockify</a></td>
+          <td class="col-author">yue-xy</td>
+          <td class="col-time">2026-09-03 15:04:45</td>
+          <td class="col-desc"><span class="tag tag-doc">docs</span>新增 layout opt 和 blockify 相关文档，补充布局优化和分块机制的说明。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3073" target="_blank">#3073 [InsertFixpipe] fix: support finding the real source of l0c, and insert fixpipe->store when normalized in L0C</a></td>
+          <td class="col-author">OliverCWY</td>
+          <td class="col-time">2026-09-03 14:55:25</td>
+          <td class="col-desc"><span class="tag tag-fixpipe">Fixpipe</span><span class="tag tag-fix">fix</span>InsertFixpipe 增强 L0C 真实源查找逻辑，当数据在 L0C 中已归一化时直接插入 fixpipe→store 操作，避免不必要的中间转换。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3027" target="_blank">#3027 fix device_print</a></td>
+          <td class="col-author">sardaryandavid</td>
+          <td class="col-time">2026-09-03 14:39:10</td>
+          <td class="col-desc"><span class="tag tag-fix">fix</span>修复 cv-pipelining 中 kernel 在循环内使用 <code>tl.device_print</code>（降为 <code>hivm.hir.debug</code>）时导致的编译器崩溃和打印静默丢弃/重复问题，修复 WorklistBuilder 中的多个独立缺陷。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2864" target="_blank">#2864 [HIVM][ConvertLayout] fix: channel_split only for narrow fractal</a></td>
+          <td class="col-author">jyzryz</td>
+          <td class="col-time">2026-09-03 10:00:59</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-fix">fix</span>将 <code>convert_layout</code> 折叠进 fixpipe 时基于 f32 目标启发式设置 <code>channel_split=true</code>，但重新 tiling 仅对窄 [16,8] fractal 正确，对 [16,16] 打包源会导致数据损坏。修复为基于折叠源的 fractal geometry 门控 <code>channel_split</code> 请求，窄源保留优化、宽源跳过。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2439" target="_blank">#2439 [Huawei][AscendNPU IR] Refactoring nz2nd DMA copy from cbuf to gm</a></td>
+          <td class="col-author">sergey_lokinskiy</td>
+          <td class="col-time">2026-09-03 09:12:07</td>
+          <td class="col-desc">重构片上 CBUF (L1 Cache) 到外部 GM 的 nz2nd DMA 拷贝命令实现，将张量从 Nz 格式转换为行主序 Nd 格式。区分对齐和未对齐两种情况：对齐路径利用多行 gap 计算实现单次 intrinsic 批量传输减少指令开销；未对齐路径采用安全防御策略防止越界写入。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3094" target="_blank">#3094 [AscendNPU-IR] feat: support singleton i1 store</a></td>
+          <td class="col-author">lrb</td>
+          <td class="col-time">2026-09-03 05:46:15</td>
+          <td class="col-desc"><span class="tag tag-feat">feat</span>新增支持 singleton i1 store 功能，允许单个布尔值（i1）的存储操作。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2660" target="_blank">#2660 [SIMT] Added bugfixes for non power two tt.make_tensor_ptr and tt.reshape ops</a></td>
+          <td class="col-author">Max_Wang_Huawei</td>
+          <td class="col-time">2026-09-03 03:59:43</td>
+          <td class="col-desc"><span class="tag tag-simt">SIMT</span><span class="tag tag-fix">fix</span>修复 Triton 中非 2 的幂次 <code>tt.make_tensor_ptr</code> 和 <code>tt.reshape</code> 操作在 SIMT 路径下的缺陷。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer">
+    <strong>统计：</strong>共合入 <strong>12</strong> 笔 PR（目标分支 master，合入时间 2026-09-03 00:00–23:59 北京时间）
+  </div>
+</div>
+</body>
+</html>

@@ -1,6 +1,35 @@
 {
   "reports": [
     {
+      "date": "2026-09-03",
+      "filename": "npuir-pr-daily-2026-09-03.html",
+      "totalPRs": 12,
+      "authors": [
+        "yuanzhanghui (1)",
+        "renxingdong (1)",
+        "stwilliam503388 (1)",
+        "胡桥 (1)",
+        "Ismayil06 (1)",
+        "yue-xy (1)",
+        "OliverCWY (1)",
+        "sardaryandavid (1)",
+        "jyzryz (1)",
+        "sergey_lokinskiy (1)",
+        "lrb (1)",
+        "Max_Wang_Huawei (1)"
+      ],
+      "highlights": [
+        "VF 融合从 HFusion Dialect 迁移到 HIVM Dialect，实现 HIVM 原生向量化和 tiling",
+        "CVPipelining 修复嵌套 ForOp 带 preload 时块参数丢失",
+        "HIVM ConvertLayout 修复 channel_split 对宽 fractal 源导致数据损坏",
+        "InsertFixpipe 增强 L0C 真实源查找，支持 L0C 归一化时插入 fixpipe→store",
+        "SIMT 修复非 2 的幂次 tt.make_tensor_ptr 和 tt.reshape 缺陷",
+        "nz2nd DMA 拷贝重构，区分对齐/未对齐路径优化 CBUF→GM 传输",
+        "HFusion 新增 uplift-while-to-for 到 pipeline",
+        "修复 device_print 在循环内导致编译器崩溃"
+      ]
+    },
+    {
       "date": "2026-09-02",
       "filename": "npuir-pr-daily-2026-09-02.html",
       "totalPRs": 20,
