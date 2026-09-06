@@ -1,6 +1,19 @@
 {
   "reports": [
     {
+      "date": "2026-09-05",
+      "filename": "npuir-pr-daily-2026-09-05.html",
+      "totalPRs": 2,
+      "authors": [
+        "XiaowenHu96 (1)",
+        "OreO.- (1)"
+      ],
+      "highlights": [
+        "GraphSyncSolver 修复块参数指针转换导致的崩溃，使用 dyn_cast_if_present 安全处理无定义操作的场景",
+        "VFFusion 为 CV kernel 添加跳过模式（skip patterns），避免对特定 CV kernel 执行不当融合"
+      ]
+    },
+    {
       "date": "2026-09-03",
       "filename": "npuir-pr-daily-2026-09-03.html",
       "totalPRs": 12,
