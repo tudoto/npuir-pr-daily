@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 - 2026-09-08</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 22px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.92; line-height: 1.8; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .table-wrap {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  tbody tr:nth-child(even) { background: #f0f4f9; }
+  tbody tr:hover { background: #e3edf7; }
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e0e6ed;
+    vertical-align: top;
+  }
+  td.col-pr { min-width: 200px; }
+  td.col-pr a { color: #1e5bb8; text-decoration: none; font-weight: 500; }
+  td.col-pr a:hover { text-decoration: underline; }
+  td.col-author { white-space: nowrap; min-width: 90px; }
+  td.col-time { white-space: nowrap; min-width: 100px; color: #666; }
+  td.col-desc { min-width: 350px; }
+  .footer {
+    margin-top: 20px;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 14px;
+    color: #555;
+  }
+  .footer strong { color: #1e5bb8; }
+  .tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-hivm { background: #e8f0fe; color: #1a56db; }
+  .tag-hfusion { background: #fef3e8; color: #b45309; }
+  .tag-vffusion { background: #f0fdf4; color: #15803d; }
+  .tag-simt { background: #faf5ff; color: #7c3aed; }
+  .tag-doc { background: #f0f4f8; color: #475569; }
+  .tag-fix { background: #fef2f2; color: #dc2626; }
+  .tag-feat { background: #f0fdf4; color: #16a34a; }
+  .tag-revert { background: #f5f3ff; color: #6d28d9; }
+  .tag-buf { background: #fff7ed; color: #c2410c; }
+  .tag-linalg { background: #ecfdf5; color: #059669; }
+  .tag-core { background: #eff6ff; color: #2563eb; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      检查日期：2026-09-09（北京时间）<br>
+      合入时间范围：2026-09-08 00:00 – 23:59（+08:00）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a><br>
+      目标分支：master
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>PR</th>
+          <th>提出人</th>
+          <th>合并时间</th>
+          <th>PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3009" target="_blank">#3009 [hfusion][performance]: adds optimization for vector-scalar transfers</a></td>
+          <td class="col-author">wwshjts</td>
+          <td class="col-time">2026-09-08 23:03:32</td>
+          <td class="col-desc"><span class="tag tag-hfusion">HFusion</span><span class="tag tag-feat">perf</span>移除冗余的 UB&lt;-&gt;Scalar 转换指令。当标量计算链的初始值由向量单元产生、最终也由向量单元消费时，通过 <code>tensor.expand_shape</code> 将标量计算提升为 1D 张量计算，消除不必要的 transfer 指令并暴露新的融合机会。关联 issue #479、#473。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2987" target="_blank">#2987 [AscendNPU-IR]: Enable flatten by default</a></td>
+          <td class="col-author">kiansitov</td>
+          <td class="col-time">2026-09-08 22:54:41</td>
+          <td class="col-desc"><span class="tag tag-hfusion">HFusion</span><span class="tag tag-feat">feat</span>默认启用 flatten。同时对 AIV kernel 跳过 <code>PropagateReshape</code> pass（当 flatten 不适用时），保证 <code>PropagateReshape</code> 与 <code>hfusion\FlattenOp</code> 一致应用——仅用 PropagateReshape 而不配合 FlattenOp 会影响操作融合导致性能退化。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/2900" target="_blank">#2900 [one-shot-bufferize] fix : enhance conflict check in VF</a></td>
+          <td class="col-author">sheshaoya</td>
+          <td class="col-time">2026-09-08 22:32:31</td>
+          <td class="col-desc"><span class="tag tag-vffusion">VFFusion</span><span class="tag tag-buf">Bufferize</span><span class="tag tag-fix">fix</span>在 one-shot bufferization 阶段增强向量融合（VF）的冲突检查，防止向量化融合中 buffer 分配冲突导致的正确性问题。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3154" target="_blank">#3154 [Tools] doc: add agent guidance and hook checks</a></td>
+          <td class="col-author">chenxiangting</td>
+          <td class="col-time">2026-09-08 22:31:58</td>
+          <td class="col-desc"><span class="tag tag-doc">Docs</span>添加 agent 指引文档和 git hook 检查工具，提升工程化代码质量管控能力。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3279" target="_blank">#3279 [AscendNPU IR][HIVM][NDDMA] fix: skip last-dim pad fill after fuse-transpose</a></td>
+          <td class="col-author">hocky</td>
+          <td class="col-time">2026-09-08 22:23:30</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-fix">fix</span><code>fuse-transpose-into-load</code> 后若 load 已有 <code>pad_mode</code> 且仅为最后一维 pad，DMA 已初始化该区域，额外的向量 fill 冗余且在 partial tile 上产生约 +40% 额外 UB 流量。修复方案：扩展 dest 最后保留维度让 DMA pad 覆盖尾部并擦除冗余 fill；对非最后一维前缀维度（GLA prefix path）仍保留 fill。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3265" target="_blank">#3265 [Huawei][HIVMToLLVM] revert: ssbuf loadOp defaut to volatile</a></td>
+          <td class="col-author">OliverCWY</td>
+          <td class="col-time">2026-09-08 21:41:35</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVMToLLVM</span><span class="tag tag-revert">revert</span>回退 #3191（将 ssbuf loadOp 默认设为 volatile 的改动），因该 volatile 设置在先前 pass 中已被移除，保留会导致不一致。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3072" target="_blank">#3072 [AscendNPU IR]: slice bufferization.materialize_in_destination</a></td>
+          <td class="col-author">MrZhuyuan</td>
+          <td class="col-time">2026-09-08 21:41:13</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-buf">Bufferize</span>处理 <code>bufferization.materialize_in_destination</code> 的 slice 场景，确保 slice 操作在 bufferization 阶段正确物化到目标缓冲区。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3183" target="_blank">#3183 [AscendNPU IR][SIMT] fix: handle rank-0 scalar extract</a></td>
+          <td class="col-author">hwdhf</td>
+          <td class="col-time">2026-09-08 20:48:38</td>
+          <td class="col-desc"><span class="tag tag-simt">SIMT</span><span class="tag tag-fix">fix</span>修复 SIMT 编译路径中 rank-0 标量 <code>tensor.extract</code> 的处理缺陷，关联 issue #512、#511。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3223" target="_blank">#3223 [AscendNPU IR][HFusion] disable MultipleConsumer and retry</a></td>
+          <td class="col-author">wanghuihui</td>
+          <td class="col-time">2026-09-08 18:14:06</td>
+          <td class="col-desc"><span class="tag tag-hfusion">HFusion</span><span class="tag tag-fix">fix</span>多消费者融合将带融合组外用户的归约 producer 拉入消费组后，循环签名重建不覆盖归约结果，导致未 tile 的归约 op 拋留在 IR 中，vectorize 阶段用融合组 tile 尺寸向量化完整归约因迭代空间不匹配而失败。临时方案：关闭多消费者融合后 retry 兜底，保证 AV2 pass 正常编译，正式方案上库后删除该临时方案。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3114" target="_blank">#3114 fix(hivm): handle unsupported deinterleave and discontiguous store layouts</a></td>
+          <td class="col-author">Estella516</td>
+          <td class="col-time">2026-09-08 16:57:32</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-fix">fix</span>修复 HIVM lowering 中不支持 2D deinterleave 和 discontiguous store 布局的正确性问题。为不支持的 2D deinterleave 添加标量 fallback 确保正确性，修复 discontiguous store 分配形状推断避免生成重叠 UB 布局，同时保留已有优化路径不变。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3184" target="_blank">#3184 [AscendNPU IR][HIVM][HIVMToStandard] fix: decompose GM->L1 copies into 1D on RegBase</a></td>
+          <td class="col-author">jyzryz</td>
+          <td class="col-time">2026-09-08 16:56:07</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVMToStandard</span><span class="tag tag-fix">fix</span>RegBase 目标（Ascend950/910_95）模板库仅注册 1D GM-&gt;L1 load 模板，无法折叠到 1D 的 stride 拷贝（如 fractal zN dot 操作数）被发射为 2D/3D 库调用导致链接失败（<code>undefined symbol: _mlir_ciface_load_gm_to_cbuf_2d_bfloat16_t</code>）。修复：将库最大 rank 限制为 1，通过 <code>reduceMemrefsToNestedFor</code> 分解为嵌套循环的 1D 拷贝。非 RegBase 目标（A2/A3）不受影响。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3180" target="_blank">#3180 [AscendNPU IR][Linalg] feat: fold consecutive scalar multiplication</a></td>
+          <td class="col-author">danielcm585</td>
+          <td class="col-time">2026-09-08 14:12:18</td>
+          <td class="col-desc"><span class="tag tag-linalg">Linalg</span><span class="tag tag-feat">feat</span>将 <code>FoldConsecutiveScalarMulPattern</code> 迁移到 AscendNPU-IR 扩展 canonicalizer，折叠 <code>linalg.mul</code>、<code>linalg.elemwise_binary</code>（mul）及减法取反 <code>sub(0, x)</code> 的连续标量乘法。编译时常量相乘并保留张量操作数形状，支持嵌套取反和整数/浮点类型。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3156" target="_blank">#3156 [Huawei][AscendNPU IR] improve hivm vectorize</a></td>
+          <td class="col-author">liupengcheng2012</td>
+          <td class="col-time">2026-09-08 12:42:56</td>
+          <td class="col-desc"><span class="tag tag-hivm">HIVM</span><span class="tag tag-feat">improve</span>改进 HIVM 向量化 pass，优化向量化转换逻辑。</td>
+        </tr>
+        <tr>
+          <td class="col-pr"><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3219" target="_blank">#3219 fix(core_ratio): lower single-core MIX ratios for Regbase</a></td>
+          <td class="col-author">XiaowenHu96</td>
+          <td class="col-time">2026-09-08 10:10:10</td>
+          <td class="col-desc"><span class="tag tag-core">core_ratio</span><span class="tag tag-fix">fix</span>Ascend950（C310）将 <code>core_ratio</code> (0,1) 和 (1,0) 表示为独立 AIV/AIC 条目，复用 C220 的成对 MIX 表示会导致错误的任务比例和同步挂起。修复：将这些比例归一化为原始 AIV/AIC 条目，保留模块 MIX 类型但移除函数 MIX 成员和比例元数据，为独立 LLVM 条目发射 <code>vec-only-kernel</code> 和 <code>cube-only-kernel</code>，同时保持 C220 语义不变。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer">
+    <strong>统计：</strong>昨日（2026-09-08）共合入 <strong>14</strong> 笔 PR 到 master 分支。
+  </div>
+</div>
+</body>
+</html>

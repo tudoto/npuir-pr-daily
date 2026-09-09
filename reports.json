@@ -1,6 +1,40 @@
 {
   "reports": [
     {
+      "date": "2026-09-08",
+      "filename": "npuir-pr-daily-2026-09-08.html",
+      "totalPRs": 14,
+      "authors": [
+        "wwshjts (1)",
+        "kiansitov (1)",
+        "sheshaoya (1)",
+        "chenxiangting (1)",
+        "hocky (1)",
+        "OliverCWY (1)",
+        "MrZhuyuan (1)",
+        "hwdhf (1)",
+        "wanghuihui (1)",
+        "Estella516 (1)",
+        "jyzryz (1)",
+        "danielcm585 (1)",
+        "liupengcheng2012 (1)",
+        "XiaowenHu96 (1)"
+      ],
+      "highlights": [
+        "HFusion 新增 vector-scalar 传输优化，消除冗余 UB<->Scalar 转换并暴露新融合机会",
+        "HFusion 默认启用 flatten，跳过 AIV kernel 的 PropagateReshape pass",
+        "HFusion 临时关闭多消费者融合并 retry，修复归约 producer 融合导致向量化失败",
+        "HIVM NDDMA 修复 fuse-transpose 后最后一维 pad fill 冗余，减少 +40% UB 流量",
+        "HIVMToStandard 修复 RegBase GM->L1 2D/3D 拷贝链接失败，分解为 1D 拷贝",
+        "HIVMToLLVM 回退 ssbuf loadOp volatile 设置",
+        "HIVM 修复不支持 deinterleave 和 discontiguous store 布局的正确性问题",
+        "One-shot bufferize 增强 VF 冲突检查",
+        "SIMT 修复 rank-0 标量 extract 处理",
+        "Linalg 新增连续标量乘法折叠优化",
+        "core_ratio 修复 Ascend950 单核 MIX 比例表示导致同步挂起"
+      ]
+    },
+    {
       "date": "2026-09-05",
       "filename": "npuir-pr-daily-2026-09-05.html",
       "totalPRs": 2,
@@ -37,7 +71,7 @@
         "HIVM ConvertLayout 修复 channel_split 对宽 fractal 源导致数据损坏",
         "InsertFixpipe 增强 L0C 真实源查找，支持 L0C 归一化时插入 fixpipe→store",
         "SIMT 修复非 2 的幂次 tt.make_tensor_ptr 和 tt.reshape 缺陷",
-        "nz2nd DMA 拷贝重构，区分对齐/未对齐路径优化 CBUF→GM 传输",
+        "nz2nd DMA 拷贝重构，区分对齐/未对齐路径优化 CBuf→GM 传输",
         "HFusion 新增 uplift-while-to-for 到 pipeline",
         "修复 device_print 在循环内导致编译器崩溃"
       ]
