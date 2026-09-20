@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR PR 日报 - 2026-09-19</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7ee8);
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 24px; margin-bottom: 10px; }
+  .header .meta { font-size: 14px; opacity: 0.9; }
+  .header .meta p { margin-bottom: 4px; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .content {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th {
+    background: #1e5bb8;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #e8eaed;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8f9fb; }
+  tr:hover td { background: #eef4fc; }
+  .pr-link { color: #1e5bb8; text-decoration: none; font-weight: 500; }
+  .pr-link:hover { text-decoration: underline; }
+  .pr-title { color: #555; font-weight: 400; }
+  .author { font-weight: 500; color: #333; }
+  .desc { line-height: 1.7; color: #444; }
+  .footer {
+    margin-top: 20px;
+    padding: 15px 0;
+    border-top: 2px solid #e8eaed;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+  }
+  .footer .stat {
+    display: inline-block;
+    background: #1e5bb8;
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .empty-msg {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #999;
+  }
+  .tag {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1e5bb8;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <p><strong>检查日期：</strong>2026-09-20</p>
+      <p><strong>合入时间范围：</strong>2026-09-19 00:00 – 23:59（北京时间 UTC+8）</p>
+      <p><strong>仓库地址：</strong><a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a></p>
+    </div>
+  </div>
+  <div class="content">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:28%">PR</th>
+          <th style="width:10%">提出人</th>
+          <th style="width:12%">合并时间</th>
+          <th style="width:50%">PR 描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3619" target="_blank">#3619</a>
+            <span class="pr-title">[HIVM][CVPipelining] feat: LCD preload with gated chunk-kernel whitelist</span>
+          </td>
+          <td class="author">huangyujun</td>
+          <td>2026-09-19 09:53:56</td>
+          <td class="desc">
+            <span class="tag">HIVM</span><span class="tag">CVPipelining</span>
+            重新合入 preload/CVPipelining 技术栈到当前 master，包含循环携带依赖倾斜（loop-carried-dependence skew）、相同 preloadNum 作用域合并、MarkRealCoreType 继承、惰性加载 yield 追踪、LCD WI0/WI1 合并与 vcast 打包、以及 SinkExclusivePreloadWork 等多项特性。通过 <code>shape_registry.py</code> 白名单门控倾斜的循环携带张量流水线，仅对 chunk_gated_delta_rule 系列内核生效，未注册内核保持非流水线调度，兼顾性能与安全性。
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3643" target="_blank">#3643</a>
+            <span class="pr-title">[Hivmc] Updated Hivmc to accept simt-optimization-mode flag</span>
+          </td>
+          <td class="author">Max_Wang_Huawei</td>
+          <td>2026-09-19 06:08:08</td>
+          <td class="desc">
+            <span class="tag">Hivmc</span><span class="tag">SIMT</span>
+            AscendNPU IR 和 Triton Ascend 中原有的 <code>enable-bishengir-simt-optimization</code> 标志已重命名为 <code>simt-optimization-mode</code>，本 PR 使 Hivmc 编译器同步适配该改名，确保 AscendNPU IR 向 Hivmc 传递的标志名称一致。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footer">
+      <span class="stat">共合入 2 笔 PR</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,6 +1,19 @@
 {
   "reports": [
     {
+      "date": "2026-09-19",
+      "filename": "npuir-pr-daily-2026-09-19.html",
+      "totalPRs": 2,
+      "authors": [
+        "huangyujun (1)",
+        "Max_Wang_Huawei (1)"
+      ],
+      "highlights": [
+        "CVPipelining 重新合入 preload 技术栈到 master，包含循环携带依赖倾斜、LCD WI0/WI1 合并、SinkExclusivePreloadWork 等特性，通过 shape_registry 白名单门控",
+        "Hivmc 同步适配 simt-optimization-mode 标志重命名，确保 AscendNPU IR 向 Hivmc 传递的标志名称一致"
+      ]
+    },
+    {
       "date": "2026-09-08",
       "filename": "npuir-pr-daily-2026-09-08.html",
       "totalPRs": 14,
