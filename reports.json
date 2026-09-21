@@ -1,6 +1,39 @@
 {
   "reports": [
     {
+      "date": "2026-09-20",
+      "filename": "npuir-pr-daily-2026-09-20.html",
+      "totalPRs": 15,
+      "authors": [
+        "pavelpavlov (1)",
+        "Kirill Barinov (1)",
+        "ykyyky (2)",
+        "shijingchang (1)",
+        "jin-qian7 (1)",
+        "tanzirui123123 (1)",
+        "kiansitov (1)",
+        "Nikolay (1)",
+        "qinqingao (1)",
+        "CheaterAbec (1)",
+        "sheshaoya (1)",
+        "chenxiangting (1)",
+        "kresna (1)",
+        "weiziyao (1)"
+      ],
+      "highlights": [
+        "HIVM PlanMemory 强制 A3/A5 多级规划首次尝试启用 splitOutline，防止重叠单缓冲区共享物理 pong 地址",
+        "HFusion 重新合入 atomic 返回快照 sync-block lock 包裹，修复 Triton 自旋锁 CAS 与快照不在同一临界区导致挂起",
+        "HFusion 限制 register_tree_reduction 仅对 fp16/bf16/f32 设置，避免不支持类型误设属性",
+        "HFusion 用扩展 canonicalizer 替换上游 canonicalizer",
+        "HIVM MarkStrideAlign 跳过 IndirectLoadOp，避免 gather 式访问被误标记导致 UB 分配不必要扩大",
+        "HIVMAVE 修复 i1 vload US/DS 降级到 plds 的 MaskDist 编码（1/2）而非硬编码 NORM",
+        "Vector 修复一维 strided identity read 对非连续内存误用连续 NORM load",
+        "HIVMC 用函数调用替换外部二进制调用，提升编译时间性能",
+        "AVE TemplateLib 新增 rank9 load/store 操作支持",
+        "llvm-project 版本升级"
+      ]
+    },
+    {
       "date": "2026-09-19",
       "filename": "npuir-pr-daily-2026-09-19.html",
       "totalPRs": 2,

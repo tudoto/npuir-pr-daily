@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-09-20</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 8px rgba(30,91,184,0.3);
+  }
+  .header h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .header .meta { font-size: 14px; opacity: 0.9; line-height: 1.8; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .summary {
+    background: #fff;
+    padding: 16px 32px;
+    border-bottom: 3px solid #1e5bb8;
+    font-size: 15px;
+    color: #555;
+  }
+  .summary strong { color: #1e5bb8; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  th {
+    background: #1e5bb8;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 14px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+  }
+  th:first-child { width: 8%; text-align: center; }
+  th:nth-child(2) { width: 28%; }
+  th:nth-child(3) { width: 10%; }
+  th:nth-child(4) { width: 10%; }
+  th:nth-child(5) { width: 44%; }
+  td {
+    padding: 12px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #e8edf2;
+    vertical-align: top;
+  }
+  td:first-child { text-align: center; font-weight: 600; color: #1e5bb8; }
+  tr:nth-child(even) td { background: #f8fafd; }
+  tr:hover td { background: #eef4fc; }
+  td a { color: #1e5bb8; text-decoration: none; }
+  td a:hover { text-decoration: underline; }
+  .pr-link { font-weight: 600; }
+  .pr-title { font-weight: 400; color: #444; }
+  .footer {
+    background: #fff;
+    padding: 20px 32px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+  }
+  .footer strong { color: #1e5bb8; font-size: 16px; }
+  code { background: #eef; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      检查日期：2026-09-21（北京时间）<br>
+      合入时间范围：2026-09-20 00:00 – 23:59（+08:00）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
+    </div>
+  </div>
+  <div class="summary">
+    昨日共合入 <strong>15</strong> 笔 PR 至 master 分支，涉及 <strong>14</strong> 位贡献者。
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>PR 标题</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3636" class="pr-link" target="_blank">#3636</a></td>
+        <td><span class="pr-title">[Huawei][AscendNPU-IR][TemplateLib] AVE memory ops for rank9 added</span></td>
+        <td>pavelpavlov</td>
+        <td>20:21:52</td>
+        <td>AVE TemplateLib 中 load/store 操作此前仅支持 rank 0-8 的张量。本 PR 新增 rank 9 的 load/store 支持，作为快速修复方案；后续将通过独立 PR 实现与 rank 无关的通用方案彻底移除 rank 限制。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3571" class="pr-link" target="_blank">#3571</a></td>
+        <td><span class="pr-title">[Huawei][HIVMC] replace running external hivmc binary with calling it as a function</span></td>
+        <td>Kirill Barinov</td>
+        <td>20:00:08</td>
+        <td>移除外部 hivmc 二进制调用方式，改为根据编译流水线直接调用 runHIVMCCompileA3/A5 函数，简化调用链路并提升编译时间性能。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3623" class="pr-link" target="_blank">#3623</a></td>
+        <td><span class="pr-title">[HIVM][PlanMemory] fix: force splitOutline on A3 and add UT</span></td>
+        <td>ykyyky</td>
+        <td>18:00:45</td>
+        <td>在 A3 和 A5 路径的多级 PlanMemory 首次尝试时强制启用 splitOutline，使 L1 继承的 pong 槽位保持精确的 outline 起始并进入 plan history，防止重叠的单缓冲区静默共享同一物理 pong 地址导致内存分配冲突。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3664" class="pr-link" target="_blank">#3664</a></td>
+        <td><span class="pr-title">[HIVM] doc: correct auto flatten docs</span></td>
+        <td>shijingchang</td>
+        <td>17:51:15</td>
+        <td>修正 auto flatten 相关文档中的错误描述。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3659" class="pr-link" target="_blank">#3659</a></td>
+        <td><span class="pr-title">[HFusion] feat: replace upstream canonicalizer with extended canonicalizer</span></td>
+        <td>jin-qian7</td>
+        <td>17:02:20</td>
+        <td>用扩展版 canonicalizer 替换上游默认的 canonicalizer，增强 HFusion 的模式规范化能力，支持更多自定义折叠规则。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3662" class="pr-link" target="_blank">#3662</a></td>
+        <td><span class="pr-title">[HIVM] doc: correct five errors in auto-sync docs</span></td>
+        <td>tanzirui123123</td>
+        <td>16:30:08</td>
+        <td>修正 auto-sync 文档中的五处错误描述，提升文档准确性。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3606" class="pr-link" target="_blank">#3606</a></td>
+        <td><span class="pr-title">[AscendNPU IR][HFusion] fix: set the register_tree_reduction attr only for fp16/bf16/f32 types</span></td>
+        <td>kiansitov</td>
+        <td>15:37:20</td>
+        <td>HFusion 的直接 register tree reduction 仅支持 fp16、fp32 和 bf16 类型。此前 <code>register_tree_reduction</code> 属性可能被错误设置给不支持的类型，本 PR 修复为仅在支持的元素类型上设置该属性。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3603" class="pr-link" target="_blank">#3603</a></td>
+        <td><span class="pr-title">[Huawei][llvm-project] chore: bump llvm-project to 18844efb0b227002e51e808be91fa80ea5d55f70</span></td>
+        <td>Nikolay</td>
+        <td>14:45:54</td>
+        <td>将 llvm-project 依赖版本升级至 commit <code>18844efb0b</code>。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3491" class="pr-link" target="_blank">#3491</a></td>
+        <td><span class="pr-title">[HFusion] fix: wrap atomic return snapshots in sync-block lock</span></td>
+        <td>ykyyky</td>
+        <td>14:42:34</td>
+        <td>重新合入此前被回退的 HFusion 修复：在 regbase normalize 阶段将 GM 返回快照和后续 atomic 操作包裹在 <code>sync_block_lock/unlock</code> 中，与 HIVM 的 <code>addSyncForReturnedValue</code> 保持一致。根因是 Triton 自旋锁内核中 CAS 与快照 load 不在同一临界区，导致间歇性挂起。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3642" class="pr-link" target="_blank">#3642</a></td>
+        <td><span class="pr-title">[HIVM][MarkStrideAlign] fix: skip IndirectLoadOp for stride align</span></td>
+        <td>qinqingao</td>
+        <td>12:15:47</td>
+        <td>IndirectLoadOp 执行 gather 式访问，其源由运行时偏移张量索引而非线性 stride 模式，stride align 对其无意义。MarkStrideAlign 误标记了这些操作数，导致 EnableStrideAlign 不必要地扩大 UB 分配。本 PR 添加早返回逻辑跳过 IndirectLoadOp，并新增 lit 测试覆盖。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3584" class="pr-link" target="_blank">#3584</a></td>
+        <td><span class="pr-title">fix(HIVMAVE): map i1 vload US/DS to CCE plds MaskDist 1/2</span></td>
+        <td>CheaterAbec</td>
+        <td>11:27:33</td>
+        <td>修复 <code>convert-hivmave-to-ave-intrin</code> pass 中 i1 <code>ave.hir.vload</code> 的 US/DS 模式降级问题：此前硬编码 <code>dist=0</code> (NORM)，现正确映射到 <code>hivm.plds.b8</code> 的 AscendC MaskDist 编码 1（US）和 2（DS）。HIVMAVE 枚举值 US=24/DS=25 不应直接传递给 plds 指令。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3648" class="pr-link" target="_blank">#3648</a></td>
+        <td><span class="pr-title">[HIVM][PlanMemory] revert PR 3605</span></td>
+        <td>sheshaoya</td>
+        <td>11:25:26</td>
+        <td>回退 PR 3605 的 PlanMemory 相关改动。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3652" class="pr-link" target="_blank">#3652</a></td>
+        <td><span class="pr-title">[Tools] feat: Sync default issue templates</span></td>
+        <td>chenxiangting</td>
+        <td>10:58:40</td>
+        <td>从 Ascend/.gitcode 仓库同步默认的 Issue 模板至本仓库。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3593" class="pr-link" target="_blank">#3593</a></td>
+        <td><span class="pr-title">[AscendNPU IR][CV][InsertLoadStoreForMixCV] fix: vbrc vector core by default</span></td>
+        <td>kresna</td>
+        <td>09:58:48</td>
+        <td>修复 InsertLoadStoreForMixCV 中 vbrc 默认使用 vector core 的问题，确保正确分配核心类型。</td>
+      </tr>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3600" class="pr-link" target="_blank">#3600</a></td>
+        <td><span class="pr-title">[Vector] fix: gather strided 1D identity reads</span></td>
+        <td>weiziyao</td>
+        <td>09:36:31</td>
+        <td>修复一维 <code>transfer_read</code> 对非连续内存错误使用连续 NORM load 的问题。根因是 affine layout 被误判为连续布局，修复方案是统一使用 <code>getStridesAndOffset</code> 获取 stride 信息，确保 stride 大于 1 时不走连续 load 路径。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    昨日（2026-09-20）共合入 <strong>15</strong> 笔 PR 至 master 分支
+  </div>
+</div>
+</body>
+</html>
