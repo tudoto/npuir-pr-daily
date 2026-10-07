@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 - 2026-09-23</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2d72d4);
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header h1 { font-size: 24px; margin-bottom: 10px; }
+  .header .meta { font-size: 14px; opacity: 0.9; margin-top: 8px; }
+  .header .meta span { margin-right: 20px; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .summary {
+    background: #fff;
+    padding: 20px 40px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 15px;
+  }
+  .summary .stat {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1e5bb8;
+    font-weight: bold;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-right: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  th {
+    background: #1e5bb8;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafd; }
+  tr:hover td { background: #eef4fc; }
+  .pr-link {
+    color: #1e5bb8;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .pr-link:hover { text-decoration: underline; }
+  .pr-title { display: block; margin-top: 4px; font-weight: normal; color: #555; font-size: 13px; }
+  .author { font-weight: 600; color: #333; }
+  .time { white-space: nowrap; color: #666; font-size: 13px; }
+  .desc { line-height: 1.6; color: #444; }
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      <span>检查日期：2026-09-24</span>
+      <span>合入时间范围：2026-09-23 00:00–23:59（北京时间）</span>
+      <span>仓库：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a></span>
+    </div>
+  </div>
+  <div class="summary">
+    <span class="stat">共合入 8 笔 PR</span>
+    <span class="stat">目标分支：master</span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>PR</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3743" target="_blank">#3743</a>
+          <span class="pr-title">[Huawei][AscendNPU-IR] fix elementwise nullptr</span>
+        </td>
+        <td class="author">gaowei3013</td>
+        <td class="time">2026-09-23 22:26:21</td>
+        <td class="desc">修复 elementwise 操作中出现的空指针问题，避免编译器在处理 elementwise 算子时因空指针解引用而崩溃。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3754" target="_blank">#3754</a>
+          <span class="pr-title">Revert "!3713 merge enhance-preload-in-plan-memory into master"</span>
+        </td>
+        <td class="author">ykyyky</td>
+        <td class="time">2026-09-23 22:21:34</td>
+        <td class="desc">回退 PR !3713 对 enhance-preload-in-plan-memory 的合入，撤销 PlanMemory 中增强预加载相关改动。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3505" target="_blank">#3505</a>
+          <span class="pr-title">[AscendNPU IR]: enable nchw2c1hwnc0 for conv ops</span>
+        </td>
+        <td class="author">MrZhuyuan</td>
+        <td class="time">2026-09-23 16:35:23</td>
+        <td class="desc">为卷积算子启用 NCHW2C1HWNC0 数据布局支持，扩展卷积操作可处理的内存排布格式。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3738" target="_blank">#3738</a>
+          <span class="pr-title">[AscendNPU IR][CODEOWNERS] feat: add code owners for HFusion/HIVM vectorize modules</span>
+        </td>
+        <td class="author">hujiajun</td>
+        <td class="time">2026-09-23 14:25:15</td>
+        <td class="desc">为 HFusion/HIVM 向量化的 10 个功能模块（nddma、pre-vectorize、tree-reduce、VF simplification、VF fusion cost model、VF fusion 其他策略、VF vectorize、memory reuse、flatten、stride align）新增 CODEOWNERS 规则，使 PR 触及这些 pass 时自动指派对应模块负责人及通用审核人（@lingfei_wu @hid90099092 @tanshengshun）。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3721" target="_blank">#3721</a>
+          <span class="pr-title">bump llvm-project submodule version</span>
+        </td>
+        <td class="author">tarvlad</td>
+        <td class="time">2026-09-23 14:17:01</td>
+        <td class="desc">升级 llvm-project 子模块版本。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3630" target="_blank">#3630</a>
+          <span class="pr-title">[Huawei][AscendNPU IR][HFusion] Hold memref.copy unit dimension folding until mixed subview unit dimensions are eliminated</span>
+        </td>
+        <td class="author">sergey_lokinskiy</td>
+        <td class="time">2026-09-23 11:49:51</td>
+        <td class="desc">修复 HFusion fold-unit-dims pass 中的编译器验证崩溃。根因：greedy rewriting 策略在折叠单元维度时立即插入 ExpandShapeOp 包装层，丢失原始 layout map 的静态 stride 元数据，导致下游 CollapseShapeOp 无法计算正确的折叠方程而触发验证失败。修复方案：延迟 memref/tensor copy 操作的折叠处理，等待上游 subview 先消除自身单元维度，使 copy 可直接折叠为 1D 并消除触发问题的静态 stride。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3728" target="_blank">#3728</a>
+          <span class="pr-title">[HIVMAVE] chore: Add AVE module code owners</span>
+        </td>
+        <td class="author">lijiawei_123</td>
+        <td class="time">2026-09-23 11:25:54</td>
+        <td class="desc">为 HIVMAVE 的 10 个模块（Loop Optimization、i1 UB LD/ST、Layout Optimization、Mask derivation、Reduce Binary Search Optimization、VSSTB、TO-AVE、TO-AVE-intrinsic、To Template Library、Instruction Optimization）补充 34 条 CODEOWNERS 规则，覆盖 63 个文件，每条规则额外添加陈文桥和檀胜顺作为公共负责人。</td>
+      </tr>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3487" target="_blank">#3487</a>
+          <span class="pr-title">[HIVM] feat: add pure-AIV fast paths to RegBase pipeline</span>
+        </td>
+        <td class="author">shijingchang</td>
+        <td class="time">2026-09-23 09:22:07</td>
+        <td class="desc">为 HIVM RegBase pipeline 新增纯 AIV 快速路径，优化纯向量处理场景的执行效率。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    共合入 8 笔 PR &nbsp;|&nbsp; <a href="https://tudoto.github.io/npuir-pr-daily/" target="_blank">https://tudoto.github.io/npuir-pr-daily/</a>
+  </div>
+</div>
+</body>
+</html>
