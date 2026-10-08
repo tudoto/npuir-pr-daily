@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-10-07</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 8px rgba(30,91,184,0.3);
+  }
+  .header h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .header .meta { font-size: 14px; opacity: 0.9; line-height: 1.8; }
+  .header .meta a { color: #b3d9ff; text-decoration: none; }
+  .header .meta a:hover { text-decoration: underline; }
+  .summary {
+    background: #fff;
+    padding: 16px 32px;
+    border-bottom: 3px solid #1e5bb8;
+    font-size: 15px;
+    color: #555;
+  }
+  .summary strong { color: #1e5bb8; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  th {
+    background: #1e5bb8;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 14px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+  }
+  th:first-child { width: 8%; text-align: center; }
+  th:nth-child(2) { width: 28%; }
+  th:nth-child(3) { width: 10%; }
+  th:nth-child(4) { width: 10%; }
+  th:nth-child(5) { width: 44%; }
+  td {
+    padding: 12px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #e8edf2;
+    vertical-align: top;
+  }
+  td:first-child { text-align: center; font-weight: 600; color: #1e5bb8; }
+  tr:nth-child(even) td { background: #f8fafd; }
+  tr:hover td { background: #eef4fc; }
+  td a { color: #1e5bb8; text-decoration: none; }
+  td a:hover { text-decoration: underline; }
+  .pr-link { font-weight: 600; }
+  .pr-title { font-weight: 400; color: #444; }
+  .footer {
+    background: #fff;
+    padding: 20px 32px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+  }
+  .footer strong { color: #1e5bb8; font-size: 16px; }
+  code { background: #eef; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <div class="meta">
+      检查日期：2026-10-08（北京时间）<br>
+      合入时间范围：2026-10-07 00:00 – 23:59（+08:00）<br>
+      仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
+    </div>
+  </div>
+  <div class="summary">
+    昨日共合入 <strong>1</strong> 笔 PR 至 master 分支，涉及 <strong>1</strong> 位贡献者。
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>PR 标题</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3922" class="pr-link" target="_blank">#3922</a></td>
+        <td><span class="pr-title">[HFusion][AutoVectorizeV2] fix: skip sibling fusion of a consumed leaf</span></td>
+        <td>tarvlad</td>
+        <td>08:31:00</td>
+        <td>修复 AutoVectorizeV2 中被消费的 generic 操作误参与兄弟循环融合的问题。当两个 generic 操作存在 producer-consumer 关系（第一个 generic 的结果被第二个 generic 内部的 <code>tensor.extract</code> 消费，即 gather 模式）时，AutoVectorizeV2 错误地将两者视为独立输出操作并尝试通过 <code>fuse_sibling</code> 合并 tiled 循环。由于第二个循环不支配 <code>tensor.extract</code> 用户，<code>fuse_sibling</code> 报错 "user of results of target should be properly dominated by source"。修复方案：兄弟分组逻辑改用与 producer-fallback 路径相同的 <code>isProducerConsumed</code> 检查，被其他 generic 消费的 generic 独立分组并单独 tiling，避免错误的循环合并。</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    昨日（2026-10-07）共合入 <strong>1</strong> 笔 PR 至 master 分支
+  </div>
+</div>
+</body>
+</html>

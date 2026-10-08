@@ -1,6 +1,17 @@
 {
   "reports": [
     {
+      "date": "2026-10-07",
+      "filename": "npuir-pr-daily-2026-10-07.html",
+      "totalPRs": 1,
+      "authors": [
+        "tarvlad (1)"
+      ],
+      "highlights": [
+        "HFusion AutoVectorizeV2 修复被消费的 generic 误参与兄弟循环融合，改用 isProducerConsumed 检查使被消费的 generic 独立分组"
+      ]
+    },
+    {
       "date": "2026-10-06",
       "filename": "npuir-pr-daily-2026-10-06.html",
       "totalPRs": 0,
