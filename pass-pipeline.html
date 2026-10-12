@@ -227,6 +227,119 @@
     .column { min-width: 100%; }
     .conditional-section .pass-list { grid-template-columns: 1fr; }
   }
+
+  /* ===== Pass 搜索与位置总览图 ===== */
+  .search-box {
+    position: sticky; top: 12px; z-index: 100;
+    max-width: 1352px; margin: 24px auto 0;
+    background: rgba(255,255,255,.98);
+    border: 1px solid #dfe7f0; border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 18px rgba(12,45,107,.13);
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .search-box .search-icon { font-size: 17px; color: #1e5bb8; }
+  #passSearch {
+    flex: 1; min-width: 240px;
+    border: 2px solid #d5e0ee; border-radius: 8px;
+    padding: 9px 14px; font-size: 15px; font-family: inherit; outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  #passSearch:focus { border-color: #1e5bb8; box-shadow: 0 0 0 3px rgba(30,91,184,.12); }
+  .search-hint { font-size: 12px; color: #999; white-space: nowrap; }
+  .search-count { font-size: 14px; color: #555; white-space: nowrap; }
+  .search-count strong { color: #e8590c; font-size: 17px; }
+  #clearSearch {
+    border: none; background: #eef2f7; color: #555; border-radius: 6px;
+    padding: 8px 14px; font-size: 13px; cursor: pointer; font-family: inherit; display: none;
+  }
+  #clearSearch:hover { background: #dde5ee; }
+
+  .map-section { max-width: 1400px; margin: 20px auto 0; padding: 0 24px; }
+  .map-card {
+    background: #fff; border-radius: 12px; padding: 22px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .map-card h2 { font-size: 18px; color: #0c2d6b; margin-bottom: 6px; }
+  .map-card .map-desc { font-size: 13px; color: #888; margin-bottom: 16px; }
+  .map-legend { display: flex; gap: 18px; margin-bottom: 16px; font-size: 12px; color: #666; flex-wrap: wrap; }
+  .map-legend .lg { display: inline-flex; align-items: center; gap: 6px; }
+  .map-legend .lg i { width: 14px; height: 10px; border-radius: 2px; display: inline-block; }
+  .map-legend .lg-default i { background: #b8cfe8; }
+  .map-legend .lg-cond i { background: #ecd9a0; }
+  .map-legend .lg-hit i { background: #ff6b35; box-shadow: 0 0 6px rgba(255,107,53,.7); }
+
+  .map-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .map-label { width: 128px; flex-shrink: 0; text-align: right; font-weight: 600; font-size: 13px; color: #0c2d6b; }
+  .map-row.cond .map-label { color: #8a6d00; }
+  .map-bar-wrap { flex: 1; overflow-x: auto; padding: 2px 0; }
+  .map-bar { display: flex; min-width: 640px; height: 30px; border-radius: 6px; }
+  .map-stage { display: flex; gap: 1.5px; padding: 0 1px; }
+  .map-stage + .map-stage { border-left: 2px solid #fff; }
+  .map-cell {
+    flex: 1 1 0; min-width: 3px; border-radius: 2px;
+    background: #b8cfe8; cursor: pointer;
+    transition: opacity .15s, background .15s, box-shadow .15s, transform .1s;
+  }
+  .map-cell.cond { background: #ecd9a0; }
+  .map-cell:hover { transform: scaleY(1.2); background: #6ea3dd; }
+  .map-cell.hit {
+    background: #ff6b35;
+    box-shadow: 0 0 7px rgba(255,107,53,.85);
+    animation: cellPulse 1.1s ease-in-out infinite;
+    transform: scaleY(1.12);
+  }
+  @keyframes cellPulse {
+    0%, 100% { box-shadow: 0 0 4px rgba(255,107,53,.6); }
+    50% { box-shadow: 0 0 10px rgba(255,107,53,1); }
+  }
+  .map-cell.dim { opacity: .15; }
+  .map-caption { display: flex; min-width: 640px; margin-top: 5px; }
+  .map-caption span { font-size: 11px; color: #777; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 8px; }
+
+  #mapTooltip {
+    position: fixed; z-index: 200; display: none; pointer-events: none;
+    background: #0c2d6b; color: #fff; padding: 7px 11px; border-radius: 7px;
+    font-size: 12px; line-height: 1.55; max-width: 340px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  }
+  #mapTooltip code { color: #ffd8a8; }
+
+  .results-section { max-width: 1400px; margin: 16px auto 0; padding: 0 24px; display: none; }
+  .results-card { background: #fff; border-radius: 12px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .results-card h3 { font-size: 15px; color: #0c2d6b; margin-bottom: 12px; }
+  .results-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .result-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff7ed; border: 1px solid #ffd8a8; border-radius: 20px;
+    padding: 6px 14px; font-size: 13px; cursor: pointer; text-decoration: none; color: #333;
+    transition: all .15s;
+  }
+  .result-chip:hover { background: #ffedd5; border-color: #ff9c6b; transform: translateY(-1px); }
+  .result-chip code { font-weight: 600; color: #e8590c; font-family: "SF Mono", Consolas, monospace; font-size: 12px; }
+  .result-chip .pos { color: #888; font-size: 12px; }
+
+  .pass-card { position: relative; }
+  .pass-card .pos-badge {
+    display: none; margin-left: auto;
+    background: #e8590c; color: #fff; font-size: 11px;
+    padding: 1px 9px; border-radius: 10px; white-space: nowrap; font-weight: 500;
+  }
+  .pass-card.matched { border-color: #ff6b35 !important; background: #fff7ed !important; box-shadow: 0 2px 12px rgba(255,107,53,.25); }
+  .pass-card.matched .pos-badge { display: inline-block; }
+  body.searching .pass-card.dimmed { opacity: .22; }
+  .stage-title .stage-hits {
+    display: none; background: #e8590c; color: #fff; font-size: 11px;
+    padding: 1px 9px; border-radius: 10px; margin-left: 8px; font-weight: 500; vertical-align: 1px;
+  }
+  body.searching .stage-title .stage-hits.has { display: inline-block; }
+  body.searching .stage-title .stage-hits.zero { display: inline-block; background: #94a3b8; }
+  .pass-card.flash { animation: cardFlash 1.6s ease; }
+  @keyframes cardFlash {
+    0% { box-shadow: 0 0 0 5px rgba(255,107,53,.7); }
+    70% { box-shadow: 0 0 0 4px rgba(255,107,53,.3); }
+    100% { box-shadow: 0 2px 12px rgba(255,107,53,.25); }
+  }
 </style>
 </head>
 <body>
@@ -247,6 +360,36 @@
   <div class="overview-card"><div class="num">16</div><div class="label">条件/旁路 Pass</div></div>
   <div class="overview-card"><div class="num">229</div><div class="label">总计</div></div>
 </div>
+
+<div class="search-box">
+    <span class="search-icon">&#128269;</span>
+    <input type="text" id="passSearch" placeholder="搜索 pass 名称，如 InsertFixpipe、Bufferize、SyncSolver …（按 / 聚焦）" autocomplete="off">
+    <span class="search-count" id="searchCount"></span>
+    <span class="search-hint">回车跳到首个命中</span>
+    <button id="clearSearch" type="button">清空 &#10005;</button>
+</div>
+
+<div class="map-section">
+  <div class="map-card">
+    <h2>Pass 顺序总览图</h2>
+    <p class="map-desc">三条流水线按执行顺序排列：A3（142）/ A5（71）/ 条件分支（16），每个色块代表一个 pass，色块宽度对应阶段内 pass 数量。搜索后命中位置以橙色高亮脉冲，点击色块可跳转到对应卡片。</p>
+    <div class="map-legend">
+      <span class="lg lg-default"><i></i>默认 pass</span>
+      <span class="lg lg-cond"><i></i>条件/旁路 pass</span>
+      <span class="lg lg-hit"><i></i>搜索命中</span>
+    </div>
+    <div id="pipelineMap"></div>
+  </div>
+</div>
+
+<div class="results-section" id="resultsSection">
+  <div class="results-card">
+    <h3 id="resultsTitle">搜索结果</h3>
+    <div class="results-list" id="resultsList"></div>
+  </div>
+</div>
+
+<div id="mapTooltip"></div>
 
 <div class="columns">
   <div class="column">
@@ -1920,5 +2063,271 @@
   点击任意 pass 卡片查看详情
 </div>
 
+  <script>
+  (function () {
+    var groups = [];
+    var passId = 0;
+
+    function ensureStageHits(stageEl) {
+      var h3 = stageEl.querySelector('.stage-title');
+      if (!h3) return null;
+      if (!h3.querySelector('.stage-hits')) {
+        var s = document.createElement('span');
+        s.className = 'stage-hits';
+        h3.appendChild(s);
+      }
+      return h3.querySelector('.stage-hits');
+    }
+
+    function collectFrom(listEl, stage, group) {
+      var passes = [];
+      listEl.querySelectorAll(':scope > .pass-card, :scope a.pass-card').forEach(function (cardEl) {
+        var nameEl = cardEl.querySelector('.pass-name');
+        if (!nameEl) return;
+        var name = nameEl.textContent.trim();
+        group.total++;
+        var p = {
+          id: passId++,
+          el: cardEl,
+          name: name,
+          index: group.total,
+          stage: stage,
+          group: group
+        };
+        var header = cardEl.querySelector('.pass-card-header');
+        if (header) {
+          var badge = document.createElement('span');
+          badge.className = 'pos-badge';
+          header.appendChild(badge);
+          p.badge = badge;
+        }
+        passes.push(p);
+        group.passes.push(p);
+      });
+      return passes;
+    }
+
+    // ===== A3 / A5 两列 =====
+    document.querySelectorAll('.columns > .column').forEach(function (colEl, ci) {
+      var h2 = colEl.querySelector('.column-header h2');
+      var label = h2 ? h2.textContent.replace(/\s*passes\s*$/i, '').trim() : ('Pipeline ' + (ci + 1));
+      var g = { label: label, isCond: false, total: 0, stages: [], passes: [] };
+      colEl.querySelectorAll('.stage').forEach(function (stageEl) {
+        var titleEl = stageEl.querySelector('.stage-title');
+        var stage = {
+          title: titleEl ? titleEl.textContent.trim() : '',
+          el: stageEl,
+          hitsEl: ensureStageHits(stageEl),
+          hitCount: 0,
+          passes: []
+        };
+        var listEl = stageEl.querySelector('.pass-list');
+        if (listEl) stage.passes = collectFrom(listEl, stage, g);
+        g.stages.push(stage);
+      });
+      groups.push(g);
+    });
+
+    // ===== 条件分支区 =====
+    var condEl = document.querySelector('.conditional-section');
+    if (condEl) {
+      var cg = { label: '条件分支', isCond: true, total: 0, stages: [], passes: [] };
+      var cstage = { title: '条件分支（按需启用）', el: condEl, hitsEl: null, hitCount: 0, passes: [] };
+      cstage.passes = collectFrom(condEl, cstage, cg);
+      cg.stages.push(cstage);
+      groups.push(cg);
+    }
+
+    var allPasses = [];
+    groups.forEach(function (g) { g.passes.forEach(function (p) { allPasses.push(p); }); });
+
+    // ===== 构建位置总览图 =====
+    var mapEl = document.getElementById('pipelineMap');
+    var tooltip = document.getElementById('mapTooltip');
+
+    function esc(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function showTip(p) {
+      tooltip.innerHTML = '<code>' + esc(p.name) + '</code><br>' +
+        esc(p.group.label) + ' &middot; ' + esc(p.stage.title) + ' &middot; 第 ' + p.index + '/' + p.group.total + ' 位';
+      tooltip.style.display = 'block';
+    }
+    function moveTip(e) {
+      var pad = 14;
+      var r = tooltip.getBoundingClientRect();
+      var x = e.clientX + pad, y = e.clientY + pad;
+      if (x + r.width > window.innerWidth - 8) x = e.clientX - r.width - pad;
+      if (y + r.height > window.innerHeight - 8) y = e.clientY - r.height - pad;
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+    }
+    function hideTip() { tooltip.style.display = 'none'; }
+
+    var flashTimer = null;
+    function jumpTo(p) {
+      hideTip();
+      p.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      p.el.classList.remove('flash');
+      void p.el.offsetWidth;
+      p.el.classList.add('flash');
+      clearTimeout(flashTimer);
+      flashTimer = setTimeout(function () { p.el.classList.remove('flash'); }, 1700);
+    }
+
+    groups.forEach(function (g) {
+      var row = document.createElement('div');
+      row.className = 'map-row' + (g.isCond ? ' cond' : '');
+      var label = document.createElement('div');
+      label.className = 'map-label';
+      label.textContent = g.label + '（' + g.total + '）';
+      var wrap = document.createElement('div');
+      wrap.className = 'map-bar-wrap';
+      var bar = document.createElement('div');
+      bar.className = 'map-bar';
+      var caption = document.createElement('div');
+      caption.className = 'map-caption';
+      g.stages.forEach(function (st) {
+        var seg = document.createElement('div');
+        seg.className = 'map-stage';
+        seg.style.flex = String(Math.max(st.passes.length, 1));
+        st.passes.forEach(function (p) {
+          var cell = document.createElement('div');
+          cell.className = 'map-cell' + (g.isCond ? ' cond' : '');
+          cell.addEventListener('mouseenter', function () { showTip(p); });
+          cell.addEventListener('mousemove', moveTip);
+          cell.addEventListener('mouseleave', hideTip);
+          cell.addEventListener('click', function () { jumpTo(p); });
+          seg.appendChild(cell);
+          p.mapCell = cell;
+        });
+        if (st.passes.length === 0) {
+          var ph = document.createElement('div');
+          ph.className = 'map-cell';
+          ph.style.opacity = '.25';
+          seg.appendChild(ph);
+        }
+        bar.appendChild(seg);
+        var cap = document.createElement('span');
+        cap.style.flex = String(Math.max(st.passes.length, 1));
+        cap.textContent = st.title + ' · ' + st.passes.length;
+        caption.appendChild(cap);
+      });
+      wrap.appendChild(bar);
+      wrap.appendChild(caption);
+      row.appendChild(label);
+      row.appendChild(wrap);
+      mapEl.appendChild(row);
+    });
+
+    // ===== 搜索逻辑 =====
+    var input = document.getElementById('passSearch');
+    var countEl = document.getElementById('searchCount');
+    var clearBtn = document.getElementById('clearSearch');
+    var resultsSection = document.getElementById('resultsSection');
+    var resultsList = document.getElementById('resultsList');
+    var resultsTitle = document.getElementById('resultsTitle');
+    var debounce = null;
+
+    function resetSearch() {
+      document.body.classList.remove('searching');
+      clearBtn.style.display = 'none';
+      countEl.textContent = '';
+      resultsSection.style.display = 'none';
+      resultsList.innerHTML = '';
+      allPasses.forEach(function (p) {
+        p.el.classList.remove('matched', 'dimmed');
+        p.mapCell.classList.remove('hit', 'dim');
+      });
+      groups.forEach(function (g) { g.stages.forEach(function (st) {
+        st.hitCount = 0;
+        if (st.hitsEl) st.hitsEl.className = 'stage-hits';
+      }); });
+    }
+
+    function applySearch(q) {
+      var query = q.trim().toLowerCase();
+      if (!query) { resetSearch(); return; }
+      document.body.classList.add('searching');
+      clearBtn.style.display = 'inline-block';
+      groups.forEach(function (g) { g.stages.forEach(function (st) { st.hitCount = 0; }); });
+      var matches = [];
+      allPasses.forEach(function (p) {
+        var hit = p.name.toLowerCase().indexOf(query) !== -1;
+        p.el.classList.toggle('matched', hit);
+        p.el.classList.toggle('dimmed', !hit);
+        p.mapCell.classList.toggle('hit', hit);
+        p.mapCell.classList.toggle('dim', !hit);
+        if (hit) {
+          matches.push(p);
+          p.stage.hitCount++;
+          if (p.badge) p.badge.textContent = p.group.label + ' · 第' + p.index + '位';
+        }
+      });
+      groups.forEach(function (g) { g.stages.forEach(function (st) {
+        if (!st.hitsEl) return;
+        if (st.hitCount > 0) {
+          st.hitsEl.textContent = st.hitCount + ' 个命中';
+          st.hitsEl.className = 'stage-hits has';
+        } else {
+          st.hitsEl.textContent = '0';
+          st.hitsEl.className = 'stage-hits zero';
+        }
+      }); });
+      countEl.innerHTML = '命中 <strong>' + matches.length + '</strong> / ' + allPasses.length;
+      if (matches.length) {
+        resultsSection.style.display = '';
+        resultsTitle.textContent = '搜索结果：' + matches.length + ' 处命中（点击跳转到对应位置）';
+        resultsList.innerHTML = matches.map(function (p) {
+          return '<a class="result-chip" data-pid="' + p.id + '"><code>' + esc(p.name) + '</code>' +
+            '<span class="pos">' + esc(p.group.label) + ' · ' + esc(p.stage.title.replace(/^\d+\.\d+\s*/, '')) +
+            ' · 第' + p.index + '/' + p.group.total + '位</span></a>';
+        }).join('');
+        matches.forEach(function (p) {
+          var chip = resultsList.querySelector('[data-pid="' + p.id + '"]');
+          chip.addEventListener('click', function (e) { e.preventDefault(); jumpTo(p); });
+        });
+      } else {
+        resultsSection.style.display = '';
+        resultsTitle.textContent = '没有找到匹配的 pass';
+        resultsList.innerHTML = '<span style="color:#999;font-size:13px;">换个关键词试试，例如 Fixpipe、Bufferize、Sync、Triton</span>';
+      }
+    }
+
+    input.addEventListener('input', function () {
+      clearTimeout(debounce);
+      debounce = setTimeout(function () { applySearch(input.value); }, 120);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var first = document.querySelector('.pass-card.matched');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (e.key === 'Escape') {
+        input.value = '';
+        resetSearch();
+      }
+    });
+    clearBtn.addEventListener('click', function () {
+      input.value = '';
+      resetSearch();
+      input.focus();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input) {
+        e.preventDefault();
+        input.focus();
+        input.select();
+      }
+    });
+
+    // URL ?q= 深链接支持
+    var initQ = new URLSearchParams(window.location.search).get('q');
+    if (initQ) {
+      input.value = initQ;
+      applySearch(initQ);
+    }
+  })();
+  </script>
 </body>
 </html>

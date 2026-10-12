@@ -787,7 +787,7 @@ Before/After EnableMultiBuffer</code></pre>
 
   <div class="footer">
     数据来源：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">GitCode AscendNPU-IR</a> ·
-    <a href="pass-pipeline.html">返回 Pipeline 总览</a>
+    <a href="pass-pipeline.html" id="locateLink">在流水线中定位该 pass</a>
   </div>
 
 </div>
@@ -803,6 +803,10 @@ Before/After EnableMultiBuffer</code></pre>
     'DelayedCrossCoreGSS': true,
     'InjectSync': true,
   };
+
+  // 返回流水线页时携带搜索词，自动高亮该 pass 位置
+  var locateLink = document.getElementById('locateLink');
+  if (locateLink) locateLink.href = 'pass-pipeline.html?q=' + encodeURIComponent(name);
 
   if (detailedPasses[name]) {
     // 显示完整内容视图
