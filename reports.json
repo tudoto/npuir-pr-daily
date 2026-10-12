@@ -1,6 +1,20 @@
 {
   "reports": [
     {
+      "date": "2026-10-11",
+      "filename": "npuir-pr-daily-2026-10-11.html",
+      "totalPRs": 3,
+      "authors": [
+        "wushengxin (2)",
+        "hujiajun (1)"
+      ],
+      "highlights": [
+        "VFFusion 修复 legacy V2 路径 register-tree 冻结竞态崩溃，RA 启用时即冻结决策并设置 per-op 属性和 frozen latch",
+        "无条件开启第一阶段 O2 优化解决兼容性问题",
+        "回退 PR #4017 和 #3979"
+      ]
+    },
+    {
       "date": "2026-10-07",
       "filename": "npuir-pr-daily-2026-10-07.html",
       "totalPRs": 1,
