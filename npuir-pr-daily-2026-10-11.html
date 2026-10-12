@@ -11,118 +11,125 @@
     background: #f5f7fa;
     color: #333;
     line-height: 1.6;
-    padding: 20px;
   }
-  .container { max-width: 1200px; margin: 0 auto; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
   .header {
-    background: linear-gradient(135deg, #1e5bb8, #2a7de1);
+    background: linear-gradient(135deg, #1e5bb8, #2a6fd6);
     color: #fff;
-    padding: 28px 32px;
-    border-radius: 10px 10px 0 0;
-    box-shadow: 0 2px 8px rgba(30,91,184,0.3);
+    padding: 30px 30px;
+    border-radius: 10px;
+    margin-bottom: 25px;
   }
-  .header h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .header h1 { font-size: 24px; margin-bottom: 10px; }
   .header .meta { font-size: 14px; opacity: 0.9; line-height: 1.8; }
-  .header .meta a { color: #b3d9ff; text-decoration: none; }
-  .header .meta a:hover { text-decoration: underline; }
-  .summary {
+  .header .meta a { color: #b3d4fc; text-decoration: underline; }
+  .summary-box {
     background: #fff;
-    padding: 16px 32px;
-    border-bottom: 3px solid #1e5bb8;
+    border-left: 4px solid #1e5bb8;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
     font-size: 15px;
-    color: #555;
   }
-  .summary strong { color: #1e5bb8; }
+  .summary-box strong { color: #1e5bb8; }
   table {
     width: 100%;
     border-collapse: collapse;
     background: #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
-  th {
-    background: #1e5bb8;
-    color: #fff;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 12px 14px;
+  thead { background: #1e5bb8; color: #fff; }
+  thead th {
+    padding: 12px 16px;
     text-align: left;
-    position: sticky;
-    top: 0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
   }
-  th:first-child { width: 32%; }
-  th:nth-child(2) { width: 10%; }
-  th:nth-child(3) { width: 10%; }
-  th:nth-child(4) { width: 48%; }
-  td {
-    padding: 12px 14px;
-    font-size: 13px;
-    border-bottom: 1px solid #e8edf2;
+  tbody tr:nth-child(even) { background: #f0f4fa; }
+  tbody tr:nth-child(odd) { background: #fff; }
+  tbody tr:hover { background: #e6efff; }
+  tbody td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e0e0e0;
     vertical-align: top;
   }
-  tr:nth-child(even) td { background: #f8fafd; }
-  tr:hover td { background: #eef4fc; }
-  td a { color: #1e5bb8; text-decoration: none; }
-  td a:hover { text-decoration: underline; }
-  .pr-link { font-weight: 600; }
-  .pr-title { font-weight: 400; color: #444; }
+  td.pr-title a { color: #1e5bb8; text-decoration: none; font-weight: 500; }
+  td.pr-title a:hover { text-decoration: underline; }
+  td.pr-title .iid { color: #888; font-size: 12px; margin-bottom: 4px; }
+  td.desc { max-width: 500px; }
+  td.merged-time { white-space: nowrap; color: #555; }
+  td.author { white-space: nowrap; }
   .footer {
-    background: #fff;
-    padding: 20px 32px;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    font-size: 14px;
-    color: #666;
+    margin-top: 25px;
     text-align: center;
+    font-size: 13px;
+    color: #999;
   }
-  .footer strong { color: #1e5bb8; font-size: 16px; }
-  code { background: #eef; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+  .footer a { color: #1e5bb8; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <h1>AscendNPU-IR 每日 PR 合入报告</h1>
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
     <div class="meta">
       检查日期：2026-10-12（北京时间）<br>
       合入时间范围：2026-10-11 00:00 – 23:59（+08:00）<br>
       仓库地址：<a href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a>
     </div>
   </div>
-  <div class="summary">
-    昨日共合入 <strong>3</strong> 笔 PR 至 master 分支，涉及 <strong>2</strong> 位贡献者。
+
+  <div class="summary-box">
+    昨日（2026-10-11）共合入 <strong>3</strong> 笔 PR 到 master 分支。
   </div>
+
   <table>
     <thead>
       <tr>
         <th>PR</th>
         <th>提出人</th>
         <th>合并时间</th>
-        <th>描述</th>
+        <th>PR 描述</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4027" class="pr-link" target="_blank">#4027</a> <span class="pr-title">support-O2-O0</span></td>
-        <td>wushengxin</td>
-        <td>18:40:22</td>
-        <td>解决兼容性问题，无条件开启第一阶段 O2 优化。</td>
+        <td class="pr-title">
+          <div class="iid">PR #4027</div>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4027" target="_blank">support-O2-O0</a>
+        </td>
+        <td class="author">wushengxin</td>
+        <td class="merged-time">2026-10-11 18:40</td>
+        <td class="desc">解决兼容性问题，无条件开启第一阶段 O2 优化。通过强制启用 O2 优化阶段来消除不同编译路径间的兼容性差异。</td>
       </tr>
       <tr>
-        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4028" class="pr-link" target="_blank">#4028</a> <span class="pr-title">revert-pr4017-pr3979</span></td>
-        <td>wushengxin</td>
-        <td>16:12:47</td>
-        <td>回退 PR <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4017" target="_blank">#4017</a> 和 <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/3979" target="_blank">#3979</a> 的改动。</td>
+        <td class="pr-title">
+          <div class="iid">PR #4028</div>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4028" target="_blank">revert-pr4017-pr3979</a>
+        </td>
+        <td class="author">wushengxin</td>
+        <td class="merged-time">2026-10-11 16:12</td>
+        <td class="desc">回退 PR #4017 和 #3979 的改动，撤销此前合入但存在问题的修改。</td>
       </tr>
       <tr>
-        <td><a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4026" class="pr-link" target="_blank">#4026</a> <span class="pr-title">[Analysis][VFFusion] fix: freeze register-tree on legacy V2 path</span></td>
-        <td>hujiajun</td>
-        <td>10:01:34</td>
-        <td>PR <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4009" target="_blank">#4009</a> 引入的 TreeReduceV2-only 路径（CANN &lt; 9.2.0 时启用）存在竞态崩溃问题：<code>enableNewTreeReducePolicy</code> 为 false 时 <code>freezeRegisterTreeSelection</code> 提前返回，未设置 per-op 属性或 frozen latch，<code>PreVectorizationFusion</code> 在并行重写 <code>func::FuncOp</code> 时遍历整个模块，在 <code>getRegisterTreeReductionCost</code> 中引发段错误。修复方案：RA 启用（<code>!enableRA</code> 为唯一守卫）时即冻结 register-tree 决策，在 policy 和 TreeReduceV2-only 两条路径上均设置 per-op register/regular 属性和 frozen latch，使消费者短路检查后不再触及并行重写期间的活模块遍历。</td>
+        <td class="pr-title">
+          <div class="iid">PR #4026</div>
+          <a href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4026" target="_blank">[Analysis][VFFusion] fix: freeze register-tree on legacy V2 path</a>
+        </td>
+        <td class="author">hujiajun</td>
+        <td class="merged-time">2026-10-11 10:01</td>
+        <td class="desc">修复 VFFusion 中 legacy V2 路径的 register-tree 冻结竞态崩溃问题。PR #4009 引入的 TreeReduceV2-only 路径在 CANN &lt; 9.2.0 时启用，但 enableNewTreeReducePolicy 为 false 导致 freezeRegisterTreeSelection 提前返回，未标记 per-op 属性和 frozen latch。PreVectorizationFusion 在并行重写 IR 时重新遍历整个模块，兄弟 FuncOp 实例并行修改 IR 引发竞态，在 getRegisterTreeReductionCost 中间歇性 segfault。修复方案：只要 RA 启用即冻结 register-tree 决策，在 policy 和 TreeReduceV2-only 两条路径上均标记 per-op register/regular 属性和 frozen latch，使消费者短路返回，避免并行重写期间的实时模块遍历。</td>
       </tr>
     </tbody>
   </table>
+
   <div class="footer">
-    昨日（2026-10-11）共合入 <strong>3</strong> 笔 PR 至 master 分支
+    共合入 3 笔 PR &nbsp;|&nbsp; 报告由自动化流程生成 &nbsp;|&nbsp; <a href="https://tudoto.github.io/npuir-pr-daily/" target="_blank">GitHub Pages 站点</a>
   </div>
 </div>
 </body>
