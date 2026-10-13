@@ -299,6 +299,71 @@
     line-height: 1.6;
     margin: 0 0 12px 0;
   }
+  .sub-pipeline {
+    border: 1px solid #f0dcc0;
+    border-left: 3px solid #d99a4a;
+    border-radius: 8px;
+    background: #fffdf8;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sub-pipeline .sub-pipeline { margin-left: 10px; background: #fffaf0; }
+  .sub-pipeline-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .sub-pipeline-name {
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", Consolas, monospace;
+    background: #f5e8d3;
+    color: #92500a;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .sub-pipeline-label {
+    font-size: 12.5px;
+    color: #92500a;
+    font-weight: 600;
+  }
+  .sub-pipeline-count {
+    margin-left: auto;
+    font-size: 11px;
+    color: #b86e1e;
+    background: #f5e8d3;
+    padding: 1px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .sub-pipeline-intent {
+    font-size: 12.5px;
+    color: #7c6a52;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .sub-pipeline-intent code {
+    background: #f5e8d3;
+    color: #92500a;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", Consolas, monospace;
+  }
+  .sub-pipeline-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .stage-intent {
+    font-size: 12.5px;
+    color: #7c6a52;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+  }
 
   .pass-brief {
     font-size: 13px;
@@ -2088,7 +2153,7 @@
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">hfusionTilingOptimizationPipeline</span>
                             <span class="sub-pipeline-label">tiling 数据定型</span>
-                            <span class="sub-pipeline-count">6 passes</span>
+                            <span class="sub-pipeline-count">5 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">把可静态确定的 tiling 参数常量化并打包成紧凑数据结构，运行时只需读取；本子 pipeline 嵌在 hfusionAutoSchedulePipeline 末段。</p>
                           <div class="sub-pipeline-body">
@@ -2127,22 +2192,22 @@
           </div>
           <p class="pass-brief">简化 <code>scf.for</code>，暴露常量边界；前后各一次 AfterAuto 相位清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=WrapHostFunc">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=WrapHostFunc">
           <div class="pass-card-header">
             <code class="pass-name">WrapHostFunc</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">为设备 kernel 构造宿主侧包装函数，整理调用参数和 tiling 数据。</p>
         </a>
-                          </div>
-                        </div>
                     </div>
                   </div>
                                   <div class="sub-pipeline">
                     <div class="sub-pipeline-head">
                       <span class="sub-pipeline-name">postProcess</span>
                       <span class="sub-pipeline-label">HFusion 尾部清理</span>
-                      <span class="sub-pipeline-count">5 passes</span>
+                      <span class="sub-pipeline-count">4 passes</span>
                     </div>
                     <p class="sub-pipeline-intent">进入 HIVM 前的最后清理。</p>
                     <div class="sub-pipeline-body">
@@ -2174,15 +2239,15 @@
           </div>
           <p class="pass-brief">把 linalg.transpose 拆成只含两个置换轴的多个 transpose，完成 HFusion 尾部拆解。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=canonicalizationPipeline%28AfterAutoSchedule%29">
+                    </div>
+                  </div>
+                <a class="pass-card" href="pass-detail.html?name=canonicalizationPipeline%28AfterAutoSchedule%29">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationPipeline(AfterAutoSchedule)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">调度完成后清理，FoldTransposeWithTranspose 等模式此时启用。</p>
         </a>
-                    </div>
-                  </div>
                                   <div class="sub-pipeline">
                     <div class="sub-pipeline-head">
                       <span class="sub-pipeline-name">hfusionAutoVectorizePipeline</span>
@@ -2216,7 +2281,7 @@
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">hfusionVectorizeManualScopePipeline</span>
                             <span class="sub-pipeline-label">手动 scope 向量化</span>
-                            <span class="sub-pipeline-count">25 passes</span>
+                            <span class="sub-pipeline-count">5 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">自动向量化前先处理用户手动标记的向量 scope；本子 pipeline 嵌在 hfusionAutoVectorizePipeline 前段。</p>
                           <div class="sub-pipeline-body">
@@ -2255,148 +2320,148 @@
           </div>
           <p class="pass-brief">把向量写物化为 destination 形式。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=VFFusion">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=VFFusion">
           <div class="pass-card-header">
             <code class="pass-name">VFFusion</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">把多个 VF 融合成更大的 VF，减少函数边界和 UB 搬运、受 UB 预算约束，Triton 路径下随后再做 registerBased flatten；非 Triton 默认路径不运行。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=FuseTransposeIntoLoad">
+                      <a class="pass-card" href="pass-detail.html?name=FuseTransposeIntoLoad">
           <div class="pass-card-header">
             <code class="pass-name">FuseTransposeIntoLoad</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 transpose 融入 load，减少显式布局操作。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PreVectorizationFusion">
+                      <a class="pass-card" href="pass-detail.html?name=PreVectorizationFusion">
           <div class="pass-card-header">
             <code class="pass-name">PreVectorizationFusion</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">融合适合一起向量化的 elementwise 操作，最大融合规模由选项控制。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PrepareI1Nx1ForVectorization">
+                      <a class="pass-card" href="pass-detail.html?name=PrepareI1Nx1ForVectorization">
           <div class="pass-card-header">
             <code class="pass-name">PrepareI1Nx1ForVectorization</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">准备特殊 i1/N×1 形态，消除向量化障碍。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HFusionAutoVectorizeV2">
+                      <a class="pass-card" href="pass-detail.html?name=HFusionAutoVectorizeV2">
           <div class="pass-card-header">
             <code class="pass-name">HFusionAutoVectorizeV2</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">V2 把向量循环 outline 为 VF，支持更复杂融合与多消费者策略；旧版直接转换（maxVectorizeAxes=2）。两者只选其一。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=OutlineVectorFunction">
+                      <a class="pass-card" href="pass-detail.html?name=OutlineVectorFunction">
           <div class="pass-card-header">
             <code class="pass-name">OutlineVectorFunction</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">V2 把向量循环 outline 为 VF，支持更复杂融合与多消费者策略；旧版直接转换（maxVectorizeAxes=2）。两者只选其一。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HFusionAutoVectorize">
+                      <a class="pass-card" href="pass-detail.html?name=HFusionAutoVectorize">
           <div class="pass-card-header">
             <code class="pass-name">HFusionAutoVectorize</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">V2 把向量循环 outline 为 VF，支持更复杂融合与多消费者策略；旧版直接转换（maxVectorizeAxes=2）。两者只选其一。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=AutoVectorizeVerifier">
+                      <a class="pass-card" href="pass-detail.html?name=AutoVectorizeVerifier">
           <div class="pass-card-header">
             <code class="pass-name">AutoVectorizeVerifier</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">验证向量化结果满足约束，尽早暴露非法形态。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=TreeReduceV2">
+                      <a class="pass-card" href="pass-detail.html?name=TreeReduceV2">
           <div class="pass-card-header">
             <code class="pass-name">TreeReduceV2</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">树形归约 lowering。<code>enableTreeReduce &amp;&amp; !enableTreeReduceV2</code> 且 RA 模式时拆两次运行——先只注册 RA 归约（directRegisterRA/onlyMarked），再处理 legacy scope 归约；显式 <code>enableTreeReduceV2</code> 时单次运行。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HFusionToVector">
+                      <a class="pass-card" href="pass-detail.html?name=HFusionToVector">
           <div class="pass-card-header">
             <code class="pass-name">HFusionToVector</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 HFusion 向量操作转成 MLIR Vector。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=RemoveMaskFromUnalignedReductionLoop">
+                      <a class="pass-card" href="pass-detail.html?name=RemoveMaskFromUnalignedReductionLoop">
           <div class="pass-card-header">
             <code class="pass-name">RemoveMaskFromUnalignedReductionLoop</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">对不对齐归约，移除不适合保留的 mask 结构。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LowerVectorMask">
+                      <a class="pass-card" href="pass-detail.html?name=LowerVectorMask">
           <div class="pass-card-header">
             <code class="pass-name">LowerVectorMask</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">降低 vector mask。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PullSliceIntoVectorFunction">
+                      <a class="pass-card" href="pass-detail.html?name=PullSliceIntoVectorFunction">
           <div class="pass-card-header">
             <code class="pass-name">PullSliceIntoVectorFunction</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 slice 拉进 VF，减少调用参数。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SimplifyVFArgs">
+                      <a class="pass-card" href="pass-detail.html?name=SimplifyVFArgs">
           <div class="pass-card-header">
             <code class="pass-name">SimplifyVFArgs</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">简化 VF 参数并把循环不变子集外提；随后 canonicalizationPipeline 清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LoopInvariantSubsetHoisting">
+                      <a class="pass-card" href="pass-detail.html?name=LoopInvariantSubsetHoisting">
           <div class="pass-card-header">
             <code class="pass-name">LoopInvariantSubsetHoisting</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">简化 VF 参数并把循环不变子集外提；随后 canonicalizationPipeline 清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LoopInvariantPromotion">
+                      <a class="pass-card" href="pass-detail.html?name=LoopInvariantPromotion">
           <div class="pass-card-header">
             <code class="pass-name">LoopInvariantPromotion</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">提升循环不变值；在 VF 内展开并前向传播。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=UnrollAndForward">
+                      <a class="pass-card" href="pass-detail.html?name=UnrollAndForward">
           <div class="pass-card-header">
             <code class="pass-name">UnrollAndForward</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">提升循环不变值；在 VF 内展开并前向传播。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=RemoveRedundantWriteAndReadPair">
+                      <a class="pass-card" href="pass-detail.html?name=RemoveRedundantWriteAndReadPair">
           <div class="pass-card-header">
             <code class="pass-name">RemoveRedundantWriteAndReadPair</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">删除同一数据的冗余写后读路径，避免 VF 边界的无用本地内存往返。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SCFForLoopCanonicalization">
+                      <a class="pass-card" href="pass-detail.html?name=SCFForLoopCanonicalization">
           <div class="pass-card-header">
             <code class="pass-name">SCFForLoopCanonicalization</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">最终循环简化与收尾清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=canonicalizationPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=canonicalizationPipeline">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationPipeline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">最终循环简化与收尾清理。</p>
         </a>
-                          </div>
-                        </div>
                     </div>
                   </div>
               </div>
@@ -2508,7 +2573,7 @@
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">hivmCVCommunicationPipeline</span>
                             <span class="sub-pipeline-label">A5 跨核通信建立 · 第一次</span>
-                            <span class="sub-pipeline-count">28 passes</span>
+                            <span class="sub-pipeline-count">2 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">为 Cube/Vector 通信建立显式数据通路；A5（950 非 Triton）用 tightly-coupled buffer 替代 A3 的部分 legacy load/store 插入。本子 pipeline 在 pre-bufferization 中运行两次。</p>
                           <div class="sub-pipeline-body">
@@ -2526,195 +2591,195 @@
           </div>
           <p class="pass-brief">把标量跨核传递转成清晰的内存通信。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InsertCVTightCoupledBuffer">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=InsertCVTightCoupledBuffer">
           <div class="pass-card-header">
             <code class="pass-name">InsertCVTightCoupledBuffer</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief"><code>convertTensorToTightCoupledBuffer</code> 第一步，只为跨核搬运张量补 TCB 访问、不做完整 lowering。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InsertConvertLayout">
+                      <a class="pass-card" href="pass-detail.html?name=InsertConvertLayout">
           <div class="pass-card-header">
             <code class="pass-name">InsertConvertLayout</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief"><code>addOptimizedConvertLayoutFixpipePipeline</code>：插入并传播布局转换、把可合并的转换折叠进 load 或 fixpipe、剩余降成 transpose；A5 默认关闭。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PropagateConvertLayout">
+                      <a class="pass-card" href="pass-detail.html?name=PropagateConvertLayout">
           <div class="pass-card-header">
             <code class="pass-name">PropagateConvertLayout</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief"><code>addOptimizedConvertLayoutFixpipePipeline</code>：插入并传播布局转换、把可合并的转换折叠进 load 或 fixpipe、剩余降成 transpose；A5 默认关闭。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=CombineOptimizedConvertLayout">
+                      <a class="pass-card" href="pass-detail.html?name=CombineOptimizedConvertLayout">
           <div class="pass-card-header">
             <code class="pass-name">CombineOptimizedConvertLayout</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief"><code>addOptimizedConvertLayoutFixpipePipeline</code>：插入并传播布局转换、把可合并的转换折叠进 load 或 fixpipe、剩余降成 transpose；A5 默认关闭。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=ConvertLayoutToTranspose">
+                      <a class="pass-card" href="pass-detail.html?name=ConvertLayoutToTranspose">
           <div class="pass-card-header">
             <code class="pass-name">ConvertLayoutToTranspose</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief"><code>addOptimizedConvertLayoutFixpipePipeline</code>：插入并传播布局转换、把可合并的转换折叠进 load 或 fixpipe、剩余降成 transpose；A5 默认关闭。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=TileBatchMMIntoLoop">
+                      <a class="pass-card" href="pass-detail.html?name=TileBatchMMIntoLoop">
           <div class="pass-card-header">
             <code class="pass-name">TileBatchMMIntoLoop</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 batch matmul 分块为循环，<code>enableHIVMBatchMatmul</code> 控制是否保留 batch 形态，随后二次规范化。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=NormalizeMatmul">
+                      <a class="pass-card" href="pass-detail.html?name=NormalizeMatmul">
           <div class="pass-card-header">
             <code class="pass-name">NormalizeMatmul</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 batch matmul 分块为循环，<code>enableHIVMBatchMatmul</code> 控制是否保留 batch 形态，随后二次规范化。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InsertL12UBForDebug">
+                      <a class="pass-card" href="pass-detail.html?name=InsertL12UBForDebug">
           <div class="pass-card-header">
             <code class="pass-name">InsertL12UBForDebug</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">为 A5 调试观察插入 L1→UB 搬运（A3 对应位置为 <code>InsertNZ2NDForDebug</code>）。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InsertFixpipe">
+                      <a class="pass-card" href="pass-detail.html?name=InsertFixpipe">
           <div class="pass-card-header">
             <code class="pass-name">InsertFixpipe</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">覆盖 tiling 新产生的模式。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InlineFixpipe">
+                      <a class="pass-card" href="pass-detail.html?name=InlineFixpipe">
           <div class="pass-card-header">
             <code class="pass-name">InlineFixpipe</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">覆盖 tiling 新产生的模式。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=hivmCVCommunicationPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=hivmCVCommunicationPipeline">
           <div class="pass-card-header">
             <code class="pass-name">hivmCVCommunicationPipeline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">同上，覆盖新形态；随后 <code>convertTensorToTightCoupledBuffer</code> 再运行一次。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=CloneTensorEmpty">
+                      <a class="pass-card" href="pass-detail.html?name=CloneTensorEmpty">
           <div class="pass-card-header">
             <code class="pass-name">CloneTensorEmpty</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">复制被 CSE 错误合并的 <code>tensor.empty</code> 锚点，保住 destination-style 语义。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InsertWorkSpaceForMixCV">
+                      <a class="pass-card" href="pass-detail.html?name=InsertWorkSpaceForMixCV">
           <div class="pass-card-header">
             <code class="pass-name">InsertWorkSpaceForMixCV</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">为跨核通信创建全局 workspace 并绑定到函数参数，地址由 PlanMemory 统一规划。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=BindWorkSpaceArg">
+                      <a class="pass-card" href="pass-detail.html?name=BindWorkSpaceArg">
           <div class="pass-card-header">
             <code class="pass-name">BindWorkSpaceArg</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">为跨核通信创建全局 workspace 并绑定到函数参数，地址由 PlanMemory 统一规划。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InferFuncCoreType">
+                      <a class="pass-card" href="pass-detail.html?name=InferFuncCoreType">
           <div class="pass-card-header">
             <code class="pass-name">InferFuncCoreType</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">判断函数运行在 AIC、AIV 还是 MIX 模式，决定后续拆核、同步与内存范围。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=MarkTightlyCoupledBuffer">
+                      <a class="pass-card" href="pass-detail.html?name=MarkTightlyCoupledBuffer">
           <div class="pass-card-header">
             <code class="pass-name">MarkTightlyCoupledBuffer</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">preload（Skew）模式下为 TCB 打标记（标准 CV pipeline 下运行会破坏 PlanMemory）；随后 <code>MarkMultiBuffer</code> 标记适合多缓冲的 workspace/local buffer，workspace 多缓冲为 0 时强制 GM 不标记。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationHIVMPipeline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">ArithToAffine、CanonicalizeIterArg、Canonicalizer、SCFForLoopCanonicalization、CSE、HIVMOptSinglePoint、DeadStoreElimination 组合清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InlineOTFBroadcast">
+                      <a class="pass-card" href="pass-detail.html?name=InlineOTFBroadcast">
           <div class="pass-card-header">
             <code class="pass-name">InlineOTFBroadcast</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">内联 on-the-fly broadcast，减少冗余 1:1 广播。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=CVPipelining">
+                      <a class="pass-card" href="pass-detail.html?name=CVPipelining">
           <div class="pass-card-header">
             <code class="pass-name">CVPipelining</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">MixedCV 且 CV 模式非 Off 时把 Cube/Vector 工作重排成软件流水，并补充多缓冲标记。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=MarkMultiBuffer">
+                      <a class="pass-card" href="pass-detail.html?name=MarkMultiBuffer">
           <div class="pass-card-header">
             <code class="pass-name">MarkMultiBuffer</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">MixedCV 且 CV 模式非 Off 时把 Cube/Vector 工作重排成软件流水，并补充多缓冲标记。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PartitionAndBindSubBlock">
+                      <a class="pass-card" href="pass-detail.html?name=PartitionAndBindSubBlock">
           <div class="pass-card-header">
             <code class="pass-name">PartitionAndBindSubBlock</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">pipeline 始终调度，由 pass 内部按配置决定是否划分并绑定 sub-block，默认配置下不改写。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InferVFMode">
+                      <a class="pass-card" href="pass-detail.html?name=InferVFMode">
           <div class="pass-card-header">
             <code class="pass-name">InferVFMode</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">推导每个 VF 采用 SIMD、SIMT 还是混合模式，影响后续 AVE/Triton lowering 路径，并为内存与核类型分析提供附加信息。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PlanMemoryRegBase%28GLOBAL%29">
+                      <a class="pass-card" href="pass-detail.html?name=PlanMemoryRegBase%28GLOBAL%29">
           <div class="pass-card-header">
             <code class="pass-name">PlanMemoryRegBase(GLOBAL)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">RegBase 专用全局 workspace 内存规划，除生命周期与地址复用外还考虑 VF 可达性、动态 SIMT VF 大小与 TCB 复用限制。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=MarkTightlyCoupledBuffer">
+                      <a class="pass-card" href="pass-detail.html?name=MarkTightlyCoupledBuffer">
           <div class="pass-card-header">
             <code class="pass-name">MarkTightlyCoupledBuffer</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">给紧耦合跨核 buffer 一致标识并把逃逸 alloc 提升到共同锚点，保证拆核后 AIC/AIV 克隆共享一致缓冲与多缓冲语义。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HoistTightlyCoupledAlloc">
+                      <a class="pass-card" href="pass-detail.html?name=HoistTightlyCoupledAlloc">
           <div class="pass-card-header">
             <code class="pass-name">HoistTightlyCoupledAlloc</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">给紧耦合跨核 buffer 一致标识并把逃逸 alloc 提升到共同锚点，保证拆核后 AIC/AIV 克隆共享一致缓冲与多缓冲语义。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SinkExclusivePreloadWork">
+                      <a class="pass-card" href="pass-detail.html?name=SinkExclusivePreloadWork">
           <div class="pass-card-header">
             <code class="pass-name">SinkExclusivePreloadWork</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">拆核前在未拆分的 MIX 函数上下沉独占 dest/src 集群（含跨未用 CUBE 的 MTE2 与 load→VF→copy 链）。</p>
         </a>
-                          </div>
-                        </div>
                                               <div class="sub-pipeline">
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">hivmCrossCoreAutoSyncPipeline</span>
                             <span class="sub-pipeline-label">跨核自动同步 · STEP_1</span>
-                            <span class="sub-pipeline-count">13 passes</span>
+                            <span class="sub-pipeline-count">6 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">拆核前在 MIX 函数上求解 AIC/AIV 数据依赖同步。三种模式由同步选项决定：InjectBlockSync 保守屏障；CrossCoreGSS 一次性图求解；延迟 GSS（RegBase 路径）分两阶段——STEP_1 关闭 CV patterns 求解并生成 anchor/backup，供 STEP_2 在局部地址规划后重新求解。</p>
                           <div class="sub-pipeline-body">
@@ -2760,62 +2825,62 @@
           </div>
           <p class="pass-brief">记录 anchor/backup 并移除临时核类型标记。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SplitMixKernel">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=SplitMixKernel">
           <div class="pass-card-header">
             <code class="pass-name">SplitMixKernel</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 MIX 函数拆成 AIC 与 AIV 函数（依赖 tensor SSA 性质，故必须在 bufferization 前）；两侧通过 workspace 与同步关联。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=MergeSamePreloadScopes">
+                      <a class="pass-card" href="pass-detail.html?name=MergeSamePreloadScopes">
           <div class="pass-card-header">
             <code class="pass-name">MergeSamePreloadScopes</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">拆核后合并相同 preload 深度的 scope。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=MarkSimtScopeNoInline">
+                      <a class="pass-card" href="pass-detail.html?name=MarkSimtScopeNoInline">
           <div class="pass-card-header">
             <code class="pass-name">MarkSimtScopeNoInline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">SIMT scope 标记 <code>no_inline</code> 后展开中间 scope region（InlineScope 已与函数内联解耦），再由 Inliner 消除 outline 出的向量函数。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InlineScope">
+                      <a class="pass-card" href="pass-detail.html?name=InlineScope">
           <div class="pass-card-header">
             <code class="pass-name">InlineScope</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">SIMT scope 标记 <code>no_inline</code> 后展开中间 scope region（InlineScope 已与函数内联解耦），再由 Inliner 消除 outline 出的向量函数。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=Inliner">
+                      <a class="pass-card" href="pass-detail.html?name=Inliner">
           <div class="pass-card-header">
             <code class="pass-name">Inliner</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">SIMT scope 标记 <code>no_inline</code> 后展开中间 scope region（InlineScope 已与函数内联解耦），再由 Inliner 消除 outline 出的向量函数。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=TileAndBindSubBlock">
+                      <a class="pass-card" href="pass-detail.html?name=TileAndBindSubBlock">
           <div class="pass-card-header">
             <code class="pass-name">TileAndBindSubBlock</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把适合的循环切分并绑定到硬件 sub-block（enableTile/batchMatmul 传参），<code>skipHIVMBindSubBlockPass</code> 可跳过。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationHIVMPipeline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">拆核后清理。</p>
         </a>
-                          </div>
-                        </div>
                                               <div class="sub-pipeline">
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">hivmWorkspacePipeline</span>
                             <span class="sub-pipeline-label">workspace 绑定与调试支撑</span>
-                            <span class="sub-pipeline-count">11 passes</span>
+                            <span class="sub-pipeline-count">3 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">为调试特性（device print 等）绑定 sub-workspace、重新规划全局内存，并提前降低扩展 memref 操作。</p>
                           <div class="sub-pipeline-body">
@@ -2840,64 +2905,64 @@
           </div>
           <p class="pass-brief">降低扩展 memref 操作，消除后端不认识的扩展抽象。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=FoldTensorEmpty">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=FoldTensorEmpty">
           <div class="pass-card-header">
             <code class="pass-name">FoldTensorEmpty</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">空 tensor 清理与清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationHIVMPipeline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">空 tensor 清理与清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LoopInvariantCodeMotion">
+                      <a class="pass-card" href="pass-detail.html?name=LoopInvariantCodeMotion">
           <div class="pass-card-header">
             <code class="pass-name">LoopInvariantCodeMotion</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把循环不变量/不变切片移到循环外，减少重复计算与地址构造。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LoopInvariantSubsetHoisting">
+                      <a class="pass-card" href="pass-detail.html?name=LoopInvariantSubsetHoisting">
           <div class="pass-card-header">
             <code class="pass-name">LoopInvariantSubsetHoisting</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把循环不变量/不变切片移到循环外，减少重复计算与地址构造。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationHIVMPipeline</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">把循环不变量/不变切片移到循环外，减少重复计算与地址构造。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SimplifyVFArgs">
+                      <a class="pass-card" href="pass-detail.html?name=SimplifyVFArgs">
           <div class="pass-card-header">
             <code class="pass-name">SimplifyVFArgs</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">简化 VF 参数、再次复制 tensor.empty 锚点并内联可即时完成的 load/store，完成 bufferization 前清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=CloneTensorEmpty">
+                      <a class="pass-card" href="pass-detail.html?name=CloneTensorEmpty">
           <div class="pass-card-header">
             <code class="pass-name">CloneTensorEmpty</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">简化 VF 参数、再次复制 tensor.empty 锚点并内联可即时完成的 load/store，完成 bufferization 前清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMInlineOTFLoadStore">
+                      <a class="pass-card" href="pass-detail.html?name=HIVMInlineOTFLoadStore">
           <div class="pass-card-header">
             <code class="pass-name">HIVMInlineOTFLoadStore</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">简化 VF 参数、再次复制 tensor.empty 锚点并内联可即时完成的 load/store，完成 bufferization 前清理。</p>
         </a>
-                          </div>
-                        </div>
                     </div>
                   </div>
               </div>
@@ -2928,7 +2993,7 @@
                     <div class="sub-pipeline-head">
                       <span class="sub-pipeline-name">buildHFusionRegBasePipeline</span>
                       <span class="sub-pipeline-label">RegBase 向量化复用主干</span>
-                      <span class="sub-pipeline-count">12 passes</span>
+                      <span class="sub-pipeline-count">9 passes</span>
                     </div>
                     <p class="sub-pipeline-intent">复用 HFusion 向量化能力的精简入口：registerBased flatten 后清理规范化，直接进入自动向量化。</p>
                     <div class="sub-pipeline-body">
@@ -2995,29 +3060,29 @@
           </div>
           <p class="pass-brief">复用上文同一子 pipeline，此处不重复展开。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=InferFuncCoreType">
+                    </div>
+                  </div>
+                <a class="pass-card" href="pass-detail.html?name=InferFuncCoreType">
           <div class="pass-card-header">
             <code class="pass-name">InferFuncCoreType</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">3.2 入口运行时置位，向量化后重推核类型。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=HFusionToHIVM">
+                <a class="pass-card" href="pass-detail.html?name=HFusionToHIVM">
           <div class="pass-card-header">
             <code class="pass-name">HFusionToHIVM</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">向量化结果转回 HIVM（Triton 时矩阵计算用 MacroInstr 模式）。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=TensorToHIVM">
+                <a class="pass-card" href="pass-detail.html?name=TensorToHIVM">
           <div class="pass-card-header">
             <code class="pass-name">TensorToHIVM</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">向量化结果转回 HIVM（Triton 时矩阵计算用 MacroInstr 模式）。</p>
         </a>
-                    </div>
-                  </div>
               </div>
             </div>
         </div>
@@ -3038,7 +3103,7 @@
                     <div class="sub-pipeline-head">
                       <span class="sub-pipeline-name">bufferizationPipeline</span>
                       <span class="sub-pipeline-label">张量 → memref 转换</span>
-                      <span class="sub-pipeline-count">10 passes</span>
+                      <span class="sub-pipeline-count">9 passes</span>
                     </div>
                     <p class="sub-pipeline-intent">张量 IR 转内存 IR 的分界点：暴露隐藏写、插入必要 copy，把 tensor SSA 全量转成 memref，并把生成的 <code>memref.copy</code> 转回 HIVM 操作。</p>
                     <div class="sub-pipeline-body">
@@ -3105,20 +3170,20 @@
           </div>
           <p class="pass-brief">把 bufferization 生成的 <code>memref.copy</code> 等转成 HIVM 操作。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=SubBlockGuardCleanup">
+                    </div>
+                  </div>
+                <a class="pass-card" href="pass-detail.html?name=SubBlockGuardCleanup">
           <div class="pass-card-header">
             <code class="pass-name">SubBlockGuardCleanup</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">自门控清理 sub-block guard，只改写带 partition 溯源标记的 guard。</p>
         </a>
-                    </div>
-                  </div>
                                   <div class="sub-pipeline">
                     <div class="sub-pipeline-head">
                       <span class="sub-pipeline-name">hivmPostBufferizationOptimizationPipeline</span>
                       <span class="sub-pipeline-label">内存规划、同步与循环 lower</span>
-                      <span class="sub-pipeline-count">69 passes</span>
+                      <span class="sub-pipeline-count">66 passes</span>
                     </div>
                     <p class="sub-pipeline-intent">RegBase 内存与同步的核心段：memscope 推导、stride/data layout 定型、局部内存规划、延迟跨核同步二阶段、锁同步与多缓冲落地，最后 HIVM lower 到显式循环。</p>
                     <div class="sub-pipeline-body">
@@ -3154,7 +3219,7 @@
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">syncBlockLockPipeline</span>
                             <span class="sub-pipeline-label">锁同步 Prepare · 第一次</span>
-                            <span class="sub-pipeline-count">14 passes</span>
+                            <span class="sub-pipeline-count">2 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">锁同步生命周期 Prepare 阶段：提升 sync-block 并绑定锁参数。本子 pipeline 在 post-bufferization 中共运行三次，覆盖阶段化 lowering 新产生的模式。</p>
                           <div class="sub-pipeline-body">
@@ -3172,97 +3237,97 @@
           </div>
           <p class="pass-brief">把锁变量绑定为函数参数。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=OutlineAllocInVF">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=OutlineAllocInVF">
           <div class="pass-card-header">
             <code class="pass-name">OutlineAllocInVF</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">RegBase 专有：把 VF 内 alloc 与入口 copy 移到调用者、清理等价返回值并内联 scope/函数，保证 InferHIVMMemScope 从调用侧统一观察内存。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=OutlineCopyInVF">
+                      <a class="pass-card" href="pass-detail.html?name=OutlineCopyInVF">
           <div class="pass-card-header">
             <code class="pass-name">OutlineCopyInVF</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">RegBase 专有：把 VF 内 alloc 与入口 copy 移到调用者、清理等价返回值并内联 scope/函数，保证 InferHIVMMemScope 从调用侧统一观察内存。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=DropEquivalentBufferResults">
+                      <a class="pass-card" href="pass-detail.html?name=DropEquivalentBufferResults">
           <div class="pass-card-header">
             <code class="pass-name">DropEquivalentBufferResults</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">RegBase 专有：把 VF 内 alloc 与入口 copy 移到调用者、清理等价返回值并内联 scope/函数，保证 InferHIVMMemScope 从调用侧统一观察内存。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InlineScope">
+                      <a class="pass-card" href="pass-detail.html?name=InlineScope">
           <div class="pass-card-header">
             <code class="pass-name">InlineScope</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">RegBase 专有：把 VF 内 alloc 与入口 copy 移到调用者、清理等价返回值并内联 scope/函数，保证 InferHIVMMemScope 从调用侧统一观察内存。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=Inliner">
+                      <a class="pass-card" href="pass-detail.html?name=Inliner">
           <div class="pass-card-header">
             <code class="pass-name">Inliner</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">RegBase 专有：把 VF 内 alloc 与入口 copy 移到调用者、清理等价返回值并内联 scope/函数，保证 InferHIVMMemScope 从调用侧统一观察内存。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=BindBuffer">
+                      <a class="pass-card" href="pass-detail.html?name=BindBuffer">
           <div class="pass-card-header">
             <code class="pass-name">BindBuffer</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">绑定实际 buffer 并推导 GM、L1、UB 等内存空间。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InferHIVMMemScope">
+                      <a class="pass-card" href="pass-detail.html?name=InferHIVMMemScope">
           <div class="pass-card-header">
             <code class="pass-name">InferHIVMMemScope</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">绑定实际 buffer 并推导 GM、L1、UB 等内存空间。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMDecomposeOp">
+                      <a class="pass-card" href="pass-detail.html?name=HIVMDecomposeOp">
           <div class="pass-card-header">
             <code class="pass-name">HIVMDecomposeOp</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">拆解 memscope 推导后才具备条件的模式（如 copy_ub_to_ub）。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SyncBlockHoisting">
+                      <a class="pass-card" href="pass-detail.html?name=SyncBlockHoisting">
           <div class="pass-card-header">
             <code class="pass-name">SyncBlockHoisting</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">锁同步 Prepare 组合再次运行。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=BindSyncBlockLockArg">
+                      <a class="pass-card" href="pass-detail.html?name=BindSyncBlockLockArg">
           <div class="pass-card-header">
             <code class="pass-name">BindSyncBlockLockArg</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">锁同步 Prepare 组合再次运行。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28BEFORE_HIVM_STRIDE_ALIGNMENT%29">
+                      <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28BEFORE_HIVM_STRIDE_ALIGNMENT%29">
           <div class="pass-card-header">
             <code class="pass-name">HIVMAggregatedDecomposeOp(BEFORE_HIVM_STRIDE_ALIGNMENT)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">阶段化拆解第一批，等待 stride alignment 信息成熟。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_RECOGNIZE_BROADCAST%29">
+                      <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_RECOGNIZE_BROADCAST%29">
           <div class="pass-card-header">
             <code class="pass-name">HIVMAggregatedDecomposeOp(AFTER_RECOGNIZE_BROADCAST)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">广播识别相位拆解。非 RegBase 才执行的 <code>HIVMRecognizeDeinterleaveOp</code>（AFTER_RECOGNIZE_DEINTERLEAVE）在 A5 跳过、A3 执行。</p>
         </a>
-                          </div>
-                        </div>
                                               <div class="sub-pipeline">
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">alignStoragePipeline</span>
                             <span class="sub-pipeline-label">存储对齐</span>
-                            <span class="sub-pipeline-count">25 passes</span>
+                            <span class="sub-pipeline-count">5 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">确保 DMA 和向量访问满足硬件对齐要求。</p>
                           <div class="sub-pipeline-body">
@@ -3301,153 +3366,153 @@
           </div>
           <p class="pass-brief">折叠 alloc+reshape，真正启用对齐布局。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_HIVM_STRIDE_ALIGNMENT%29">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_HIVM_STRIDE_ALIGNMENT%29">
           <div class="pass-card-header">
             <code class="pass-name">HIVMAggregatedDecomposeOp(AFTER_HIVM_STRIDE_ALIGNMENT)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">stride 对齐后拆解（如 vconcat）。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=Canonicalizer">
+                      <a class="pass-card" href="pass-detail.html?name=Canonicalizer">
           <div class="pass-card-header">
             <code class="pass-name">Canonicalizer</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InferHIVMDataLayout">
+                      <a class="pass-card" href="pass-detail.html?name=InferHIVMDataLayout">
           <div class="pass-card-header">
             <code class="pass-name">InferHIVMDataLayout</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">推导 ND/NZ 等数据布局（感知 batch matmul），推导结果决定 copy 能否变成 ND2NZ 等专用操作。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_INFER_HIVM_DATA_LAYOUT%29">
+                      <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_INFER_HIVM_DATA_LAYOUT%29">
           <div class="pass-card-header">
             <code class="pass-name">HIVMAggregatedDecomposeOp(AFTER_INFER_HIVM_DATA_LAYOUT)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">布局相位拆解。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=AutoInferBufferSize">
+                      <a class="pass-card" href="pass-detail.html?name=AutoInferBufferSize">
           <div class="pass-card-header">
             <code class="pass-name">AutoInferBufferSize</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">推导、常量化并写回 buffer 大小。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=ConstantizeBufferSize">
+                      <a class="pass-card" href="pass-detail.html?name=ConstantizeBufferSize">
           <div class="pass-card-header">
             <code class="pass-name">ConstantizeBufferSize</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">推导、常量化并写回 buffer 大小。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SetBufferSize">
+                      <a class="pass-card" href="pass-detail.html?name=SetBufferSize">
           <div class="pass-card-header">
             <code class="pass-name">SetBufferSize</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">推导、常量化并写回 buffer 大小。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=FlattenOps">
+                      <a class="pass-card" href="pass-detail.html?name=FlattenOps">
           <div class="pass-card-header">
             <code class="pass-name">FlattenOps</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">压平内存操作并按 flatten 相位拆解。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_HIVM_FLATTEN_OPS%29">
+                      <a class="pass-card" href="pass-detail.html?name=HIVMAggregatedDecomposeOp%28AFTER_HIVM_FLATTEN_OPS%29">
           <div class="pass-card-header">
             <code class="pass-name">HIVMAggregatedDecomposeOp(AFTER_HIVM_FLATTEN_OPS)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">压平内存操作并按 flatten 相位拆解。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=ReduceRankSubview">
+                      <a class="pass-card" href="pass-detail.html?name=ReduceRankSubview">
           <div class="pass-card-header">
             <code class="pass-name">ReduceRankSubview</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">降低 subview 秩、提升最低层 stride、为需要临时空间的操作分配额外 buffer。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LiftLowestStride">
+                      <a class="pass-card" href="pass-detail.html?name=LiftLowestStride">
           <div class="pass-card-header">
             <code class="pass-name">LiftLowestStride</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">降低 subview 秩、提升最低层 stride、为需要临时空间的操作分配额外 buffer。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=AllocExtraBuffer">
+                      <a class="pass-card" href="pass-detail.html?name=AllocExtraBuffer">
           <div class="pass-card-header">
             <code class="pass-name">AllocExtraBuffer</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">降低 subview 秩、提升最低层 stride、为需要临时空间的操作分配额外 buffer。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=OutlineAllocInVF">
+                      <a class="pass-card" href="pass-detail.html?name=OutlineAllocInVF">
           <div class="pass-card-header">
             <code class="pass-name">OutlineAllocInVF</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">新 buffer 产生后再次把 VF 内 alloc/copy 外提。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=OutlineCopyInVF">
+                      <a class="pass-card" href="pass-detail.html?name=OutlineCopyInVF">
           <div class="pass-card-header">
             <code class="pass-name">OutlineCopyInVF</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">新 buffer 产生后再次把 VF 内 alloc/copy 外提。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=DropEquivalentBufferResults">
+                      <a class="pass-card" href="pass-detail.html?name=DropEquivalentBufferResults">
           <div class="pass-card-header">
             <code class="pass-name">DropEquivalentBufferResults</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">新 buffer 产生后再次把 VF 内 alloc/copy 外提。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InferHIVMMemScope">
+                      <a class="pass-card" href="pass-detail.html?name=InferHIVMMemScope">
           <div class="pass-card-header">
             <code class="pass-name">InferHIVMMemScope</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">为新 buffer 重推 memscope 并清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationHIVMPipeline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">为新 buffer 重推 memscope 并清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=MarkMultiBuffer%28LOCAL%29">
+                      <a class="pass-card" href="pass-detail.html?name=MarkMultiBuffer%28LOCAL%29">
           <div class="pass-card-header">
             <code class="pass-name">MarkMultiBuffer(LOCAL)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">再次标记局部多缓冲候选（本地阶段强制 GM=1，避免复现 workspace 标记）。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=VFOperandSubstitution">
+                      <a class="pass-card" href="pass-detail.html?name=VFOperandSubstitution">
           <div class="pass-card-header">
             <code class="pass-name">VFOperandSubstitution</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">用等价且更适合复用的值替换 VF 操作数，减少额外 buffer 或改善内存规划。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PlanMemoryRegBase%28LOCAL%29">
+                      <a class="pass-card" href="pass-detail.html?name=PlanMemoryRegBase%28LOCAL%29">
           <div class="pass-card-header">
             <code class="pass-name">PlanMemoryRegBase(LOCAL)</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">为 UB/L1 等本地 buffer 分配最终地址，含地址复用与容量检查，是 A5 UB/L1 容量与地址正确性的核心 pass。</p>
         </a>
-                          </div>
-                        </div>
                                               <div class="sub-pipeline">
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">hivmCrossCoreAutoSyncPipeline</span>
                             <span class="sub-pipeline-label">跨核自动同步 · STEP_2，延迟 GSS</span>
-                            <span class="sub-pipeline-count">11 passes</span>
+                            <span class="sub-pipeline-count">5 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">局部地址规划完成后重新求解跨核同步：此时能看到最终地址复用与多缓冲槽位，比一次性求解更准确；STEP_1 生成的 anchor/backup 在此消费并清理。</p>
                           <div class="sub-pipeline-body">
@@ -3486,55 +3551,55 @@
           </div>
           <p class="pass-brief">清理 anchor/backup 与临时标记。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMLowerToLoops">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=HIVMLowerToLoops">
           <div class="pass-card-header">
             <code class="pass-name">HIVMLowerToLoops</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把结构化 HIVM 操作降低成显式循环和更基础的操作，tile、搬运和计算的迭代空间具体化。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=HIVMDecomposeOp">
+                      <a class="pass-card" href="pass-detail.html?name=HIVMDecomposeOp">
           <div class="pass-card-header">
             <code class="pass-name">HIVMDecomposeOp</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">lowering 后拆解、锁同步 Prepare 与 memscope 重推。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=SyncBlockHoisting">
+                      <a class="pass-card" href="pass-detail.html?name=SyncBlockHoisting">
           <div class="pass-card-header">
             <code class="pass-name">SyncBlockHoisting</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">lowering 后拆解、锁同步 Prepare 与 memscope 重推。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=BindSyncBlockLockArg">
+                      <a class="pass-card" href="pass-detail.html?name=BindSyncBlockLockArg">
           <div class="pass-card-header">
             <code class="pass-name">BindSyncBlockLockArg</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">lowering 后拆解、锁同步 Prepare 与 memscope 重推。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InferHIVMMemScope">
+                      <a class="pass-card" href="pass-detail.html?name=InferHIVMMemScope">
           <div class="pass-card-header">
             <code class="pass-name">InferHIVMMemScope</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">lowering 后拆解、锁同步 Prepare 与 memscope 重推。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=CreatePreload">
+                      <a class="pass-card" href="pass-detail.html?name=CreatePreload">
           <div class="pass-card-header">
             <code class="pass-name">CreatePreload</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">为 skew CV pipeline 构造 preload、稳态和 drain 控制流（携带 workspace 多缓冲深度），使下一批数据搬运与当前批计算重叠。</p>
         </a>
-                          </div>
-                        </div>
                                               <div class="sub-pipeline">
                           <div class="sub-pipeline-head">
                             <span class="sub-pipeline-name">hivmIntraCoreSyncPipeline</span>
                             <span class="sub-pipeline-label">核内自动同步</span>
-                            <span class="sub-pipeline-count">15 passes</span>
+                            <span class="sub-pipeline-count">2 passes</span>
                           </div>
                           <p class="sub-pipeline-intent">单核内部分析流水和内存依赖并插入同步；GSS 尝试最小化同步，InjectSync 提供保守替代（支持 BARRIERALL），与跨核同步解决不同层次的问题。</p>
                           <div class="sub-pipeline-body">
@@ -3552,101 +3617,101 @@
           </div>
           <p class="pass-brief">核内 event/flag 同步求解。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=MemrefExtLowering">
+                          </div>
+                        </div>
+                      <a class="pass-card" href="pass-detail.html?name=MemrefExtLowering">
           <div class="pass-card-header">
             <code class="pass-name">MemrefExtLowering</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">降低新产生的扩展 memref 操作。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=EnableMultiBuffer">
+                      <a class="pass-card" href="pass-detail.html?name=EnableMultiBuffer">
           <div class="pass-card-header">
             <code class="pass-name">EnableMultiBuffer</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把多缓冲标记改写为槽位轮转和地址选择，并降低轮转计数器，双缓冲成为显式控制流。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LowerMultiBufferCounter">
+                      <a class="pass-card" href="pass-detail.html?name=LowerMultiBufferCounter">
           <div class="pass-card-header">
             <code class="pass-name">LowerMultiBufferCounter</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把多缓冲标记改写为槽位轮转和地址选择，并降低轮转计数器，双缓冲成为显式控制流。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LiftLowestStride">
+                      <a class="pass-card" href="pass-detail.html?name=LiftLowestStride">
           <div class="pass-card-header">
             <code class="pass-name">LiftLowestStride</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">地址计算简化与清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
+                      <a class="pass-card" href="pass-detail.html?name=canonicalizationHIVMPipeline">
           <div class="pass-card-header">
             <code class="pass-name">canonicalizationHIVMPipeline</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">地址计算简化与清理。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=NormalizeArith">
+                      <a class="pass-card" href="pass-detail.html?name=NormalizeArith">
           <div class="pass-card-header">
             <code class="pass-name">NormalizeArith</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">规范化低层算术、提升可消除的 index cast、剥离含 transpose 的循环迭代并分析算术 mask，为 AVE lowering 准备规则化向量操作；direct HIVM lowering 模式跳过该组。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=LiftArithIndexCast">
+                      <a class="pass-card" href="pass-detail.html?name=LiftArithIndexCast">
           <div class="pass-card-header">
             <code class="pass-name">LiftArithIndexCast</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">规范化低层算术、提升可消除的 index cast、剥离含 transpose 的循环迭代并分析算术 mask，为 AVE lowering 准备规则化向量操作；direct HIVM lowering 模式跳过该组。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=PeelLoopsContainingTranspose">
+                      <a class="pass-card" href="pass-detail.html?name=PeelLoopsContainingTranspose">
           <div class="pass-card-header">
             <code class="pass-name">PeelLoopsContainingTranspose</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">规范化低层算术、提升可消除的 index cast、剥离含 transpose 的循环迭代并分析算术 mask，为 AVE lowering 准备规则化向量操作；direct HIVM lowering 模式跳过该组。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=NormalizeVector">
+                      <a class="pass-card" href="pass-detail.html?name=NormalizeVector">
           <div class="pass-card-header">
             <code class="pass-name">NormalizeVector</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">规范化低层算术、提升可消除的 index cast、剥离含 transpose 的循环迭代并分析算术 mask，为 AVE lowering 准备规则化向量操作；direct HIVM lowering 模式跳过该组。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=ArithVectorMaskAnalysis">
+                      <a class="pass-card" href="pass-detail.html?name=ArithVectorMaskAnalysis">
           <div class="pass-card-header">
             <code class="pass-name">ArithVectorMaskAnalysis</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">规范化低层算术、提升可消除的 index cast、剥离含 transpose 的循环迭代并分析算术 mask，为 AVE lowering 准备规则化向量操作；direct HIVM lowering 模式跳过该组。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InlineScope">
+                    </div>
+                  </div>
+                <a class="pass-card" href="pass-detail.html?name=InlineScope">
           <div class="pass-card-header">
             <code class="pass-name">InlineScope</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">buildLowerHIVMPipelines 收尾——强制内联剩余 scope、消除 outline 函数，并按 <code>injectIRFromFile</code> 注入调试 IR。依赖 scope 的优化必须在此之前完成。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=Inliner">
+                <a class="pass-card" href="pass-detail.html?name=Inliner">
           <div class="pass-card-header">
             <code class="pass-name">Inliner</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">buildLowerHIVMPipelines 收尾——强制内联剩余 scope、消除 outline 函数，并按 <code>injectIRFromFile</code> 注入调试 IR。依赖 scope 的优化必须在此之前完成。</p>
         </a>
-                            <a class="pass-card" href="pass-detail.html?name=InjectIR">
+                <a class="pass-card" href="pass-detail.html?name=InjectIR">
           <div class="pass-card-header">
             <code class="pass-name">InjectIR</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">buildLowerHIVMPipelines 收尾——强制内联剩余 scope、消除 outline 函数，并按 <code>injectIRFromFile</code> 注入调试 IR。依赖 scope 的优化必须在此之前完成。</p>
         </a>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
               </div>
             </div>
         </div>
@@ -3859,7 +3924,7 @@
                     <div class="sub-pipeline-head">
                       <span class="sub-pipeline-name">syncBlockLockPipeline</span>
                       <span class="sub-pipeline-label">锁同步 Finalize</span>
-                      <span class="sub-pipeline-count">19 passes</span>
+                      <span class="sub-pipeline-count">4 passes</span>
                     </div>
                     <p class="sub-pipeline-intent">锁同步生命周期收尾：生成锁数量/初始化辅助函数、降低锁操作并完成锁与 sub-block 的关联和释放。</p>
                     <div class="sub-pipeline-body">
@@ -3891,113 +3956,113 @@
           </div>
           <p class="pass-brief">锁同步 Finalize 四步，保证特殊运行模式下资源生命周期完整。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=ConvertHIVMToStandard">
+                    </div>
+                  </div>
+                <a class="pass-card" href="pass-detail.html?name=ConvertHIVMToStandard">
           <div class="pass-card-header">
             <code class="pass-name">ConvertHIVMToStandard</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把剩余 HIVM 操作转成标准低层 dialect，按 <code>enableHIVMAutoStorageAlign</code>/<code>enableLibCallNoInline</code> 传参（sanitizer/debug-info 时保留 lib call 内联）。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=ConvertHIVMAVEToStandard">
+                <a class="pass-card" href="pass-detail.html?name=ConvertHIVMAVEToStandard">
           <div class="pass-card-header">
             <code class="pass-name">ConvertHIVMAVEToStandard</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 HIVMAVE 非指令部分转成标准 dialect。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=FixCallUnknownLoc">
+                <a class="pass-card" href="pass-detail.html?name=FixCallUnknownLoc">
           <div class="pass-card-header">
             <code class="pass-name">FixCallUnknownLoc</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">为缺失位置的 call 补上合法 location，避免 LLVM debug-info verifier 报错。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=ExpandStridedMetadata">
+                <a class="pass-card" href="pass-detail.html?name=ExpandStridedMetadata">
           <div class="pass-card-header">
             <code class="pass-name">ExpandStridedMetadata</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">展开 stride metadata。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=ConvertHIVMAVEToAVEIntrin">
+                <a class="pass-card" href="pass-detail.html?name=ConvertHIVMAVEToAVEIntrin">
           <div class="pass-card-header">
             <code class="pass-name">ConvertHIVMAVEToAVEIntrin</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把 AVE 操作转成后端 intrinsic，此后向量计算基本表示为后端可识别调用。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=HoistVstas">
+                <a class="pass-card" href="pass-detail.html?name=HoistVstas">
           <div class="pass-card-header">
             <code class="pass-name">HoistVstas</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">提升可移动的 <code>vstas</code>，减少循环内重复设置。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=AdaptGPUKernel">
+                <a class="pass-card" href="pass-detail.html?name=AdaptGPUKernel">
           <div class="pass-card-header">
             <code class="pass-name">AdaptGPUKernel</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">SIMT 路径适配 GPU kernel ABI、把标量 call 提升到调用者、DPX 快除优化与 SIMT 调试插桩。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=HoistCallScalarToCaller">
+                <a class="pass-card" href="pass-detail.html?name=HoistCallScalarToCaller">
           <div class="pass-card-header">
             <code class="pass-name">HoistCallScalarToCaller</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">SIMT 路径适配 GPU kernel ABI、把标量 call 提升到调用者、DPX 快除优化与 SIMT 调试插桩。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=DPXDivOptimization">
+                <a class="pass-card" href="pass-detail.html?name=DPXDivOptimization">
           <div class="pass-card-header">
             <code class="pass-name">DPXDivOptimization</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">SIMT 路径适配 GPU kernel ABI、把标量 call 提升到调用者、DPX 快除优化与 SIMT 调试插桩。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=SIMTInsertInitAndFinishForDebug">
+                <a class="pass-card" href="pass-detail.html?name=SIMTInsertInitAndFinishForDebug">
           <div class="pass-card-header">
             <code class="pass-name">SIMTInsertInitAndFinishForDebug</code>
             <span class="tag tag-cond">条件</span>
           </div>
           <p class="pass-brief">SIMT 路径适配 GPU kernel ABI、把标量 call 提升到调用者、DPX 快除优化与 SIMT 调试插桩。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=ConvertAscendDPXToHIVMRegbaseIntrin">
+                <a class="pass-card" href="pass-detail.html?name=ConvertAscendDPXToHIVMRegbaseIntrin">
           <div class="pass-card-header">
             <code class="pass-name">ConvertAscendDPXToHIVMRegbaseIntrin</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">降低 DPX 指令。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=DecomposeFRem">
+                <a class="pass-card" href="pass-detail.html?name=DecomposeFRem">
           <div class="pass-card-header">
             <code class="pass-name">DecomposeFRem</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">拆解浮点余数。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=ConvertSCFToCF">
+                <a class="pass-card" href="pass-detail.html?name=ConvertSCFToCF">
           <div class="pass-card-header">
             <code class="pass-name">ConvertSCFToCF</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把结构化控制流、Affine 和复杂算术变成更基础形式，为 LLVM conversion 清除非法 dialect。后续 <code>ConvertControlFlowToLLVM</code>、<code>ArithToLLVM</code> 由后端 LLVM translation 完成。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=LowerAffine">
+                <a class="pass-card" href="pass-detail.html?name=LowerAffine">
           <div class="pass-card-header">
             <code class="pass-name">LowerAffine</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把结构化控制流、Affine 和复杂算术变成更基础形式，为 LLVM conversion 清除非法 dialect。后续 <code>ConvertControlFlowToLLVM</code>、<code>ArithToLLVM</code> 由后端 LLVM translation 完成。</p>
         </a>
-                      <a class="pass-card" href="pass-detail.html?name=ArithExpandOps">
+                <a class="pass-card" href="pass-detail.html?name=ArithExpandOps">
           <div class="pass-card-header">
             <code class="pass-name">ArithExpandOps</code>
             <span class="tag tag-default">默认</span>
           </div>
           <p class="pass-brief">把结构化控制流、Affine 和复杂算术变成更基础形式，为 LLVM conversion 清除非法 dialect。后续 <code>ConvertControlFlowToLLVM</code>、<code>ArithToLLVM</code> 由后端 LLVM translation 完成。</p>
         </a>
-                    </div>
-                  </div>
               </div>
             </div>
         </div>
