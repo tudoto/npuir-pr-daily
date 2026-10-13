@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AscendNPU-IR 每日 PR 报告 — 2026-10-12</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1e5bb8, #2978d6);
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+  }
+  .header h1 { font-size: 24px; margin-bottom: 12px; }
+  .header .meta { font-size: 14px; opacity: 0.9; }
+  .header .meta p { margin-bottom: 4px; }
+  .header .repo-link {
+    color: #b3d9ff;
+    text-decoration: none;
+    border-bottom: 1px dashed #b3d9ff;
+  }
+  .header .repo-link:hover { color: #fff; border-bottom-color: #fff; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  thead { background: #1e5bb8; }
+  thead th {
+    color: #fff;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  tbody tr:nth-child(even) { background: #f0f4f8; }
+  tbody tr:hover { background: #e8f0fc; }
+  tbody td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e0e6ed;
+    vertical-align: top;
+  }
+  tbody td:first-child { white-space: nowrap; }
+  .pr-link {
+    color: #1e5bb8;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .pr-link:hover { text-decoration: underline; }
+  .pr-title { display: block; margin-top: 2px; font-weight: 400; color: #555; }
+  .footer {
+    margin-top: 24px;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 14px;
+    color: #555;
+  }
+  .footer .stat { font-size: 16px; font-weight: 600; color: #1e5bb8; }
+  .desc { line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>AscendNPU-IR 每日 PR 报告</h1>
+    <div class="meta">
+      <p><strong>检查日期：</strong>2026-10-13</p>
+      <p><strong>覆盖合入时间范围：</strong>2026-10-12 00:00 — 23:59（北京时间 +08:00）</p>
+      <p><strong>仓库地址：</strong><a class="repo-link" href="https://gitcode.com/Ascend/AscendNPU-IR" target="_blank">https://gitcode.com/Ascend/AscendNPU-IR</a></p>
+      <p><strong>目标分支：</strong>master</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>PR</th>
+        <th>提出人</th>
+        <th>合并时间</th>
+        <th>PR 描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a class="pr-link" href="https://gitcode.com/Ascend/AscendNPU-IR/pull/4037" target="_blank">#4037</a>
+          <span class="pr-title">[HIVM][Pipeline] fix: preserve SSBuffer LICM order</span>
+        </td>
+        <td>tanzirui123123</td>
+        <td>2026-10-12 19:07:31</td>
+        <td class="desc">修复 HIVM Pipeline 中 SSBuffer（单静态缓冲区）LICM（循环不变代码外提）顺序未正确保留的问题。LICM 是一种将循环不变量提到循环外的编译优化，该修复确保 SSBuffer 相关操作在 LICM 变换后保持正确的执行顺序，避免因顺序丢失导致的编译结果错误。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <p class="stat">共合入 1 笔 PR</p>
+  </div>
+</div>
+</body>
+</html>

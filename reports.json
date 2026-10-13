@@ -1,6 +1,17 @@
 {
   "reports": [
     {
+      "date": "2026-10-12",
+      "filename": "npuir-pr-daily-2026-10-12.html",
+      "totalPRs": 1,
+      "authors": [
+        "tanzirui123123 (1)"
+      ],
+      "highlights": [
+        "HIVM Pipeline 修复 SSBuffer LICM 循环不变代码外提顺序未正确保留的问题，确保变换后保持正确执行顺序"
+      ]
+    },
+    {
       "date": "2026-10-11",
       "filename": "npuir-pr-daily-2026-10-11.html",
       "totalPRs": 3,
